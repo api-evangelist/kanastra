@@ -1,0 +1,40 @@
+# generated: '2026-07-19'
+generated: '2026-07-19'
+method: searched
+source: https://banking-docs.kanastra.com.br/
+docs: https://banking-docs.kanastra.com.br/
+summary:
+  types:
+  - http
+  - private_key_jwt
+  token_endpoint: /api/v1/auth/token
+  registration_endpoint: /api/v1/auth/jwks
+  assertion_alg: ES512
+  bearer_ttl_seconds: 35999
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: Bearer JWT access token obtained from POST /api/v1/auth/token. Token response includes
+    tokenType=Bearer, expiresIn (~35999s / ~10h), and a space-delimited scope claim.
+  sources:
+  - openapi/kanastra-banking-openapi.yml
+flow:
+  style: private_key_jwt (client assertion)
+  steps:
+  - Register an ES512 (secp521r1) public key for your clientId via POST /api/v1/auth/jwks. Private key
+    stays with the integrator.
+  - Build and sign a JWT client assertion (clientAssertion) with the ES512 private key.
+  - POST /api/v1/auth/token with {clientId, clientAssertion} to receive a Bearer access_token + scope.
+  - 'Send Authorization: Bearer <access_token> on all subsequent calls.'
+additional_controls:
+- name: Transaction Hash Key
+  algorithm: HMAC-SHA256 (hex-encoded)
+  applies_to:
+  - POST /api/v1/accounts/personal
+  description: Account-creation endpoints require an HMAC-SHA256 hash of the request payload (shared secret
+    provided by Kanastra at onboarding), hex-encoded and passed in request headers.
+- name: PIX OTP
+  description: PIX key registration approval/denial is confirmed with an OTP token (Approve/Deny/Resend
+    OTP endpoints under PIX Keys).
