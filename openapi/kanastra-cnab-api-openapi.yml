@@ -1,0 +1,58 @@
+openapi: 3.0.3
+info:
+  title: Kanastra Banking Accounts CNAB API
+  version: v1
+  description: 'Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.'
+  contact:
+    name: Kanastra Pagamentos
+    email: pagamentos@kanastra.com.br
+    url: https://banking-docs.kanastra.com.br/
+  x-apis-json-derived-from: https://banking-docs.kanastra.com.br/ (public Postman collection 35321848/2sA3drHEUr)
+servers:
+- url: https://banking.kanastra.com.br
+  description: Production
+- url: https://banking-sandbox.kanastra.com.br
+  description: Sandbox
+security:
+- bearerAuth: []
+tags:
+- name: CNAB
+paths:
+  /api/v1/wallets/{wallet_uuid}/cnab:
+    get:
+      operationId: cnabList
+      summary: List
+      tags:
+      - CNAB
+      description: 'Response Fields Field Name Description Type count Total number of CNAB files integer next URL for the next page of results (if pagination is applied) string previous URL for the previous page of results (if pagination is applied) string results List of CNAB file objects array CNAB File Object Field Name Description Type uuid Unique identifier (UUID) for the CNAB file string createdAt Timestamp indicating when the file was created string (ISO 8601 datetime) updatedAt Timestamp indicating when the file was last updated string (ISO 8601 datetime) isDeleted Indicates whether the file has been marked as deleted boolean name Name of the CNAB file string status Current processing status of the CNAB file string hashFile Hash (SHA-1) of the file for integrity verification string wallet Unique identifier (UUID) for the wallet associated with the CNAB file string Status Options for status Field The status field can have one of the following values: WAITING : The file has been created but processing has not yet started. VALIDATING_ERROR : The file failed validation checks. PROCESSING : The file is currently being processed. PROCESSING_ERROR : The file passed validation but encountered an error during processing. PROCESSED : The file was successfully processed.'
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  /api/v1/wallets/{wallet_id}/cnab:
+    post:
+      operationId: cnabUploadCnab
+      summary: Upload CNAB
+      tags:
+      - CNAB
+      parameters:
+      - name: wallet_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token from POST /api/v1/auth/token. Register an ES512 public key via POST /api/v1/auth/jwks, then present a signed client assertion (private_key_jwt) to obtain a Bearer token.

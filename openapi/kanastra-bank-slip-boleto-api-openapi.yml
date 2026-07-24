@@ -1,0 +1,154 @@
+openapi: 3.0.3
+info:
+  title: Kanastra Banking Accounts Bank Slip (Boleto) API
+  version: v1
+  description: 'Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.'
+  contact:
+    name: Kanastra Pagamentos
+    email: pagamentos@kanastra.com.br
+    url: https://banking-docs.kanastra.com.br/
+  x-apis-json-derived-from: https://banking-docs.kanastra.com.br/ (public Postman collection 35321848/2sA3drHEUr)
+servers:
+- url: https://banking.kanastra.com.br
+  description: Production
+- url: https://banking-sandbox.kanastra.com.br
+  description: Sandbox
+security:
+- bearerAuth: []
+tags:
+- name: Bank Slip (Boleto)
+paths:
+  /api/v1/wallets/{wallet_uuid}/bank-slip:
+    get:
+      operationId: bankSlipBoletoList
+      summary: List
+      tags:
+      - Bank Slip (Boleto)
+      description: This endpoint retrieves a paginated list of bank slips. Each bank slip includes details such as unique identifiers, document dates, barcodes, line codes, due dates, nominal values, payer information, and calculated taxes. This endpoint is useful for fetching bank slips associated with a specific wallet for management and processing purposes.
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+  /api/v1/wallets/{wallet_uuid}/bank-slip/{bank_slip_uuid}:
+    get:
+      operationId: bankSlipBoletoRetrieve
+      summary: Retrieve
+      tags:
+      - Bank Slip (Boleto)
+      description: Retrieves detailed information about a specific bank slip identified by its unique ID and wallet ID.
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: bank_slip_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+    patch:
+      operationId: bankSlipBoletoUpdateBankSlip
+      summary: Update Bank Slip
+      tags:
+      - Bank Slip (Boleto)
+      description: 'This endpoint updates specific fields of a bank slip. Like the cancellation operation, this endpoint can only be used on bank slips that are in the OPEN status. Partial updates are allowed, where only specified fields need to be included in the request. Main Document Fields Field Name Description Validation Type documentDate Date the document is issued Required, format: YYYY-MM-DD string documentNumber Unique identifier for the document Required string dueDate Date by which payment must be made Required, format: YYYY-MM-DD string nominalValue Original amount of the debt Required float interestType Type of interest rate Required, options: [PERCENTAGE, EXEMPT] string interestValue Interest rate applicable to the debt Required if interestType is PERCENTAGE float fineValue Fine rate applicable to the debt Required if fineType is PERCENTAGE float fineType Type of fine rate Required, options: [PERCENTAGE, EXEMPT] string demonstrative Demonstrative message Optional string discountValue Discount amount if paid by discountLimit Required float discountLimit Last date to avail discount on payment Required, format: YYYY-MM-DD string messages Messages related to the debt collection Optional string expirationDays Days until bankslip to expires counting from current day Optional, default is 180 days integer emails Email addresses for communication Optional array ourNumber Internal control number (blank if not used) Optional string rebateValue Bankslip rebate amount Optional float Payer Deta'
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: bank_slip_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+  /api/v1/wallets/{wallet_uuid}/bank-slip/{bank_slip_uuid}/pdf:
+    get:
+      operationId: bankSlipBoletoGetPdfFile
+      summary: Get PDF File
+      tags:
+      - Bank Slip (Boleto)
+      description: Return the PDF file of the given bank slip ID
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: bank_slip_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+  /api/v1/wallets/{wallet_uuid}/bank-slip/batch:
+    post:
+      operationId: bankSlipBoletoCreateBankSlips
+      summary: Create Bank Slips
+      tags:
+      - Bank Slip (Boleto)
+      description: 'Main Document Fields Field Name Description Validation Type documentDate Date the document is issued Required, format: YYYY-MM-DD string participantControlNumber Primary external reference for Client or Funds. It is the first option for providing a custom identifier. Optional. Max 25 characters. Limited by CNAB 400 remittance/return file specifications. string documentNumber Secondary external reference (ERP/Invoice). It is the second option for external identification. Required. Max 10 characters. Limited by CNAB 400 remittance/return file specifications. string dueDate Date by which payment must be made Required, format: YYYY-MM-DD string nominalValue Original amount of the debt Required float interestType Type of interest rate Required, options: [PERCENTAGE, EXEMPT] string interestValue Interest rate applicable to the debt Required if interestType is PERCENTAGE float fineValue Fine rate applicable to the debt Required if fineType is PERCENTAGE float fineType Type of fine rate Required, options: [PERCENTAGE, EXEMPT] string demonstrative Demonstrative message Optional string discountValue Discount amount if paid by discountLimit Required float discountLimit Last date to avail discount on payment Required, format: YYYY-MM-DD string messages Messages related to the debt collection Optional string expirationDays Days until bankslip to expires counting from due date. Optional, default is 180 days integer emails Email addresses for communication Optional array ourNumber Unique id'
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '202':
+          description: Accepted
+  /api/v1/wallets/{wallet_uuid}/bank-slip/{bank_slip_uuid}/cancel:
+    put:
+      operationId: bankSlipBoletoCancelBankSlip
+      summary: Cancel Bank Slip
+      tags:
+      - Bank Slip (Boleto)
+      description: This endpoint allows the cancellation of a bank slip, provided that its current status is OPEN . A bank slip with any other status (e.g., PAID , SETTLED ) cannot be cancelled.
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: bank_slip_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token from POST /api/v1/auth/token. Register an ES512 public key via POST /api/v1/auth/jwks, then present a signed client assertion (private_key_jwt) to obtain a Bearer token.

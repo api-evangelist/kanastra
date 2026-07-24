@@ -1,0 +1,202 @@
+openapi: 3.0.3
+info:
+  title: Kanastra Banking Accounts PIX Keys API
+  version: v1
+  description: 'Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.'
+  contact:
+    name: Kanastra Pagamentos
+    email: pagamentos@kanastra.com.br
+    url: https://banking-docs.kanastra.com.br/
+  x-apis-json-derived-from: https://banking-docs.kanastra.com.br/ (public Postman collection 35321848/2sA3drHEUr)
+servers:
+- url: https://banking.kanastra.com.br
+  description: Production
+- url: https://banking-sandbox.kanastra.com.br
+  description: Sandbox
+security:
+- bearerAuth: []
+tags:
+- name: PIX Keys
+paths:
+  /api/v1/pix/{account_uuid}/keys:
+    get:
+      operationId: pixKeysListKeys
+      summary: List keys
+      tags:
+      - PIX Keys
+      description: 'This endpoint retrieves a list of keys associated with a specific account identified by account_uuid . The request allows filtering the keys based on their status and additional query parameters. Query Parameters status (optional): Filter keys based on their status. For example, setting this to ACTIVE will return only active keys. type (optional): Filter keys by their type. uuid (optional): Filter keys by their unique identifier. key (optional): Filter keys by their key value. Path Variables account_uuid (path parameter): A unique identifier for the account from which the PIX key details are being requested. Response Structure Upon a successful request, the API will return a JSON object containing the following fields: count (integer): The total number of keys that match the query. next (string or null): A URL to the next page of results, if applicable. previous (string or null): A URL to the previous page of results, if applicable. results (array): An array of key objects, each containing: uuid (string): The unique identifier of the key. createdAt (string): The timestamp when the key was created. updatedAt (string): The timestamp when the key was last updated. key (string): The actual key value. type (string): The type of the key. status (string): The current status of the key. lastUsage (string or null): The timestamp of the last time the key was used, or null if it has not been used.'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+  /api/v1/pix/{account_uuid}/key/{pix_key}:
+    get:
+      operationId: pixKeysReadPixKey
+      summary: Read PIX-key
+      tags:
+      - PIX Keys
+      description: 'This endpoint retrieves the details associated with a specific PIX key for a given account. It allows users to access information about the beneficiary linked to the PIX key. Path Variables account_uuid (path parameter): A unique identifier for the account from which the PIX key details are being requested. pix_key (path parameter): The specific PIX key for which the details are being fetched. Response Structure Upon a successful request, the API will return a JSON object containing the following fields: beneficiary : An object containing details about the beneficiary. holderName : The name of the beneficiary. governmentId : The government identification number of the beneficiary. code : A code associated with the beneficiary. agency : The agency linked to the beneficiary. account : The account number of the beneficiary. digit : The digit associated with the account. pixKey : The PIX key itself. accountType : The type of account (e.g., checking, savings). endToEndId : An identifier for tracking the transaction from start to finish.'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: pix_key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+    delete:
+      operationId: pixKeysExcludeKey
+      summary: Exclude Key
+      tags:
+      - PIX Keys
+      description: 'This endpoint is used to delete a specific PIX key associated with a given account. The operation will remove the specified key from the account''s settings. Path Variables account_uuid (path parameter): The unique identifier for the account from which the PIX key will be deleted. This is a required parameter. pix_key (path parameter): The unique identifier for the PIX key that needs to be deleted. This is also a required parameter. Response Structure Upon a successful deletion, the API will return a JSON response with a message indicating the outcome of the operation. Deleting a PIX key is irreversible; once deleted, the key cannot be recovered.'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: pix_key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '422':
+          description: Unprocessable Entity
+  /api/v1/pix/{account_uuid}/key:
+    post:
+      operationId: pixKeysCreateDocumentKey
+      summary: Create Document Key
+      tags:
+      - PIX Keys
+      description: 'This endpoint allows users to generate a new key for a specified financial account identified by account_uuid . To create a random key, only the type is needed. The key is generated by BACEN, and to obtain it, the account’s key listing endpoint must be queried after the request. Request Body The request requires a JSON body with the following parameter: type (string): This parameter specifies the type of key to be generated. In the provided example, the value is set to "RANDOM" , indicating that a random key should be created. Path Variables account_uuid : A unique identifier for the account from which the PIX key details are being requested. Response Structure Upon a successful request, the API will return a JSON object containing the following fields: financialAccountUuid (string): The UUID of the financial account associated with the key. uuid (string): The unique identifier for the key created. key (string): The key that was added. type (string): The type of the key. status (string): The current status of the key. createdAt (string): Timestamp indicating when the key was created. updatedAt (string): Timestamp indicating when the key was last updated. Variants: Create Random Key, Create Email Key, Create Phone Key'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+  /api/v1/pix/{account_uuid}/key/{pix_key_uuid}:
+    patch:
+      operationId: pixKeysApproveKeyWithOtpToken
+      summary: Approve Key with OTP Token
+      tags:
+      - PIX Keys
+      description: 'This endpoint allows you to approve the creation of a specific PIX key associated with a financial account using an OTP (One-Time Password) for authentication. Request Body otp_code (body parameter): A string representing the One-Time Password required for the update operation. Path Variables account_uuid (path parameter): The unique identifier for the financial account. pix_key_uuid (path parameter): The unique identifier for the PIX key that you want to update. Response Structure Upon a successful request, the server will respond with a JSON object containing the following fields: financialAccountUuid (string): The UUID of the financial account associated with the key. uuid (string): The unique identifier for the key created. key (string): The key that was added. type (string): The type of the key. status (string): The current status of the key. createdAt (string): Timestamp indicating when the key was created. updatedAt (string): Timestamp indicating when the key was last updated.'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: pix_key_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+    put:
+      operationId: pixKeysDenyWithOtpToken
+      summary: Deny with OTP Token
+      tags:
+      - PIX Keys
+      description: 'This endpoint allows you to deny a specific PIX key associated with a financial account using the provided OTP (One-Time Password) for authentication. Request Body otp_code (body parameter): A string representing the One-Time Password required for the update operation. Path Variables account_uuid (path parameter): The unique identifier for the financial account. pix_key_uuid (path parameter): The unique identifier for the PIX key that you want to update. Response Structure Upon a successful request, the server will respond with a JSON object containing the following fields: financialAccountUuid (string): The UUID of the financial account associated with the key. uuid (string): The unique identifier for the key created. key (string): The key that was added. type (string): The type of the key. status (string): The current status of the key. createdAt (string): Timestamp indicating when the key was created. updatedAt (string): Timestamp indicating when the key was last updated.'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: pix_key_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+  /api/v1/pix/{account_uuid}/key/{pix_key_uuid}/resend-otp:
+    put:
+      operationId: pixKeysResendOtpToken
+      summary: Resend OTP Token
+      tags:
+      - PIX Keys
+      description: 'This endpoint allows you to resend a One-Time Password (OTP) associated with a specific PIX key for a financial account. It is useful when the user has not received the OTP or needs to regenerate it for security purposes. Request Body otp_code (body parameter): A string representing the One-Time Password required for the update operation. Path Variables account_uuid (path parameter): The unique identifier for the financial account. pix_key_uuid (path parameter): The unique identifier for the PIX key that you want to update. Response Structure Upon a successful request, the server will respond with a JSON object containing the following fields: financialAccountUuid (string): The UUID of the financial account associated with the key. uuid (string): The unique identifier for the key created. key (string): The key that was added. type (string): The type of the key. status (string): The current status of the key. createdAt (string): Timestamp indicating when the key was created. updatedAt (string): Timestamp indicating when the key was last updated.'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: pix_key_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token from POST /api/v1/auth/token. Register an ES512 public key via POST /api/v1/auth/jwks, then present a signed client assertion (private_key_jwt) to obtain a Bearer token.

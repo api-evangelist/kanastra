@@ -1,0 +1,65 @@
+openapi: 3.0.3
+info:
+  title: Kanastra Banking Accounts API
+  version: v1
+  description: 'Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.'
+  contact:
+    name: Kanastra Pagamentos
+    email: pagamentos@kanastra.com.br
+    url: https://banking-docs.kanastra.com.br/
+  x-apis-json-derived-from: https://banking-docs.kanastra.com.br/ (public Postman collection 35321848/2sA3drHEUr)
+servers:
+- url: https://banking.kanastra.com.br
+  description: Production
+- url: https://banking-sandbox.kanastra.com.br
+  description: Sandbox
+security:
+- bearerAuth: []
+tags:
+- name: Accounts
+paths:
+  /api/v1/accounts:
+    get:
+      operationId: accountsList
+      summary: List
+      tags:
+      - Accounts
+      description: 'This provides a detailed overview of the financial accounts retrieved, including pagination information and specific account details. General Field Description Type count Total number of financial accounts returned integer next URL to the next page of results (if any) string or null previous URL to the previous page of results (if any) string or null results List of financial accounts array of account objects Financial Account Object Field Description Type uuid Unique identifier for the financial account string branch Account branch number string account Account number string accountDigit Account digit string status Account current status, options below string type Type of financial account, options: [ LINKED_ACCOUNT , CHECKING_ACCOUNT ] string code Account internal code string name Account name string Status Field Values The status field can have one of the following values: PRE_CREATED IN_ANALISYS REGULAR LOCKED CLOSED RESERVED CREATING ERROR ACTIVE REPROVED'
+      responses:
+        '200':
+          description: OK
+  /api/v1/accounts/{account_uuid}:
+    get:
+      operationId: accountsRetrieve
+      summary: Retrieve
+      tags:
+      - Accounts
+      description: 'Retrieves the informed account uuid, along with their associated details. Financial Account Field Description Type uuid Unique identifier for the financial account string Account Holder Field Description Type uuid Unique identifier for the account holder string isDeleted Indicates if the account holder record is deleted boolean createdAt Date and time when the account holder record was created string (ISO 8601) updatedAt Date and time when the account holder record was last updated string (ISO 8601) representatives List of representatives associated with the account holder array documents List of documents associated with the account holder array type Account holder type, options: [ NATURAL , LEGAL ] string governmentId Account holder''s document string name Account holder''s name string email Account holder''s email string phone Account holder''s phone number string addressZipcode Account holder''s address zip code string addressStreet Account holder''s address street name string addressNumber Account holder''s address number string addressComplement Additional address information string addressNeighborhood Account holder''s address neighborhood string addressCity Account holder''s address city string addressState Account holder''s address state string motherName Account holder''s mother name string birthDate Account holder''s birth date string (ISO 8601) tradingName Account holder''s trading name string users List of users associated with the account array of user objects User Field Des'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  /api/v1/banks:
+    get:
+      operationId: accountsListBanks
+      summary: List Banks
+      tags:
+      - Accounts
+      description: 'This endpoint retrieves information about banks based on the provided ISPB (Instituição de Pagamento e Sistema de Pagamento Brasileiro) code. Query Parameters ispb (string): The ISPB code of the bank you want to query. code (string): Filter banks by their bank code. isParticipantPix (boolean): Filter banks by participation in the PIX system. isParticipantStr (boolean): Filter banks by participation in the STR system. Response Structure Upon a successful request, the API will return a JSON object containing the following fields: count (integer): The total number of banks matching the query. next (string): A URL to the next page of results, if any. previous (string): A URL to the previous page of results, if any. results (array): An array of bank objects, each containing: code (string): The bank''s code. name (string): The name of the bank. comp (string): The bank''s company information. ispb (string): The ISPB code of the bank. isParticipantComp (boolean): Indicates if the bank is a participant in the company. isParticipantPix (boolean): Indicates if the bank is a participant in the PIX system. isParticipantStr (boolean): Indicates if the bank is a participant in the STR system.'
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token from POST /api/v1/auth/token. Register an ES512 public key via POST /api/v1/auth/jwks, then present a signed client assertion (private_key_jwt) to obtain a Bearer token.

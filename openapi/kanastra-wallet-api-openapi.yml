@@ -1,0 +1,89 @@
+openapi: 3.0.3
+info:
+  title: Kanastra Banking Accounts Wallet API
+  version: v1
+  description: 'Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.'
+  contact:
+    name: Kanastra Pagamentos
+    email: pagamentos@kanastra.com.br
+    url: https://banking-docs.kanastra.com.br/
+  x-apis-json-derived-from: https://banking-docs.kanastra.com.br/ (public Postman collection 35321848/2sA3drHEUr)
+servers:
+- url: https://banking.kanastra.com.br
+  description: Production
+- url: https://banking-sandbox.kanastra.com.br
+  description: Sandbox
+security:
+- bearerAuth: []
+tags:
+- name: Wallet
+paths:
+  /api/v1/wallets:
+    get:
+      operationId: walletList
+      summary: List
+      tags:
+      - Wallet
+      description: 'Get a list of all the wallets for the authenticated user. Variants: List Copy'
+      responses:
+        '200':
+          description: OK
+    post:
+      operationId: walletCreate
+      summary: Create
+      tags:
+      - Wallet
+      description: 'You can create a new wallet with this endpoint. Parameters : Field name Description Validation Type name Wallet name Required, must be a non-empty string string financial_account ID of the financial account to which the wallet is linked Required string code Wallet code Required, maximum of 3 digits integer accept_partial_payment Indicates whether bank slips in this wallet can be paid partially Not required, defaults to false boolean'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Created
+  /api/v1/wallets/{wallet_id}:
+    get:
+      operationId: walletRetrieve
+      summary: Retrieve
+      tags:
+      - Wallet
+      description: Retrieves detailed information about a specific wallet identified by its unique ID.
+      parameters:
+      - name: wallet_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+    put:
+      operationId: walletUpdate
+      summary: Update
+      tags:
+      - Wallet
+      description: Updates an existing wallet by its unique ID based on the data provided in the request Parameters Field name Description Validation Type name Update the wallet name Not required, must be a non-empty string string financial_account Update the ID of the financial account to which the wallet is linked Required string code Update wallet code Not required, maximum of 3 digits integer accept_partial_payment Updates the setting for partial payment acceptance for bank slips associated with a specific wallet identified by its unique ID Not required boolean
+      parameters:
+      - name: wallet_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Successful response
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token from POST /api/v1/auth/token. Register an ES512 public key via POST /api/v1/auth/jwks, then present a signed client assertion (private_key_jwt) to obtain a Bearer token.

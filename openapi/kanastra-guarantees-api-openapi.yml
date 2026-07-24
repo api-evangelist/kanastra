@@ -1,0 +1,148 @@
+openapi: 3.0.3
+info:
+  title: Kanastra Banking Accounts Guarantees API
+  version: v1
+  description: 'Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.'
+  contact:
+    name: Kanastra Pagamentos
+    email: pagamentos@kanastra.com.br
+    url: https://banking-docs.kanastra.com.br/
+  x-apis-json-derived-from: https://banking-docs.kanastra.com.br/ (public Postman collection 35321848/2sA3drHEUr)
+servers:
+- url: https://banking.kanastra.com.br
+  description: Production
+- url: https://banking-sandbox.kanastra.com.br
+  description: Sandbox
+security:
+- bearerAuth: []
+tags:
+- name: Guarantees
+paths:
+  /api/v1/commercial-papers/{commercial_note_uuid}/guarantees/batch:
+    post:
+      operationId: guaranteesBatchGuarantee
+      summary: Batch Guarantee
+      tags:
+      - Guarantees
+      parameters:
+      - name: commercial_note_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Successful response
+  /api/v1/commercial-papers/guarantee/{guarantee_uuid}/documents/batch:
+    post:
+      operationId: guaranteesBatchDocuments
+      summary: Batch Documents
+      tags:
+      - Guarantees
+      parameters:
+      - name: guarantee_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Successful response
+  /api/v1/commercial-papers/guarantee/{guarantee_uuid}:
+    get:
+      operationId: guaranteesGuarantee
+      summary: Guarantee
+      tags:
+      - Guarantees
+      parameters:
+      - name: guarantee_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+    delete:
+      operationId: guaranteesDeleteGuarantee
+      summary: Delete Guarantee
+      tags:
+      - Guarantees
+      parameters:
+      - name: guarantee_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+  /api/v1/commercial-papers/{commercial_note_uuid}/guarantees:
+    get:
+      operationId: guaranteesListGuarantees
+      summary: List Guarantees
+      tags:
+      - Guarantees
+      parameters:
+      - name: commercial_note_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+  /api/v1/commercial-papers/{commercial_note_uuid}/documents:
+    get:
+      operationId: guaranteesListDocuments
+      summary: List Documents
+      tags:
+      - Guarantees
+      parameters:
+      - name: commercial_note_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+  /api/v1/commercial-papers/{commercial_note_uuid}/documents/{doocument_uuid}:
+    get:
+      operationId: guaranteesDocument
+      summary: Document
+      tags:
+      - Guarantees
+      parameters:
+      - name: commercial_note_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: doocument_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token from POST /api/v1/auth/token. Register an ES512 public key via POST /api/v1/auth/jwks, then present a signed client assertion (private_key_jwt) to obtain a Bearer token.

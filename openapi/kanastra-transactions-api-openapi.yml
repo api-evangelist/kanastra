@@ -1,0 +1,43 @@
+openapi: 3.0.3
+info:
+  title: Kanastra Banking Accounts Transactions API
+  version: v1
+  description: 'Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.'
+  contact:
+    name: Kanastra Pagamentos
+    email: pagamentos@kanastra.com.br
+    url: https://banking-docs.kanastra.com.br/
+  x-apis-json-derived-from: https://banking-docs.kanastra.com.br/ (public Postman collection 35321848/2sA3drHEUr)
+servers:
+- url: https://banking.kanastra.com.br
+  description: Production
+- url: https://banking-sandbox.kanastra.com.br
+  description: Sandbox
+security:
+- bearerAuth: []
+tags:
+- name: Transactions
+paths:
+  /api/v1/accounts/{account_uuid}/transactions:
+    get:
+      operationId: transactionsList
+      summary: List
+      tags:
+      - Transactions
+      description: 'Retrieves a list of all registered transactions associated with a specific financial account, including details such as status, type of operation, and amount. General Field Description Type count Total number of financial accounts returned integer next URL to the next page of results (if any) string or null previous URL to the previous page of results (if any) string or null results List of financial accounts array of account objects Transactions Field Name Description Type uuid Unique identifier for the transaction record. string status Current status of the transaction. string externalId External identifier for the transaction, used for cross-referencing with other systems. string amount Monetary amount of the transaction. string typeCash Indicates whether the transaction is a cash-in ( CASH_IN ) or cash-out ( CASH_OUT ) operation. string typeOperation Type of operation associated with the transaction, e.g., credit card, bank slip, etc. string transactionDate Date and time when the transaction occurred in ISO 8601 format: YYYY-MM-DDTHH:MM:SS±HH:MM. string transactionDetail Additional details or description of the transaction, such as reason or reference information. string The status field can have one of the following values: CREATED : The transaction has been created. The typeOperation field can have one of the following values: BANK_SLIP : Transaction made via bank slip (Brazilian Boleto) payment. The originType field can have one of the following values: TRANSFER : Orig'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token from POST /api/v1/auth/token. Register an ES512 public key via POST /api/v1/auth/jwks, then present a signed client assertion (private_key_jwt) to obtain a Bearer token.

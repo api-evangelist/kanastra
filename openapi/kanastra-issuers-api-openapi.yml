@@ -1,0 +1,88 @@
+openapi: 3.0.3
+info:
+  title: Kanastra Banking Accounts Issuers API
+  version: v1
+  description: 'Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.'
+  contact:
+    name: Kanastra Pagamentos
+    email: pagamentos@kanastra.com.br
+    url: https://banking-docs.kanastra.com.br/
+  x-apis-json-derived-from: https://banking-docs.kanastra.com.br/ (public Postman collection 35321848/2sA3drHEUr)
+servers:
+- url: https://banking.kanastra.com.br
+  description: Production
+- url: https://banking-sandbox.kanastra.com.br
+  description: Sandbox
+security:
+- bearerAuth: []
+tags:
+- name: Issuers
+paths:
+  /api/v1/issuers:
+    get:
+      operationId: issuersList
+      summary: List
+      tags:
+      - Issuers
+      description: Retrieves a list of all registered issuers, along with their associated details.
+      responses:
+        '200':
+          description: Successful response
+    post:
+      operationId: issuersCreate
+      summary: Create
+      tags:
+      - Issuers
+      description: 'Main Company Fields Field Name Description Validation Type name Name of the company Required string governmentId Company document Required string businessSector Sector in which the company operates Required string annualBilling Annual billing amount Required float municipalRegistration Municipal registration number Required string cnae CNAE (National Classification of Economic Activities) Required string companySize Size of the company Required, options: [MICRO, SMALL, MEDIUM, LARGE] string partnerShipType Type of partnership Required, options: [LTDA, SA, MEI, EIRELI] string inJudicialRecovery Indicates if the company is in judicial recovery Required boolean hasDebitUnion Indicates if the company has a debit union Required boolean dueDiligenceStatus Status of due diligence Required, options: [APPROVED, REPROVED, IN_PROGRESS, CANCELLED, IN_ANALYSIS] string Business Sector Options The businessSector field can have one of the following values: AGRICULTURAL FOODS BUSINESS PHARMACY FINANCIAL SMOKE HOSPITAL REAL_ESTATE INDUSTRY INSTALLATION METALLIC STATIONERY_SHOP OIL PRIMARY SERVICES THIRD TRANSPORT Contact Information Field Name Description Validation Type name Name of the contact Required string email Email of the contact Required string phone Phone number of the contact Required string Address Information Field Name Description Validation Type street Street address Required string number Building number Required string complement Address complement Optional string neighborhood'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Created
+  /api/v1/issuers/{issuer_uuid}:
+    get:
+      operationId: issuersRetrieve
+      summary: Retrieve
+      tags:
+      - Issuers
+      description: Retrieves detailed information about a specific issuer identified by its unique ID.
+      parameters:
+      - name: issuer_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+    put:
+      operationId: issuersUpdate
+      summary: Update
+      tags:
+      - Issuers
+      parameters:
+      - name: issuer_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token from POST /api/v1/auth/token. Register an ES512 public key via POST /api/v1/auth/jwks, then present a signed client assertion (private_key_jwt) to obtain a Bearer token.

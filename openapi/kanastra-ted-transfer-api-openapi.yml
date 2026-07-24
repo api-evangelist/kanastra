@@ -1,0 +1,86 @@
+openapi: 3.0.3
+info:
+  title: Kanastra Banking Accounts TED Transfer API
+  version: v1
+  description: 'Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.'
+  contact:
+    name: Kanastra Pagamentos
+    email: pagamentos@kanastra.com.br
+    url: https://banking-docs.kanastra.com.br/
+  x-apis-json-derived-from: https://banking-docs.kanastra.com.br/ (public Postman collection 35321848/2sA3drHEUr)
+servers:
+- url: https://banking.kanastra.com.br
+  description: Production
+- url: https://banking-sandbox.kanastra.com.br
+  description: Sandbox
+security:
+- bearerAuth: []
+tags:
+- name: TED Transfer
+paths:
+  /api/v1/accounts/{account_uuid}/transfer/{transfer_uuid}:
+    get:
+      operationId: tedTransferRetrieve
+      summary: Retrieve
+      tags:
+      - TED Transfer
+      description: Retrieves the details of a specific transfer, including status, amount, account information, and beneficiary details. Field Name Description Type uuid Unique identifier for the transfer. string externalId External reference ID for the transfer, if applicable. string or null status Current status of the transfer. Possible values are PENDING_APPROVAL , PROCESSING , PROCESSED , ERROR , REJECTED , SCHEDULED , and CANCELED . string amount The amount of the transfer in the account's currency. string additionalInfo Additional information related to the transfer request. string financialAccount Details of the account from which the transfer is initiated. object financialAccount.uuid Unique identifier for the financial account. string financialAccount.branch Branch number of the financial account. string financialAccount.account Account number from which the transfer is made. string financialAccount.accountDigit Account digit for the financial account. string financialAccount.accountHolder Information about the holder of the financial account. object financialAccount.accountHolder.uuid Unique identifier for the account holder. string financialAccount.accountHolder.name Name of the account holder. string financialAccount.code Bank code associated with the financial account. string beneficiaryAccount Details of the beneficiary account receiving the transfer. object beneficiaryAccount.uuid Unique identifier for the beneficiary account. string beneficiaryAccount.holderName Name of the ben
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: transfer_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  /api/v1/accounts/{account_uuid}/transfers:
+    get:
+      operationId: tedTransferList
+      summary: List
+      tags:
+      - TED Transfer
+      description: 'Retrieves a list of all transfer records associated with a specific financial account, including details such as status, amount, requester information, and beneficiary account details. You can also pass a status in query params. See the available statuses below. General Field Name Description Type count Total number of transfers returned. integer next URL to the next page of results, if available. string or null previous URL to the previous page of results, if available. string or null results List of transfer objects. array of transfer objects Transfers Field Name Description Type uuid Unique identifier for the transfer record. string amount Monetary amount of the transfer. string createdAt Date and time when the transfer was created in ISO 8601 format: YYYY-MM-DDTHH:MM±HH. string additionalInfo Additional details or description of the transfer, such as reason or reference information. string status Current status of the transfer. Possible values include PENDING_APPROVAL , PROCESSING , PROCESSED , ERROR , REJECTED , SCHEDULED , and CANCELED . string requester Details of the user who requested the transfer. object requester.name Name of the requester. string requester.email Email address of the requester. string financialAccount Unique identifier for the financial account from which the transfer is initiated. string beneficiaryAccount Details of the beneficiary account receiving the transfer. object beneficiaryAccount.uuid Unique identifier for the beneficiary account. string'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  /api/v1/accounts/{account_uuid}/transfer:
+    post:
+      operationId: tedTransferCreate
+      summary: Create
+      tags:
+      - TED Transfer
+      description: 'To interact with this endpoint, you are required to generate a Transaction Hash Key and include it in the request headers. The Transaction Hash Key is generated using the following process: Generate HMAC Hash: Use the SHA-256 algorithm to compute the HMAC hash of the request payload. The key for this operation will be provided by our team during the initial configuration phase and must be securely stored on your end. Hex Encoding: Once the HMAC hash is generated, encode it in hexadecimal format. Include in Headers: Pass the resulting Transaction Hash Key in the request headers as part of the API call. This security measure ensures data integrity and validation for all transactions conducted with our API. If you require further guidance on generating the hash or managing keys, please contact our support team. Transfer API Field Name Description Validation Type amount Amount to be transferred Required, minimum: 0.01 float additionalInfo Additional information about the transfer Required string beneficiaryUuid UUID of the beneficiary receiving the transfer Required string'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '202':
+          description: Accepted
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token from POST /api/v1/auth/token. Register an ES512 public key via POST /api/v1/auth/jwks, then present a signed client assertion (private_key_jwt) to obtain a Bearer token.

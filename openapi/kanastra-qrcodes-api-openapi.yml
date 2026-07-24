@@ -1,0 +1,133 @@
+openapi: 3.0.3
+info:
+  title: Kanastra Banking Accounts QRCodes API
+  version: v1
+  description: 'Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.'
+  contact:
+    name: Kanastra Pagamentos
+    email: pagamentos@kanastra.com.br
+    url: https://banking-docs.kanastra.com.br/
+  x-apis-json-derived-from: https://banking-docs.kanastra.com.br/ (public Postman collection 35321848/2sA3drHEUr)
+servers:
+- url: https://banking.kanastra.com.br
+  description: Production
+- url: https://banking-sandbox.kanastra.com.br
+  description: Sandbox
+security:
+- bearerAuth: []
+tags:
+- name: QRCodes
+paths:
+  /api/v1/pix/{account_uuid}/brcode/preview:
+    get:
+      operationId: qrcodesBrcodePreviewRead
+      summary: BRCode Preview/Read
+      tags:
+      - QRCodes
+      description: 'This endpoint retrieves a preview of a BR Code (Barcode) associated with a specific account identified by account_uuid . Request Body The request body should be in JSON format and could contain the following parameters: brcode (string): The BR Code for which the preview is being requested. This should be formatted correctly to ensure a valid response. Path Variables account_uuid (path parameter): The unique identifier for the account for which the QR code information is being requested. Response Structure Upon a successful request, the API will return a JSON object containing the following fields: endToEndId : Identifier for tracking the transaction. financialAccount : Details of the financial account involved. receiverAccount : Information about the receiver''s account. amount : The total amount associated with the transaction. status : Current status of the BR Code request. subscription : Contains details about any subscriptions related to the transaction.'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Server Error
+  /api/v1/pix/{account_uuid}/qrcode:
+    get:
+      operationId: qrcodesListQrcode
+      summary: List QRCode
+      tags:
+      - QRCodes
+      description: 'This endpoint allows you to list QRCodes from the API. Query Parameters pix_key (query parameter): The PIX key associated with the QR code. This is required to filter the results. status (query parameter): The status of the QR code. In this case, the status is set to CREATED to retrieve only those QR codes that are currently in the created state. qrcodeType (query parameter): The type of QR code to filter by (e.g., static or dynamic). reconciliation_id (query parameter): An optional identifier used for reconciliation purposes, typically provided by the system generating the QR code. end_to_end_id (query parameter): An optional identifier to track the transaction from initiation to completion. payer_government_id (query parameter): An optional field for the payer’s government-issued identification (CPF or CNPJ). created_at (query parameter): An optional timestamp or date range to filter QR codes based on their creation date. updated_at (query parameter): An optional timestamp or date range to filter QR codes based on the last update. Path Variables account_uuid (path parameter): The unique identifier for the account for which the QR code information is being requested. Response Structure The response will contain the following fields: count (integer): The total number of QR codes returned in the response. next (string or null): A URL to the next page of results if pagination is applicable; otherwise, it will be null. previous (string or null): A URL to the previous page of res'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+    post:
+      operationId: qrcodesCreateStaticQrcode
+      summary: Create Static QRCode
+      tags:
+      - QRCodes
+      description: 'This endpoint allows you to create a due dynamic QR code for PIX payments and transactions, where the payment request includes a due date and can support discounts, fines, and interest. Request Body The request body must be in JSON format and include the following parameters: pixKey (string): The unique key associated with the PIX transaction. reconciliationId (string): An identifier for reconciling the transaction. type (string): The type of QR code being generated; in this case, it should be set to "DYNAMIC_QR_CODE" . discounts (array): An array of discount objects applicable to the transaction. Each discount object should contain: percentage (number): The discount percentage to apply. due (string): The due date for the discount. fee (number): The fee associated with the transaction. fine (number): Any fine applicable to the transaction. interest (number): The interest amount applicable to the transaction. dueDate (string): The due date for the payment. expirationSeconds (number): The time duration in seconds before the QR code expires. amountType (string): The type of amount being processed (e.g., FIXED ). nominalAmount (number): The nominal amount for the transaction. payerGovernmentId (string): The government ID of the payer. payerName (string): The name of the payer. Path Variables account_uuid (path parameter): The unique identifier for the account associated with the QR code. Response Structure Upon a successful request, the server responds with a JSON object containi Variants: Create Dynamic QRCode, Create Dynamic QRCode Due'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+  /api/v1/pix/{account_uuid}/qrcode/{qrcode_uuid}:
+    patch:
+      operationId: qrcodesUpdateQrcode
+      summary: Update QRCode
+      tags:
+      - QRCodes
+      description: 'This endpoint allows you to update the details of a QR code associated with a specific account. The request modifies the attributes of the QR code identified by qrcode_uuid within the context of the specified account_uuid . Request Body The request body should be in JSON format and could contain the following parameters: qrcode_uuid (string): The unique identifier of the QR code. This is the only mandatory parameter. amount_type (string): Defines how the payment amount is handled (e.g., FIXED , CUSTOM ). reconciliation_id (string): A reconciliation identifier for tracking the payment. due_date (string): The due date for the payment in YYYY-MM-DD format. expiration_seconds (number): The time in seconds until the QR code expires. description (string): A description or note about the payment. percentage (number): The discount percentage to be applied. due (string): The due date for the discount in YYYY-MM-DD format. nominal_amount (number): The nominal amount for the transaction. fee (number): The applicable fee for the payment. fine (number): The fine amount to be applied after the due date. interest (number): The interest rate applied after the due date. payer_name (string): The name of the payer. payer_government_id (string): The payer’s government identification number (e.g., CPF). Path Variables account_uuid (path parameter): The unique identifier for the account for which the QR code information is being requested. qrcode_uuid (path parameter): The unique identifier of the'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: qrcode_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+    delete:
+      operationId: qrcodesCancelQrcode
+      summary: Cancel QRCode
+      tags:
+      - QRCodes
+      description: 'This endpoint is used to delete a specific QR code associated with a given account. The deletion is identified by the unique qrcode_uuid parameter, which represents the QR code to be removed from the system. Path Variables account_uuid (path parameter): The unique identifier for the account associated with the QR code. qrcode_uuid (path parameter): The unique identifier for the QR code that you wish to delete. Response Structure Upon a successful deletion, the API will return a JSON object containing the following fields: uuid : The unique identifier of the deleted QR code. externalId : An identifier for external systems. amount : The amount associated with the QR code. amountType : The type of amount (e.g., FIXED , CUSTOM ). discounts : An array of discount objects, each containing: percentage : The discount percentage applied. due : The due amount after discounts. nominalAmount : The nominal amount related to the QR code. fee : Any applicable fees (if any). fine : Any fines associated (if applicable). interest : Interest details (if applicable). reconciliationId : Identifier for reconciliation purposes. endToEndId : Optional identifier for tracking. qrcodeStatus : The current status of the QR code. dueDate : The due date for payment. qrcodeType : The type of QR code. version : Version number of the QR code. createdAt : Timestamp of when the QR code was created. updatedAt : Timestamp of the last update to the QR code. expirationSeconds : Time until expiration in seconds. des'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: qrcode_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token from POST /api/v1/auth/token. Register an ES512 public key via POST /api/v1/auth/jwks, then present a signed client assertion (private_key_jwt) to obtain a Bearer token.

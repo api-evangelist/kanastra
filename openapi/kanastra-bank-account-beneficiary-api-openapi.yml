@@ -1,0 +1,85 @@
+openapi: 3.0.3
+info:
+  title: Kanastra Banking Accounts Bank Account Beneficiary API
+  version: v1
+  description: 'Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.'
+  contact:
+    name: Kanastra Pagamentos
+    email: pagamentos@kanastra.com.br
+    url: https://banking-docs.kanastra.com.br/
+  x-apis-json-derived-from: https://banking-docs.kanastra.com.br/ (public Postman collection 35321848/2sA3drHEUr)
+servers:
+- url: https://banking.kanastra.com.br
+  description: Production
+- url: https://banking-sandbox.kanastra.com.br
+  description: Sandbox
+security:
+- bearerAuth: []
+tags:
+- name: Bank Account Beneficiary
+paths:
+  /api/v1/accounts/{account_uuid}/beneficiary-accounts:
+    get:
+      operationId: bankAccountBeneficiaryList
+      summary: List
+      tags:
+      - Bank Account Beneficiary
+      description: Retrieves a list of all registered beneficiary bank accounts, along with their associated details. Field Name Description Type uuid Unique identifier for the beneficiary account record string holderName Name of the beneficiary account holder string governmentId Government identification number of the beneficiary string code Bank code of the beneficiary's financial institution string agency Agency number of the beneficiary's bank string financialAccount Unique identifier for the financial account string account Account number of the beneficiary string digit Check digit for the account number string isFavorite Indicates if the account is marked as a favorite for quick access boolean
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+    post:
+      operationId: bankAccountBeneficiaryCreate
+      summary: Create
+      tags:
+      - Bank Account Beneficiary
+      description: Registers a new beneficiary bank account with the provided details. Field Name Description Type holderName Name of the beneficiary account holder string governmentId Government identification number of the beneficiary string bankCode Bank code of the beneficiary's financial institution integer agency Agency number of the beneficiary's bank integer account Account number of the beneficiary integer accountDigit Check digit for the account number integer isFavorite Indicates if the account is marked as a favorite for quick access boolean This endpoint allows the registration of a new beneficiary bank account. By providing the necessary details, users can ensure the accuracy and security of their financial transactions, making future transfers more efficient.
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '202':
+          description: Accepted
+  /api/v1/accounts/{account_uuid}/beneficiary-accounts/{beneficiary_uuid}:
+    delete:
+      operationId: bankAccountBeneficiaryDelete
+      summary: Delete
+      tags:
+      - Bank Account Beneficiary
+      description: Deletes the given beneficiary bank account by UUID. This endpoint allows the deletion of a specific beneficiary bank account using its unique identifier (UUID). By providing the UUID, users can remove the account from their list of registered beneficiaries, ensuring that it is no longer available for future transactions.
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: beneficiary_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token from POST /api/v1/auth/token. Register an ES512 public key via POST /api/v1/auth/jwks, then present a signed client assertion (private_key_jwt) to obtain a Bearer token.

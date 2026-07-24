@@ -1,0 +1,66 @@
+openapi: 3.0.3
+info:
+  title: Kanastra Banking Accounts PIX Transfer API
+  version: v1
+  description: 'Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.'
+  contact:
+    name: Kanastra Pagamentos
+    email: pagamentos@kanastra.com.br
+    url: https://banking-docs.kanastra.com.br/
+  x-apis-json-derived-from: https://banking-docs.kanastra.com.br/ (public Postman collection 35321848/2sA3drHEUr)
+servers:
+- url: https://banking.kanastra.com.br
+  description: Production
+- url: https://banking-sandbox.kanastra.com.br
+  description: Sandbox
+security:
+- bearerAuth: []
+tags:
+- name: PIX Transfer
+paths:
+  /api/v1/pix/{account_uuid}/transfer:
+    get:
+      operationId: pixTransferListPixTransfer
+      summary: List PIX Transfer
+      tags:
+      - PIX Transfer
+      description: 'Retrieve Transfer Information This endpoint allows users to retrieve transfer information associated with a specific financial account, identified by account_uuid . Path Variables account_uuid (string): Unique identifier for the account whose transfers are being queried. (Required) Response Structure Upon a successful request, the server will respond with a JSON object containing the following fields: count (integer): Total number of transfers for the account. next (string | null): URL for the next page of results, if any. previous (string | null): URL for the previous page of results, if any. results (array): List of transfer objects containing: uuid (string): Unique identifier of the transfer. endToEndId (string): Identifier for tracking the transfer end-to-end. amount (string): Amount transferred. reconciliationId (string | null): Identifier for reconciliation purposes. beneficiaryAccount (object): Detailed information about the beneficiary''s account: uuid (string): Unique identifier for the beneficiary''s account. holderName (string): Name of the account holder. governmentId (string): Government ID associated with the beneficiary''s account. code (string): Bank code of the beneficiary''s financial institution. agency (string): Agency number of the beneficiary''s account. financialAccount (string): Type of financial account associated with the beneficiary. account (string): The account number of the beneficiary. digit (string): Account digit of the beneficiary''s account. isFav'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+    post:
+      operationId: pixTransferTransferByPixKey
+      summary: Transfer by PIX-key
+      tags:
+      - PIX Transfer
+      description: 'This endpoint allows users to initiate a funds transfer using the PIX payment system. The transfer is executed to a specified beneficiary account and includes details about the transaction amount and additional information. Request Body The request body must be in JSON format and include the following parameters: beneficiary (object): Contains information about the recipient of the funds: holderName (string): The name of the beneficiary. governmentId (string): The government identification number of the beneficiary. code (string): The bank code of the beneficiary''s financial institution. agency (string): The agency number of the beneficiary''s account. account (string): The account number of the beneficiary. digit (string): The account digit of the beneficiary. accountType (string): The type of account (e.g., checking, savings). amount (number): The amount of money to be transferred. additionalInfo (string): Any additional information related to the transaction. initType (string): The type of initiation for the transfer (e.g., MANUAL ). Response Structure Upon a successful request, the server will respond with a JSON object containing the following fields: uuid (string): Unique identifier for the transaction. endToEndId (string): Identifier for tracking the transaction end-to-end. amount (string): The amount that was transferred. reconciliationId (string | null): Identifier for reconciliation purposes, if applicable. beneficiaryAccount (object): Detailed information about the  Variants: PIX Transfer Manual, PIX Transfer Scheduled'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '400':
+          description: Bad Request
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token from POST /api/v1/auth/token. Register an ES512 public key via POST /api/v1/auth/jwks, then present a signed client assertion (private_key_jwt) to obtain a Bearer token.

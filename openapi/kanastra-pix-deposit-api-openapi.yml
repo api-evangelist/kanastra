@@ -1,0 +1,72 @@
+openapi: 3.0.3
+info:
+  title: Kanastra Banking Accounts PIX Deposit API
+  version: v1
+  description: 'Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.'
+  contact:
+    name: Kanastra Pagamentos
+    email: pagamentos@kanastra.com.br
+    url: https://banking-docs.kanastra.com.br/
+  x-apis-json-derived-from: https://banking-docs.kanastra.com.br/ (public Postman collection 35321848/2sA3drHEUr)
+servers:
+- url: https://banking.kanastra.com.br
+  description: Production
+- url: https://banking-sandbox.kanastra.com.br
+  description: Sandbox
+security:
+- bearerAuth: []
+tags:
+- name: PIX Deposit
+paths:
+  /api/v1/pix/{account_uuid}/deposit:
+    get:
+      operationId: pixDepositListDeposits
+      summary: List Deposits
+      tags:
+      - PIX Deposit
+      description: 'This endpoint retrieves deposit information for a specific financial account identified by account_uuid . It allows users to check the status and details of deposit transactions associated with the given account. Path Variables account_uuid : A unique identifier for the account whose deposit information is being requested. Response Structure Upon a successful request, the API will return a JSON object containing the following fields: count (integer) : Total number of deposits returned. next (string) : URL to retrieve the next page of results, if applicable. previous (string) : URL to retrieve the previous page of results, if applicable. results (array) : A list of deposit transaction objects, where each object contains: uuid (string) : Unique identifier of the deposit. senderBank (object) : Information about the sender''s bank, including: code (string) : Bank code. name (string) : Bank name. comp (string) : Bank compensation code. ispb (string) : ISPB code of the bank. isParticipantComp (boolean) : Indicates if the bank is part of the compensation system. isParticipantPix (boolean) : Indicates if the bank participates in PIX. isParticipantStr (boolean) : Indicates if the bank participates in the STR system. createdAt (string) : Timestamp when the deposit was created. updatedAt (string) : Timestamp when the deposit was last updated. externalId (string) : External identifier associated with the deposit. endToEndId (string) : Unique end-to-end transaction identifier. amount (stri'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+  /api/v1/pix/{account_uuid}/deposit/{deposit_uuid}/reverse:
+    post:
+      operationId: pixDepositPixRevert
+      summary: Pix Revert
+      tags:
+      - PIX Deposit
+      description: 'This endpoint is used to reverse a deposit transaction for a specific financial account identified by account_uuid and a deposit identified by deposit_uuid . Request Body The request body must be sent in JSON format and should include the following parameter: amount (string) : The amount to be reversed. Path Variables account_uuid : A unique identifier for the financial account associated with the deposit. deposit_uuid : A unique identifier for the deposit transaction to be reversed.'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deposit_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Successful response
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token from POST /api/v1/auth/token. Register an ES512 public key via POST /api/v1/auth/jwks, then present a signed client assertion (private_key_jwt) to obtain a Bearer token.

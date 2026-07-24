@@ -1,0 +1,43 @@
+openapi: 3.0.3
+info:
+  title: Kanastra Banking Accounts Create API
+  version: v1
+  description: 'Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.'
+  contact:
+    name: Kanastra Pagamentos
+    email: pagamentos@kanastra.com.br
+    url: https://banking-docs.kanastra.com.br/
+  x-apis-json-derived-from: https://banking-docs.kanastra.com.br/ (public Postman collection 35321848/2sA3drHEUr)
+servers:
+- url: https://banking.kanastra.com.br
+  description: Production
+- url: https://banking-sandbox.kanastra.com.br
+  description: Sandbox
+security:
+- bearerAuth: []
+tags:
+- name: Create
+paths:
+  /api/v1/accounts/personal:
+    post:
+      operationId: createCreatePersonalFinancialAccount
+      summary: Create Personal Financial Account
+      tags:
+      - Create
+      description: 'Main Account Fields Field Name Description Validation Type type Type of account Required, options: [LINKED_ACCOUNT] string termsAccepted Indicates if terms are accepted Required boolean beneficiaryBankAccounts List of beneficiary bank accounts Required array holder Account holder details Required object Beneficiary Bank Accounts Field Name Description Validation Type holderName Name of the account holder Required string governmentId Government identification number Required string bankCode Bank code Required integer agency Bank agency number Required integer account Bank account number Required integer accountDigit Bank account verification digit Required integer Holder Information Field Name Description Validation Type name Name of the account holder Required string phone Phone number of the account holder Required string email Email address of the account holder Required string governmentId Government identification number Required string addressStreet Street address Required string addressNumber Address number Required string addressNeighborhood Neighborhood Required string addressZipcode Zipcode Required string addressCity City Required string addressState State Required string addressFile Proof of address file Required, Base64-encoded file string documentType Type of document Required, options below string documentFile Document file in Base64-encoded format Required string Document Type Options The document_type field can have one of the following values: IDENTITY_DOCUME Variants: Create Personal Financial Account Linked'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '202':
+          description: Accepted
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token from POST /api/v1/auth/token. Register an ES512 public key via POST /api/v1/auth/jwks, then present a signed client assertion (private_key_jwt) to obtain a Bearer token.

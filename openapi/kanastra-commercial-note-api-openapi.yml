@@ -1,0 +1,105 @@
+openapi: 3.0.3
+info:
+  title: Kanastra Banking Accounts Commercial Note API
+  version: v1
+  description: 'Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.'
+  contact:
+    name: Kanastra Pagamentos
+    email: pagamentos@kanastra.com.br
+    url: https://banking-docs.kanastra.com.br/
+  x-apis-json-derived-from: https://banking-docs.kanastra.com.br/ (public Postman collection 35321848/2sA3drHEUr)
+servers:
+- url: https://banking.kanastra.com.br
+  description: Production
+- url: https://banking-sandbox.kanastra.com.br
+  description: Sandbox
+security:
+- bearerAuth: []
+tags:
+- name: Commercial Note
+paths:
+  /api/v1/commercial-notes:
+    get:
+      operationId: commercialNoteList
+      summary: List
+      tags:
+      - Commercial Note
+      description: Retrieves a list of all registered commercial notes, along with their associated details. Field Name Description Type uuid Unique identifier for the issuance record string status Current status of the issuance string dateOfIssue Date of issuance string deadline Deadline date for the issuance string totalAmount Total amount of the issuance string interestRate Interest rate applied to the issuance string calculationBasis Calculation basis for interest string amortization Amortization method used string frequency Frequency of interest and principal payments string interestAndPrincipalGracePeriod Indicates if there is a grace period for interest and principal payments boolean interestFirstRatePaymentDate Date of the first interest rate payment string interestFirstPrincipalPaymentDate Date of the first principal payment string issuanceNumber Number of the issuance string issuanceSeries Series of the issuance string monetaryRestatement Indicates if there is monetary restatement boolean cityOfIssue City where the issuance takes place string stateOfIssue State where the issuance takes place string cityOfPayment City where the payment should be made string stateOfPayment State where the payment should be made string issuanceCost Cost associated with the issuance string quantity Quantity of units issued integer unitValue Unit value of the issuance string bookkeepingNumber Bookkeeping number associated with the issuance (if applicable) string installmentsPath Path to the installments as
+      responses:
+        '200':
+          description: OK
+    post:
+      operationId: commercialNoteCreate
+      summary: Create
+      tags:
+      - Commercial Note
+      description: 'Prerequisites Issuer Creation : Before creating a Commercial Note, an Issuer must be created. Refer to the "Issuer Creation" section in this documentation for detailed instructions on how to create an Issuer. Subscriber Document Number : A valid Subscriber document number is required to create a Commercial Note. Please contact us to create a Subscriber before proceeding. Request Fields Field Name Description Validation Type issuerGovernmentId Issuer document Required string subscriberGovernmentId Subscriber document Required string dateOfIssue Date of issuance Required, format: YYYY-MM-DD string deadline Deadline date for the issuance Required, format: YYYY-MM-DD string totalAmount Total amount of the issuance Required string interestRate Interest rate applied to the issuance Required string calculationBasis Calculation basis for interest Required, options: [DC_365, DC_360] string amortization Amortization method used Required, options: [PRICE, SAC] string frequency Frequency of interest and principal payments Required, options: [MONTHLY, QUARTERLY, SEMI_ANNUALLY, ANNUALLY] string interestAndPrincipalGracePeriod Indicates if there is a grace period for interest and principal payments Required boolean interestFirstRatePaymentDate Date of the first interest rate payment Required, format: YYYY-MM-DD string interestFirstPrincipalPaymentDate Date of the first principal payment Required, format: YYYY-MM-DD string issuanceNumber Number of the issuance Required string issuanceSeries  Variants: Create Eduardo Payload'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Created
+  /api/v1/commercial-notes/{commercial_note_uuid}:
+    get:
+      operationId: commercialNoteRetrieve
+      summary: Retrieve
+      tags:
+      - Commercial Note
+      parameters:
+      - name: commercial_note_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  /api/v1/commercial-notes/{commercial_note_id}/upload:
+    post:
+      operationId: commercialNoteUploadDocument
+      summary: Upload Document
+      tags:
+      - Commercial Note
+      description: 'Request Body Fields Field Name Description Validation Type type Type of the document. Options include CONTRACT , PAYMENT_RECEIPT , BULLETIN , DISBURSEMENT_RECEIPT Required string file Base64-encoded string of the document file Required string CONTRACT: Commercial Note Contract (Termo Constitutivo) BULLETIN: Commercial Note Bulletin (Boletim de Subscrição) DISBURSEMENT_RECEIPT: Comercial Note disbursement receipt (when the subscriber pays the issuer) PAYMENT_RECEIPT: Commercial Note payment receipt (when the issuer pays the subscriber)'
+      parameters:
+      - name: commercial_note_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Created
+  /api/v1/commercial-notes/{commercial_note_document_uuid}/download:
+    get:
+      operationId: commercialNoteDownloadDocumentByType
+      summary: Download Document by type
+      tags:
+      - Commercial Note
+      description: Parameter Description commercial_note_id ID of the commercial note type Type of the document. Options included CONTRACT , PAYMENT_RECEIPT , BULLETIN , BOOKKEEPER_TERM , DISBURSEMENT_RECEIPT
+      parameters:
+      - name: commercial_note_document_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token from POST /api/v1/auth/token. Register an ES512 public key via POST /api/v1/auth/jwks, then present a signed client assertion (private_key_jwt) to obtain a Bearer token.

@@ -1,0 +1,112 @@
+openapi: 3.0.3
+info:
+  title: Kanastra Banking Accounts File Return API
+  version: v1
+  description: 'Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.'
+  contact:
+    name: Kanastra Pagamentos
+    email: pagamentos@kanastra.com.br
+    url: https://banking-docs.kanastra.com.br/
+  x-apis-json-derived-from: https://banking-docs.kanastra.com.br/ (public Postman collection 35321848/2sA3drHEUr)
+servers:
+- url: https://banking.kanastra.com.br
+  description: Production
+- url: https://banking-sandbox.kanastra.com.br
+  description: Sandbox
+security:
+- bearerAuth: []
+tags:
+- name: File Return
+paths:
+  /api/v1/wallets/{wallet_uuid}/cnab-file-return:
+    get:
+      operationId: fileReturnList
+      summary: List
+      tags:
+      - File Return
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Accepted
+  /api/v1/wallets/{wallet_uuid}/cnab-file-return/{cnab_uuid}/download:
+    get:
+      operationId: fileReturnDownloadByUuid
+      summary: Download by UUID
+      tags:
+      - File Return
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: cnab_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Accepted
+  /api/v1/wallets/{wallet_uuid}/cnab-file-frenchie/{frenchie_uuid}/download:
+    get:
+      operationId: fileReturnDownloadFrenchieByUuid
+      summary: Download Frenchie by UUID
+      tags:
+      - File Return
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: frenchie_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Accepted
+  /api/v1/wallets/{wallet_uuid}/cnab-file-return-today:
+    get:
+      operationId: fileReturnDownloadTodayFile
+      summary: Download Today File
+      tags:
+      - File Return
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Accepted
+  /api/v1/wallets/{wallet_uuid}/cnab-file-frenchie-today:
+    get:
+      operationId: fileReturnDownloadTodayFrechie
+      summary: Download Today Frechie
+      tags:
+      - File Return
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Accepted
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token from POST /api/v1/auth/token. Register an ES512 public key via POST /api/v1/auth/jwks, then present a signed client assertion (private_key_jwt) to obtain a Bearer token.

@@ -1,0 +1,43 @@
+openapi: 3.0.3
+info:
+  title: Kanastra Banking Accounts Balance API
+  version: v1
+  description: 'Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.'
+  contact:
+    name: Kanastra Pagamentos
+    email: pagamentos@kanastra.com.br
+    url: https://banking-docs.kanastra.com.br/
+  x-apis-json-derived-from: https://banking-docs.kanastra.com.br/ (public Postman collection 35321848/2sA3drHEUr)
+servers:
+- url: https://banking.kanastra.com.br
+  description: Production
+- url: https://banking-sandbox.kanastra.com.br
+  description: Sandbox
+security:
+- bearerAuth: []
+tags:
+- name: Balance
+paths:
+  /api/v1/accounts/{account_uuid}/balance:
+    get:
+      operationId: balanceRetrieve
+      summary: Retrieve
+      tags:
+      - Balance
+      description: 'Retrieves the current balance details of a specific financial account, including available, blocked, and overdraft balances. Field Name Description Type accountUuid Unique identifier for the financial account. string date Date and time when the transaction occurred in ISO 8601 format: YYYY-MM-DDTHH:MM:SS±HH:MM. string real Total real balance in the account, including all funds. string available Available balance for transactions and withdrawals. string overdraft Amount available for overdraft usage. string blocked Amount currently blocked and unavailable for use. string autoInvest Amount automatically invested from the account balance. string emergencyAidBalance Balance available for emergency aid. string availableBalanceForTransactions Balance available specifically for transactions, after considering all restrictions. string'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token from POST /api/v1/auth/token. Register an ES512 public key via POST /api/v1/auth/jwks, then present a signed client assertion (private_key_jwt) to obtain a Bearer token.
