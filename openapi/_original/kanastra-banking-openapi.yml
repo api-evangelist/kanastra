@@ -1,0 +1,1714 @@
+# generated: '2026-07-19'
+# method: derived
+# source: https://banking-docs.kanastra.com.br/ (public Postman collection 35321848/2sA3drHEUr)
+openapi: 3.0.3
+info:
+  title: Kanastra Banking API
+  version: v1
+  description: 'Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure:
+    financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance
+    and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and
+    beneficiary accounts. Derived from the provider-published public Postman collection.'
+  contact:
+    name: Kanastra Pagamentos
+    email: pagamentos@kanastra.com.br
+    url: https://banking-docs.kanastra.com.br/
+  x-apis-json-derived-from: https://banking-docs.kanastra.com.br/ (public Postman collection 35321848/2sA3drHEUr)
+servers:
+- url: https://banking.kanastra.com.br
+  description: Production
+- url: https://banking-sandbox.kanastra.com.br
+  description: Sandbox
+tags:
+- name: Authentication
+- name: Wallet
+- name: File Return
+- name: CNAB
+- name: Pagamentos
+- name: Bank Slip (Boleto)
+- name: Issuers
+- name: Guarantees
+- name: Amendment
+- name: Commercial Note
+- name: Bank Account Beneficiary
+- name: Transactions
+- name: Balance
+- name: TED Transfer
+- name: Create
+- name: PIX Keys
+- name: PIX Transfer
+- name: PIX Deposit
+- name: QRCodes
+- name: Accounts
+paths:
+  /api/v1/auth/jwks:
+    post:
+      operationId: authenticationCreateJwks
+      summary: Create JWKS
+      tags:
+      - Authentication
+      description: 'For the public key, we use the ES512 algorithm. To generate this key, you can use
+        OpenSSL as shown in the example below: openssl ecparam -name secp521r1 -genkey -noout -out ec-p512-private.pem
+        openssl ec -in ec-p512-private.pem -pubout -out ec-p512-public.pem And send the content of the
+        ec-p512-public.pem file in the publicKey attribute.'
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Created
+  /api/v1/auth/token:
+    post:
+      operationId: authenticationGenerateAuthorizationToken
+      summary: Generate Authorization Token
+      tags:
+      - Authentication
+      description: The clientId will be sent to the integrator during the initial setup. The clientAssertion
+        will be generated in the pre-request script, but we also have this example below in PHP if you
+        want create by yourself. $secretKey = 'YOUR_PRIVATE_KEY'; $alg = 'ES512'; $payload = [ 'iat' =>
+        Carbon::now()->timestamp, 'exp' => Carbon::now()->addDay()->timestamp, 'aud' => 'https://auth.kanastra.com.br/realms/{{realm_name}}/protocol/openid-connect/token',
+        'iss' => 'your-client-id', 'sub' => 'your-client-id', 'jti' => Uuid::uuid4()->toString(), ]; $jwt_signed
+        = JWT::encode($payload, $secretKey, $alg); You should be authenticated after this steps, the post-request
+        script will set the access_token on every api call, and if you have the scope permission to use
+        you be able to test it.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Successful response
+  /api/v1/wallets:
+    get:
+      operationId: walletList
+      summary: List
+      tags:
+      - Wallet
+      description: 'Get a list of all the wallets for the authenticated user. Variants: List Copy'
+      responses:
+        '200':
+          description: OK
+    post:
+      operationId: walletCreate
+      summary: Create
+      tags:
+      - Wallet
+      description: 'You can create a new wallet with this endpoint. Parameters : Field name Description
+        Validation Type name Wallet name Required, must be a non-empty string string financial_account
+        ID of the financial account to which the wallet is linked Required string code Wallet code Required,
+        maximum of 3 digits integer accept_partial_payment Indicates whether bank slips in this wallet
+        can be paid partially Not required, defaults to false boolean'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Created
+  /api/v1/wallets/{wallet_id}:
+    get:
+      operationId: walletRetrieve
+      summary: Retrieve
+      tags:
+      - Wallet
+      description: Retrieves detailed information about a specific wallet identified by its unique ID.
+      parameters:
+      - name: wallet_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+    put:
+      operationId: walletUpdate
+      summary: Update
+      tags:
+      - Wallet
+      description: Updates an existing wallet by its unique ID based on the data provided in the request
+        Parameters Field name Description Validation Type name Update the wallet name Not required, must
+        be a non-empty string string financial_account Update the ID of the financial account to which
+        the wallet is linked Required string code Update wallet code Not required, maximum of 3 digits
+        integer accept_partial_payment Updates the setting for partial payment acceptance for bank slips
+        associated with a specific wallet identified by its unique ID Not required boolean
+      parameters:
+      - name: wallet_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Successful response
+  /api/v1/wallets/{wallet_uuid}/cnab-file-return:
+    get:
+      operationId: fileReturnList
+      summary: List
+      tags:
+      - File Return
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Accepted
+  /api/v1/wallets/{wallet_uuid}/cnab-file-return/{cnab_uuid}/download:
+    get:
+      operationId: fileReturnDownloadByUuid
+      summary: Download by UUID
+      tags:
+      - File Return
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: cnab_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Accepted
+  /api/v1/wallets/{wallet_uuid}/cnab-file-frenchie/{frenchie_uuid}/download:
+    get:
+      operationId: fileReturnDownloadFrenchieByUuid
+      summary: Download Frenchie by UUID
+      tags:
+      - File Return
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: frenchie_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Accepted
+  /api/v1/wallets/{wallet_uuid}/cnab-file-return-today:
+    get:
+      operationId: fileReturnDownloadTodayFile
+      summary: Download Today File
+      tags:
+      - File Return
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Accepted
+  /api/v1/wallets/{wallet_uuid}/cnab-file-frenchie-today:
+    get:
+      operationId: fileReturnDownloadTodayFrechie
+      summary: Download Today Frechie
+      tags:
+      - File Return
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Accepted
+  /api/v1/wallets/{wallet_uuid}/cnab:
+    get:
+      operationId: cnabList
+      summary: List
+      tags:
+      - CNAB
+      description: 'Response Fields Field Name Description Type count Total number of CNAB files integer
+        next URL for the next page of results (if pagination is applied) string previous URL for the previous
+        page of results (if pagination is applied) string results List of CNAB file objects array CNAB
+        File Object Field Name Description Type uuid Unique identifier (UUID) for the CNAB file string
+        createdAt Timestamp indicating when the file was created string (ISO 8601 datetime) updatedAt
+        Timestamp indicating when the file was last updated string (ISO 8601 datetime) isDeleted Indicates
+        whether the file has been marked as deleted boolean name Name of the CNAB file string status Current
+        processing status of the CNAB file string hashFile Hash (SHA-1) of the file for integrity verification
+        string wallet Unique identifier (UUID) for the wallet associated with the CNAB file string Status
+        Options for status Field The status field can have one of the following values: WAITING : The
+        file has been created but processing has not yet started. VALIDATING_ERROR : The file failed validation
+        checks. PROCESSING : The file is currently being processed. PROCESSING_ERROR : The file passed
+        validation but encountered an error during processing. PROCESSED : The file was successfully processed.'
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  /api/v1/wallets/{wallet_id}/cnab:
+    post:
+      operationId: cnabUploadCnab
+      summary: Upload CNAB
+      tags:
+      - CNAB
+      parameters:
+      - name: wallet_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  /api/v1/{account_id}/payments:
+    get:
+      operationId: pagamentosReadLinecode
+      summary: Read LineCode
+      tags:
+      - Pagamentos
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+    post:
+      operationId: pagamentosPayFromPreviousRead
+      summary: Pay from previous read
+      tags:
+      - Pagamentos
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Successful response
+      description: ' Variants: Pay BankSlip from LineCode, Pay BankSlip from BarCode'
+  /api/v1/wallets/{wallet_uuid}/bank-slip:
+    get:
+      operationId: bankSlipBoletoList
+      summary: List
+      tags:
+      - Bank Slip (Boleto)
+      description: This endpoint retrieves a paginated list of bank slips. Each bank slip includes details
+        such as unique identifiers, document dates, barcodes, line codes, due dates, nominal values, payer
+        information, and calculated taxes. This endpoint is useful for fetching bank slips associated
+        with a specific wallet for management and processing purposes.
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+  /api/v1/wallets/{wallet_uuid}/bank-slip/{bank_slip_uuid}:
+    get:
+      operationId: bankSlipBoletoRetrieve
+      summary: Retrieve
+      tags:
+      - Bank Slip (Boleto)
+      description: Retrieves detailed information about a specific bank slip identified by its unique
+        ID and wallet ID.
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: bank_slip_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+    patch:
+      operationId: bankSlipBoletoUpdateBankSlip
+      summary: Update Bank Slip
+      tags:
+      - Bank Slip (Boleto)
+      description: 'This endpoint updates specific fields of a bank slip. Like the cancellation operation,
+        this endpoint can only be used on bank slips that are in the OPEN status. Partial updates are
+        allowed, where only specified fields need to be included in the request. Main Document Fields
+        Field Name Description Validation Type documentDate Date the document is issued Required, format:
+        YYYY-MM-DD string documentNumber Unique identifier for the document Required string dueDate Date
+        by which payment must be made Required, format: YYYY-MM-DD string nominalValue Original amount
+        of the debt Required float interestType Type of interest rate Required, options: [PERCENTAGE,
+        EXEMPT] string interestValue Interest rate applicable to the debt Required if interestType is
+        PERCENTAGE float fineValue Fine rate applicable to the debt Required if fineType is PERCENTAGE
+        float fineType Type of fine rate Required, options: [PERCENTAGE, EXEMPT] string demonstrative
+        Demonstrative message Optional string discountValue Discount amount if paid by discountLimit Required
+        float discountLimit Last date to avail discount on payment Required, format: YYYY-MM-DD string
+        messages Messages related to the debt collection Optional string expirationDays Days until bankslip
+        to expires counting from current day Optional, default is 180 days integer emails Email addresses
+        for communication Optional array ourNumber Internal control number (blank if not used) Optional
+        string rebateValue Bankslip rebate amount Optional float Payer Deta'
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: bank_slip_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+  /api/v1/wallets/{wallet_uuid}/bank-slip/{bank_slip_uuid}/pdf:
+    get:
+      operationId: bankSlipBoletoGetPdfFile
+      summary: Get PDF File
+      tags:
+      - Bank Slip (Boleto)
+      description: Return the PDF file of the given bank slip ID
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: bank_slip_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+  /api/v1/wallets/{wallet_uuid}/bank-slip/batch:
+    post:
+      operationId: bankSlipBoletoCreateBankSlips
+      summary: Create Bank Slips
+      tags:
+      - Bank Slip (Boleto)
+      description: 'Main Document Fields Field Name Description Validation Type documentDate Date the
+        document is issued Required, format: YYYY-MM-DD string participantControlNumber Primary external
+        reference for Client or Funds. It is the first option for providing a custom identifier. Optional.
+        Max 25 characters. Limited by CNAB 400 remittance/return file specifications. string documentNumber
+        Secondary external reference (ERP/Invoice). It is the second option for external identification.
+        Required. Max 10 characters. Limited by CNAB 400 remittance/return file specifications. string
+        dueDate Date by which payment must be made Required, format: YYYY-MM-DD string nominalValue Original
+        amount of the debt Required float interestType Type of interest rate Required, options: [PERCENTAGE,
+        EXEMPT] string interestValue Interest rate applicable to the debt Required if interestType is
+        PERCENTAGE float fineValue Fine rate applicable to the debt Required if fineType is PERCENTAGE
+        float fineType Type of fine rate Required, options: [PERCENTAGE, EXEMPT] string demonstrative
+        Demonstrative message Optional string discountValue Discount amount if paid by discountLimit Required
+        float discountLimit Last date to avail discount on payment Required, format: YYYY-MM-DD string
+        messages Messages related to the debt collection Optional string expirationDays Days until bankslip
+        to expires counting from due date. Optional, default is 180 days integer emails Email addresses
+        for communication Optional array ourNumber Unique id'
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '202':
+          description: Accepted
+  /api/v1/wallets/{wallet_uuid}/bank-slip/{bank_slip_uuid}/cancel:
+    put:
+      operationId: bankSlipBoletoCancelBankSlip
+      summary: Cancel Bank Slip
+      tags:
+      - Bank Slip (Boleto)
+      description: This endpoint allows the cancellation of a bank slip, provided that its current status
+        is OPEN . A bank slip with any other status (e.g., PAID , SETTLED ) cannot be cancelled.
+      parameters:
+      - name: wallet_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: bank_slip_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+  /api/v1/issuers:
+    get:
+      operationId: issuersList
+      summary: List
+      tags:
+      - Issuers
+      description: Retrieves a list of all registered issuers, along with their associated details.
+      responses:
+        '200':
+          description: Successful response
+    post:
+      operationId: issuersCreate
+      summary: Create
+      tags:
+      - Issuers
+      description: 'Main Company Fields Field Name Description Validation Type name Name of the company
+        Required string governmentId Company document Required string businessSector Sector in which the
+        company operates Required string annualBilling Annual billing amount Required float municipalRegistration
+        Municipal registration number Required string cnae CNAE (National Classification of Economic Activities)
+        Required string companySize Size of the company Required, options: [MICRO, SMALL, MEDIUM, LARGE]
+        string partnerShipType Type of partnership Required, options: [LTDA, SA, MEI, EIRELI] string inJudicialRecovery
+        Indicates if the company is in judicial recovery Required boolean hasDebitUnion Indicates if the
+        company has a debit union Required boolean dueDiligenceStatus Status of due diligence Required,
+        options: [APPROVED, REPROVED, IN_PROGRESS, CANCELLED, IN_ANALYSIS] string Business Sector Options
+        The businessSector field can have one of the following values: AGRICULTURAL FOODS BUSINESS PHARMACY
+        FINANCIAL SMOKE HOSPITAL REAL_ESTATE INDUSTRY INSTALLATION METALLIC STATIONERY_SHOP OIL PRIMARY
+        SERVICES THIRD TRANSPORT Contact Information Field Name Description Validation Type name Name
+        of the contact Required string email Email of the contact Required string phone Phone number of
+        the contact Required string Address Information Field Name Description Validation Type street
+        Street address Required string number Building number Required string complement Address complement
+        Optional string neighborhood'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Created
+  /api/v1/issuers/{issuer_uuid}:
+    get:
+      operationId: issuersRetrieve
+      summary: Retrieve
+      tags:
+      - Issuers
+      description: Retrieves detailed information about a specific issuer identified by its unique ID.
+      parameters:
+      - name: issuer_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+    put:
+      operationId: issuersUpdate
+      summary: Update
+      tags:
+      - Issuers
+      parameters:
+      - name: issuer_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+  /api/v1/commercial-papers/{commercial_note_uuid}/guarantees/batch:
+    post:
+      operationId: guaranteesBatchGuarantee
+      summary: Batch Guarantee
+      tags:
+      - Guarantees
+      parameters:
+      - name: commercial_note_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Successful response
+  /api/v1/commercial-papers/guarantee/{guarantee_uuid}/documents/batch:
+    post:
+      operationId: guaranteesBatchDocuments
+      summary: Batch Documents
+      tags:
+      - Guarantees
+      parameters:
+      - name: guarantee_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Successful response
+  /api/v1/commercial-papers/guarantee/{guarantee_uuid}:
+    get:
+      operationId: guaranteesGuarantee
+      summary: Guarantee
+      tags:
+      - Guarantees
+      parameters:
+      - name: guarantee_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+    delete:
+      operationId: guaranteesDeleteGuarantee
+      summary: Delete Guarantee
+      tags:
+      - Guarantees
+      parameters:
+      - name: guarantee_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+  /api/v1/commercial-papers/{commercial_note_uuid}/guarantees:
+    get:
+      operationId: guaranteesListGuarantees
+      summary: List Guarantees
+      tags:
+      - Guarantees
+      parameters:
+      - name: commercial_note_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+  /api/v1/commercial-papers/{commercial_note_uuid}/documents:
+    get:
+      operationId: guaranteesListDocuments
+      summary: List Documents
+      tags:
+      - Guarantees
+      parameters:
+      - name: commercial_note_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+  /api/v1/commercial-papers/{commercial_note_uuid}/documents/{doocument_uuid}:
+    get:
+      operationId: guaranteesDocument
+      summary: Document
+      tags:
+      - Guarantees
+      parameters:
+      - name: commercial_note_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: doocument_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+  /api/v1/commercial-papers/guarantees/amendment:
+    post:
+      operationId: amendmentCreate
+      summary: Create
+      tags:
+      - Amendment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+  /api/v1/commercial-notes:
+    get:
+      operationId: commercialNoteList
+      summary: List
+      tags:
+      - Commercial Note
+      description: Retrieves a list of all registered commercial notes, along with their associated details.
+        Field Name Description Type uuid Unique identifier for the issuance record string status Current
+        status of the issuance string dateOfIssue Date of issuance string deadline Deadline date for the
+        issuance string totalAmount Total amount of the issuance string interestRate Interest rate applied
+        to the issuance string calculationBasis Calculation basis for interest string amortization Amortization
+        method used string frequency Frequency of interest and principal payments string interestAndPrincipalGracePeriod
+        Indicates if there is a grace period for interest and principal payments boolean interestFirstRatePaymentDate
+        Date of the first interest rate payment string interestFirstPrincipalPaymentDate Date of the first
+        principal payment string issuanceNumber Number of the issuance string issuanceSeries Series of
+        the issuance string monetaryRestatement Indicates if there is monetary restatement boolean cityOfIssue
+        City where the issuance takes place string stateOfIssue State where the issuance takes place string
+        cityOfPayment City where the payment should be made string stateOfPayment State where the payment
+        should be made string issuanceCost Cost associated with the issuance string quantity Quantity
+        of units issued integer unitValue Unit value of the issuance string bookkeepingNumber Bookkeeping
+        number associated with the issuance (if applicable) string installmentsPath Path to the installments
+        as
+      responses:
+        '200':
+          description: OK
+    post:
+      operationId: commercialNoteCreate
+      summary: Create
+      tags:
+      - Commercial Note
+      description: 'Prerequisites Issuer Creation : Before creating a Commercial Note, an Issuer must
+        be created. Refer to the "Issuer Creation" section in this documentation for detailed instructions
+        on how to create an Issuer. Subscriber Document Number : A valid Subscriber document number is
+        required to create a Commercial Note. Please contact us to create a Subscriber before proceeding.
+        Request Fields Field Name Description Validation Type issuerGovernmentId Issuer document Required
+        string subscriberGovernmentId Subscriber document Required string dateOfIssue Date of issuance
+        Required, format: YYYY-MM-DD string deadline Deadline date for the issuance Required, format:
+        YYYY-MM-DD string totalAmount Total amount of the issuance Required string interestRate Interest
+        rate applied to the issuance Required string calculationBasis Calculation basis for interest Required,
+        options: [DC_365, DC_360] string amortization Amortization method used Required, options: [PRICE,
+        SAC] string frequency Frequency of interest and principal payments Required, options: [MONTHLY,
+        QUARTERLY, SEMI_ANNUALLY, ANNUALLY] string interestAndPrincipalGracePeriod Indicates if there
+        is a grace period for interest and principal payments Required boolean interestFirstRatePaymentDate
+        Date of the first interest rate payment Required, format: YYYY-MM-DD string interestFirstPrincipalPaymentDate
+        Date of the first principal payment Required, format: YYYY-MM-DD string issuanceNumber Number
+        of the issuance Required string issuanceSeries  Variants: Create Eduardo Payload'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Created
+  /api/v1/commercial-notes/{commercial_note_uuid}:
+    get:
+      operationId: commercialNoteRetrieve
+      summary: Retrieve
+      tags:
+      - Commercial Note
+      parameters:
+      - name: commercial_note_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  /api/v1/commercial-notes/{commercial_note_id}/upload:
+    post:
+      operationId: commercialNoteUploadDocument
+      summary: Upload Document
+      tags:
+      - Commercial Note
+      description: 'Request Body Fields Field Name Description Validation Type type Type of the document.
+        Options include CONTRACT , PAYMENT_RECEIPT , BULLETIN , DISBURSEMENT_RECEIPT Required string file
+        Base64-encoded string of the document file Required string CONTRACT: Commercial Note Contract
+        (Termo Constitutivo) BULLETIN: Commercial Note Bulletin (Boletim de Subscrição) DISBURSEMENT_RECEIPT:
+        Comercial Note disbursement receipt (when the subscriber pays the issuer) PAYMENT_RECEIPT: Commercial
+        Note payment receipt (when the issuer pays the subscriber)'
+      parameters:
+      - name: commercial_note_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Created
+  /api/v1/commercial-notes/{commercial_note_document_uuid}/download:
+    get:
+      operationId: commercialNoteDownloadDocumentByType
+      summary: Download Document by type
+      tags:
+      - Commercial Note
+      description: Parameter Description commercial_note_id ID of the commercial note type Type of the
+        document. Options included CONTRACT , PAYMENT_RECEIPT , BULLETIN , BOOKKEEPER_TERM , DISBURSEMENT_RECEIPT
+      parameters:
+      - name: commercial_note_document_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+  /api/v1/accounts/{account_uuid}/beneficiary-accounts:
+    get:
+      operationId: bankAccountBeneficiaryList
+      summary: List
+      tags:
+      - Bank Account Beneficiary
+      description: Retrieves a list of all registered beneficiary bank accounts, along with their associated
+        details. Field Name Description Type uuid Unique identifier for the beneficiary account record
+        string holderName Name of the beneficiary account holder string governmentId Government identification
+        number of the beneficiary string code Bank code of the beneficiary's financial institution string
+        agency Agency number of the beneficiary's bank string financialAccount Unique identifier for the
+        financial account string account Account number of the beneficiary string digit Check digit for
+        the account number string isFavorite Indicates if the account is marked as a favorite for quick
+        access boolean
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+    post:
+      operationId: bankAccountBeneficiaryCreate
+      summary: Create
+      tags:
+      - Bank Account Beneficiary
+      description: Registers a new beneficiary bank account with the provided details. Field Name Description
+        Type holderName Name of the beneficiary account holder string governmentId Government identification
+        number of the beneficiary string bankCode Bank code of the beneficiary's financial institution
+        integer agency Agency number of the beneficiary's bank integer account Account number of the beneficiary
+        integer accountDigit Check digit for the account number integer isFavorite Indicates if the account
+        is marked as a favorite for quick access boolean This endpoint allows the registration of a new
+        beneficiary bank account. By providing the necessary details, users can ensure the accuracy and
+        security of their financial transactions, making future transfers more efficient.
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '202':
+          description: Accepted
+  /api/v1/accounts/{account_uuid}/beneficiary-accounts/{beneficiary_uuid}:
+    delete:
+      operationId: bankAccountBeneficiaryDelete
+      summary: Delete
+      tags:
+      - Bank Account Beneficiary
+      description: Deletes the given beneficiary bank account by UUID. This endpoint allows the deletion
+        of a specific beneficiary bank account using its unique identifier (UUID). By providing the UUID,
+        users can remove the account from their list of registered beneficiaries, ensuring that it is
+        no longer available for future transactions.
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: beneficiary_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+  /api/v1/accounts/{account_uuid}/transactions:
+    get:
+      operationId: transactionsList
+      summary: List
+      tags:
+      - Transactions
+      description: 'Retrieves a list of all registered transactions associated with a specific financial
+        account, including details such as status, type of operation, and amount. General Field Description
+        Type count Total number of financial accounts returned integer next URL to the next page of results
+        (if any) string or null previous URL to the previous page of results (if any) string or null results
+        List of financial accounts array of account objects Transactions Field Name Description Type uuid
+        Unique identifier for the transaction record. string status Current status of the transaction.
+        string externalId External identifier for the transaction, used for cross-referencing with other
+        systems. string amount Monetary amount of the transaction. string typeCash Indicates whether the
+        transaction is a cash-in ( CASH_IN ) or cash-out ( CASH_OUT ) operation. string typeOperation
+        Type of operation associated with the transaction, e.g., credit card, bank slip, etc. string transactionDate
+        Date and time when the transaction occurred in ISO 8601 format: YYYY-MM-DDTHH:MM:SS±HH:MM. string
+        transactionDetail Additional details or description of the transaction, such as reason or reference
+        information. string The status field can have one of the following values: CREATED : The transaction
+        has been created. The typeOperation field can have one of the following values: BANK_SLIP : Transaction
+        made via bank slip (Brazilian Boleto) payment. The originType field can have one of the following
+        values: TRANSFER : Orig'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  /api/v1/accounts/{account_uuid}/balance:
+    get:
+      operationId: balanceRetrieve
+      summary: Retrieve
+      tags:
+      - Balance
+      description: 'Retrieves the current balance details of a specific financial account, including available,
+        blocked, and overdraft balances. Field Name Description Type accountUuid Unique identifier for
+        the financial account. string date Date and time when the transaction occurred in ISO 8601 format:
+        YYYY-MM-DDTHH:MM:SS±HH:MM. string real Total real balance in the account, including all funds.
+        string available Available balance for transactions and withdrawals. string overdraft Amount available
+        for overdraft usage. string blocked Amount currently blocked and unavailable for use. string autoInvest
+        Amount automatically invested from the account balance. string emergencyAidBalance Balance available
+        for emergency aid. string availableBalanceForTransactions Balance available specifically for transactions,
+        after considering all restrictions. string'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  /api/v1/accounts/{account_uuid}/transfer/{transfer_uuid}:
+    get:
+      operationId: tedTransferRetrieve
+      summary: Retrieve
+      tags:
+      - TED Transfer
+      description: Retrieves the details of a specific transfer, including status, amount, account information,
+        and beneficiary details. Field Name Description Type uuid Unique identifier for the transfer.
+        string externalId External reference ID for the transfer, if applicable. string or null status
+        Current status of the transfer. Possible values are PENDING_APPROVAL , PROCESSING , PROCESSED
+        , ERROR , REJECTED , SCHEDULED , and CANCELED . string amount The amount of the transfer in the
+        account's currency. string additionalInfo Additional information related to the transfer request.
+        string financialAccount Details of the account from which the transfer is initiated. object financialAccount.uuid
+        Unique identifier for the financial account. string financialAccount.branch Branch number of the
+        financial account. string financialAccount.account Account number from which the transfer is made.
+        string financialAccount.accountDigit Account digit for the financial account. string financialAccount.accountHolder
+        Information about the holder of the financial account. object financialAccount.accountHolder.uuid
+        Unique identifier for the account holder. string financialAccount.accountHolder.name Name of the
+        account holder. string financialAccount.code Bank code associated with the financial account.
+        string beneficiaryAccount Details of the beneficiary account receiving the transfer. object beneficiaryAccount.uuid
+        Unique identifier for the beneficiary account. string beneficiaryAccount.holderName Name of the
+        ben
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: transfer_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  /api/v1/accounts/{account_uuid}/transfers:
+    get:
+      operationId: tedTransferList
+      summary: List
+      tags:
+      - TED Transfer
+      description: 'Retrieves a list of all transfer records associated with a specific financial account,
+        including details such as status, amount, requester information, and beneficiary account details.
+        You can also pass a status in query params. See the available statuses below. General Field Name
+        Description Type count Total number of transfers returned. integer next URL to the next page of
+        results, if available. string or null previous URL to the previous page of results, if available.
+        string or null results List of transfer objects. array of transfer objects Transfers Field Name
+        Description Type uuid Unique identifier for the transfer record. string amount Monetary amount
+        of the transfer. string createdAt Date and time when the transfer was created in ISO 8601 format:
+        YYYY-MM-DDTHH:MM±HH. string additionalInfo Additional details or description of the transfer,
+        such as reason or reference information. string status Current status of the transfer. Possible
+        values include PENDING_APPROVAL , PROCESSING , PROCESSED , ERROR , REJECTED , SCHEDULED , and
+        CANCELED . string requester Details of the user who requested the transfer. object requester.name
+        Name of the requester. string requester.email Email address of the requester. string financialAccount
+        Unique identifier for the financial account from which the transfer is initiated. string beneficiaryAccount
+        Details of the beneficiary account receiving the transfer. object beneficiaryAccount.uuid Unique
+        identifier for the beneficiary account. string'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  /api/v1/accounts/{account_uuid}/transfer:
+    post:
+      operationId: tedTransferCreate
+      summary: Create
+      tags:
+      - TED Transfer
+      description: 'To interact with this endpoint, you are required to generate a Transaction Hash Key
+        and include it in the request headers. The Transaction Hash Key is generated using the following
+        process: Generate HMAC Hash: Use the SHA-256 algorithm to compute the HMAC hash of the request
+        payload. The key for this operation will be provided by our team during the initial configuration
+        phase and must be securely stored on your end. Hex Encoding: Once the HMAC hash is generated,
+        encode it in hexadecimal format. Include in Headers: Pass the resulting Transaction Hash Key in
+        the request headers as part of the API call. This security measure ensures data integrity and
+        validation for all transactions conducted with our API. If you require further guidance on generating
+        the hash or managing keys, please contact our support team. Transfer API Field Name Description
+        Validation Type amount Amount to be transferred Required, minimum: 0.01 float additionalInfo Additional
+        information about the transfer Required string beneficiaryUuid UUID of the beneficiary receiving
+        the transfer Required string'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '202':
+          description: Accepted
+  /api/v1/accounts/personal:
+    post:
+      operationId: createCreatePersonalFinancialAccount
+      summary: Create Personal Financial Account
+      tags:
+      - Create
+      description: 'Main Account Fields Field Name Description Validation Type type Type of account Required,
+        options: [LINKED_ACCOUNT] string termsAccepted Indicates if terms are accepted Required boolean
+        beneficiaryBankAccounts List of beneficiary bank accounts Required array holder Account holder
+        details Required object Beneficiary Bank Accounts Field Name Description Validation Type holderName
+        Name of the account holder Required string governmentId Government identification number Required
+        string bankCode Bank code Required integer agency Bank agency number Required integer account
+        Bank account number Required integer accountDigit Bank account verification digit Required integer
+        Holder Information Field Name Description Validation Type name Name of the account holder Required
+        string phone Phone number of the account holder Required string email Email address of the account
+        holder Required string governmentId Government identification number Required string addressStreet
+        Street address Required string addressNumber Address number Required string addressNeighborhood
+        Neighborhood Required string addressZipcode Zipcode Required string addressCity City Required
+        string addressState State Required string addressFile Proof of address file Required, Base64-encoded
+        file string documentType Type of document Required, options below string documentFile Document
+        file in Base64-encoded format Required string Document Type Options The document_type field can
+        have one of the following values: IDENTITY_DOCUME Variants: Create Personal Financial Account
+        Linked'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '202':
+          description: Accepted
+  /api/v1/pix/{account_uuid}/keys:
+    get:
+      operationId: pixKeysListKeys
+      summary: List keys
+      tags:
+      - PIX Keys
+      description: 'This endpoint retrieves a list of keys associated with a specific account identified
+        by account_uuid . The request allows filtering the keys based on their status and additional query
+        parameters. Query Parameters status (optional): Filter keys based on their status. For example,
+        setting this to ACTIVE will return only active keys. type (optional): Filter keys by their type.
+        uuid (optional): Filter keys by their unique identifier. key (optional): Filter keys by their
+        key value. Path Variables account_uuid (path parameter): A unique identifier for the account from
+        which the PIX key details are being requested. Response Structure Upon a successful request, the
+        API will return a JSON object containing the following fields: count (integer): The total number
+        of keys that match the query. next (string or null): A URL to the next page of results, if applicable.
+        previous (string or null): A URL to the previous page of results, if applicable. results (array):
+        An array of key objects, each containing: uuid (string): The unique identifier of the key. createdAt
+        (string): The timestamp when the key was created. updatedAt (string): The timestamp when the key
+        was last updated. key (string): The actual key value. type (string): The type of the key. status
+        (string): The current status of the key. lastUsage (string or null): The timestamp of the last
+        time the key was used, or null if it has not been used.'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+  /api/v1/pix/{account_uuid}/key/{pix_key}:
+    get:
+      operationId: pixKeysReadPixKey
+      summary: Read PIX-key
+      tags:
+      - PIX Keys
+      description: 'This endpoint retrieves the details associated with a specific PIX key for a given
+        account. It allows users to access information about the beneficiary linked to the PIX key. Path
+        Variables account_uuid (path parameter): A unique identifier for the account from which the PIX
+        key details are being requested. pix_key (path parameter): The specific PIX key for which the
+        details are being fetched. Response Structure Upon a successful request, the API will return a
+        JSON object containing the following fields: beneficiary : An object containing details about
+        the beneficiary. holderName : The name of the beneficiary. governmentId : The government identification
+        number of the beneficiary. code : A code associated with the beneficiary. agency : The agency
+        linked to the beneficiary. account : The account number of the beneficiary. digit : The digit
+        associated with the account. pixKey : The PIX key itself. accountType : The type of account (e.g.,
+        checking, savings). endToEndId : An identifier for tracking the transaction from start to finish.'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: pix_key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+    delete:
+      operationId: pixKeysExcludeKey
+      summary: Exclude Key
+      tags:
+      - PIX Keys
+      description: 'This endpoint is used to delete a specific PIX key associated with a given account.
+        The operation will remove the specified key from the account''s settings. Path Variables account_uuid
+        (path parameter): The unique identifier for the account from which the PIX key will be deleted.
+        This is a required parameter. pix_key (path parameter): The unique identifier for the PIX key
+        that needs to be deleted. This is also a required parameter. Response Structure Upon a successful
+        deletion, the API will return a JSON response with a message indicating the outcome of the operation.
+        Deleting a PIX key is irreversible; once deleted, the key cannot be recovered.'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: pix_key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '422':
+          description: Unprocessable Entity
+  /api/v1/pix/{account_uuid}/key:
+    post:
+      operationId: pixKeysCreateDocumentKey
+      summary: Create Document Key
+      tags:
+      - PIX Keys
+      description: 'This endpoint allows users to generate a new key for a specified financial account
+        identified by account_uuid . To create a random key, only the type is needed. The key is generated
+        by BACEN, and to obtain it, the account’s key listing endpoint must be queried after the request.
+        Request Body The request requires a JSON body with the following parameter: type (string): This
+        parameter specifies the type of key to be generated. In the provided example, the value is set
+        to "RANDOM" , indicating that a random key should be created. Path Variables account_uuid : A
+        unique identifier for the account from which the PIX key details are being requested. Response
+        Structure Upon a successful request, the API will return a JSON object containing the following
+        fields: financialAccountUuid (string): The UUID of the financial account associated with the key.
+        uuid (string): The unique identifier for the key created. key (string): The key that was added.
+        type (string): The type of the key. status (string): The current status of the key. createdAt
+        (string): Timestamp indicating when the key was created. updatedAt (string): Timestamp indicating
+        when the key was last updated. Variants: Create Random Key, Create Email Key, Create Phone Key'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+  /api/v1/pix/{account_uuid}/key/{pix_key_uuid}:
+    patch:
+      operationId: pixKeysApproveKeyWithOtpToken
+      summary: Approve Key with OTP Token
+      tags:
+      - PIX Keys
+      description: 'This endpoint allows you to approve the creation of a specific PIX key associated
+        with a financial account using an OTP (One-Time Password) for authentication. Request Body otp_code
+        (body parameter): A string representing the One-Time Password required for the update operation.
+        Path Variables account_uuid (path parameter): The unique identifier for the financial account.
+        pix_key_uuid (path parameter): The unique identifier for the PIX key that you want to update.
+        Response Structure Upon a successful request, the server will respond with a JSON object containing
+        the following fields: financialAccountUuid (string): The UUID of the financial account associated
+        with the key. uuid (string): The unique identifier for the key created. key (string): The key
+        that was added. type (string): The type of the key. status (string): The current status of the
+        key. createdAt (string): Timestamp indicating when the key was created. updatedAt (string): Timestamp
+        indicating when the key was last updated.'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: pix_key_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+    put:
+      operationId: pixKeysDenyWithOtpToken
+      summary: Deny with OTP Token
+      tags:
+      - PIX Keys
+      description: 'This endpoint allows you to deny a specific PIX key associated with a financial account
+        using the provided OTP (One-Time Password) for authentication. Request Body otp_code (body parameter):
+        A string representing the One-Time Password required for the update operation. Path Variables
+        account_uuid (path parameter): The unique identifier for the financial account. pix_key_uuid (path
+        parameter): The unique identifier for the PIX key that you want to update. Response Structure
+        Upon a successful request, the server will respond with a JSON object containing the following
+        fields: financialAccountUuid (string): The UUID of the financial account associated with the key.
+        uuid (string): The unique identifier for the key created. key (string): The key that was added.
+        type (string): The type of the key. status (string): The current status of the key. createdAt
+        (string): Timestamp indicating when the key was created. updatedAt (string): Timestamp indicating
+        when the key was last updated.'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: pix_key_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+  /api/v1/pix/{account_uuid}/key/{pix_key_uuid}/resend-otp:
+    put:
+      operationId: pixKeysResendOtpToken
+      summary: Resend OTP Token
+      tags:
+      - PIX Keys
+      description: 'This endpoint allows you to resend a One-Time Password (OTP) associated with a specific
+        PIX key for a financial account. It is useful when the user has not received the OTP or needs
+        to regenerate it for security purposes. Request Body otp_code (body parameter): A string representing
+        the One-Time Password required for the update operation. Path Variables account_uuid (path parameter):
+        The unique identifier for the financial account. pix_key_uuid (path parameter): The unique identifier
+        for the PIX key that you want to update. Response Structure Upon a successful request, the server
+        will respond with a JSON object containing the following fields: financialAccountUuid (string):
+        The UUID of the financial account associated with the key. uuid (string): The unique identifier
+        for the key created. key (string): The key that was added. type (string): The type of the key.
+        status (string): The current status of the key. createdAt (string): Timestamp indicating when
+        the key was created. updatedAt (string): Timestamp indicating when the key was last updated.'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: pix_key_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+  /api/v1/pix/{account_uuid}/transfer:
+    get:
+      operationId: pixTransferListPixTransfer
+      summary: List PIX Transfer
+      tags:
+      - PIX Transfer
+      description: 'Retrieve Transfer Information This endpoint allows users to retrieve transfer information
+        associated with a specific financial account, identified by account_uuid . Path Variables account_uuid
+        (string): Unique identifier for the account whose transfers are being queried. (Required) Response
+        Structure Upon a successful request, the server will respond with a JSON object containing the
+        following fields: count (integer): Total number of transfers for the account. next (string | null):
+        URL for the next page of results, if any. previous (string | null): URL for the previous page
+        of results, if any. results (array): List of transfer objects containing: uuid (string): Unique
+        identifier of the transfer. endToEndId (string): Identifier for tracking the transfer end-to-end.
+        amount (string): Amount transferred. reconciliationId (string | null): Identifier for reconciliation
+        purposes. beneficiaryAccount (object): Detailed information about the beneficiary''s account:
+        uuid (string): Unique identifier for the beneficiary''s account. holderName (string): Name of
+        the account holder. governmentId (string): Government ID associated with the beneficiary''s account.
+        code (string): Bank code of the beneficiary''s financial institution. agency (string): Agency
+        number of the beneficiary''s account. financialAccount (string): Type of financial account associated
+        with the beneficiary. account (string): The account number of the beneficiary. digit (string):
+        Account digit of the beneficiary''s account. isFav'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+    post:
+      operationId: pixTransferTransferByPixKey
+      summary: Transfer by PIX-key
+      tags:
+      - PIX Transfer
+      description: 'This endpoint allows users to initiate a funds transfer using the PIX payment system.
+        The transfer is executed to a specified beneficiary account and includes details about the transaction
+        amount and additional information. Request Body The request body must be in JSON format and include
+        the following parameters: beneficiary (object): Contains information about the recipient of the
+        funds: holderName (string): The name of the beneficiary. governmentId (string): The government
+        identification number of the beneficiary. code (string): The bank code of the beneficiary''s financial
+        institution. agency (string): The agency number of the beneficiary''s account. account (string):
+        The account number of the beneficiary. digit (string): The account digit of the beneficiary. accountType
+        (string): The type of account (e.g., checking, savings). amount (number): The amount of money
+        to be transferred. additionalInfo (string): Any additional information related to the transaction.
+        initType (string): The type of initiation for the transfer (e.g., MANUAL ). Response Structure
+        Upon a successful request, the server will respond with a JSON object containing the following
+        fields: uuid (string): Unique identifier for the transaction. endToEndId (string): Identifier
+        for tracking the transaction end-to-end. amount (string): The amount that was transferred. reconciliationId
+        (string | null): Identifier for reconciliation purposes, if applicable. beneficiaryAccount (object):
+        Detailed information about the  Variants: PIX Transfer Manual, PIX Transfer Scheduled'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '400':
+          description: Bad Request
+  /api/v1/pix/{account_uuid}/deposit:
+    get:
+      operationId: pixDepositListDeposits
+      summary: List Deposits
+      tags:
+      - PIX Deposit
+      description: 'This endpoint retrieves deposit information for a specific financial account identified
+        by account_uuid . It allows users to check the status and details of deposit transactions associated
+        with the given account. Path Variables account_uuid : A unique identifier for the account whose
+        deposit information is being requested. Response Structure Upon a successful request, the API
+        will return a JSON object containing the following fields: count (integer) : Total number of deposits
+        returned. next (string) : URL to retrieve the next page of results, if applicable. previous (string)
+        : URL to retrieve the previous page of results, if applicable. results (array) : A list of deposit
+        transaction objects, where each object contains: uuid (string) : Unique identifier of the deposit.
+        senderBank (object) : Information about the sender''s bank, including: code (string) : Bank code.
+        name (string) : Bank name. comp (string) : Bank compensation code. ispb (string) : ISPB code of
+        the bank. isParticipantComp (boolean) : Indicates if the bank is part of the compensation system.
+        isParticipantPix (boolean) : Indicates if the bank participates in PIX. isParticipantStr (boolean)
+        : Indicates if the bank participates in the STR system. createdAt (string) : Timestamp when the
+        deposit was created. updatedAt (string) : Timestamp when the deposit was last updated. externalId
+        (string) : External identifier associated with the deposit. endToEndId (string) : Unique end-to-end
+        transaction identifier. amount (stri'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+  /api/v1/pix/{account_uuid}/deposit/{deposit_uuid}/reverse:
+    post:
+      operationId: pixDepositPixRevert
+      summary: Pix Revert
+      tags:
+      - PIX Deposit
+      description: 'This endpoint is used to reverse a deposit transaction for a specific financial account
+        identified by account_uuid and a deposit identified by deposit_uuid . Request Body The request
+        body must be sent in JSON format and should include the following parameter: amount (string) :
+        The amount to be reversed. Path Variables account_uuid : A unique identifier for the financial
+        account associated with the deposit. deposit_uuid : A unique identifier for the deposit transaction
+        to be reversed.'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deposit_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Successful response
+  /api/v1/pix/{account_uuid}/brcode/preview:
+    get:
+      operationId: qrcodesBrcodePreviewRead
+      summary: BRCode Preview/Read
+      tags:
+      - QRCodes
+      description: 'This endpoint retrieves a preview of a BR Code (Barcode) associated with a specific
+        account identified by account_uuid . Request Body The request body should be in JSON format and
+        could contain the following parameters: brcode (string): The BR Code for which the preview is
+        being requested. This should be formatted correctly to ensure a valid response. Path Variables
+        account_uuid (path parameter): The unique identifier for the account for which the QR code information
+        is being requested. Response Structure Upon a successful request, the API will return a JSON object
+        containing the following fields: endToEndId : Identifier for tracking the transaction. financialAccount
+        : Details of the financial account involved. receiverAccount : Information about the receiver''s
+        account. amount : The total amount associated with the transaction. status : Current status of
+        the BR Code request. subscription : Contains details about any subscriptions related to the transaction.'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Server Error
+  /api/v1/pix/{account_uuid}/qrcode:
+    get:
+      operationId: qrcodesListQrcode
+      summary: List QRCode
+      tags:
+      - QRCodes
+      description: 'This endpoint allows you to list QRCodes from the API. Query Parameters pix_key (query
+        parameter): The PIX key associated with the QR code. This is required to filter the results. status
+        (query parameter): The status of the QR code. In this case, the status is set to CREATED to retrieve
+        only those QR codes that are currently in the created state. qrcodeType (query parameter): The
+        type of QR code to filter by (e.g., static or dynamic). reconciliation_id (query parameter): An
+        optional identifier used for reconciliation purposes, typically provided by the system generating
+        the QR code. end_to_end_id (query parameter): An optional identifier to track the transaction
+        from initiation to completion. payer_government_id (query parameter): An optional field for the
+        payer’s government-issued identification (CPF or CNPJ). created_at (query parameter): An optional
+        timestamp or date range to filter QR codes based on their creation date. updated_at (query parameter):
+        An optional timestamp or date range to filter QR codes based on the last update. Path Variables
+        account_uuid (path parameter): The unique identifier for the account for which the QR code information
+        is being requested. Response Structure The response will contain the following fields: count (integer):
+        The total number of QR codes returned in the response. next (string or null): A URL to the next
+        page of results if pagination is applicable; otherwise, it will be null. previous (string or null):
+        A URL to the previous page of res'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+    post:
+      operationId: qrcodesCreateStaticQrcode
+      summary: Create Static QRCode
+      tags:
+      - QRCodes
+      description: 'This endpoint allows you to create a due dynamic QR code for PIX payments and transactions,
+        where the payment request includes a due date and can support discounts, fines, and interest.
+        Request Body The request body must be in JSON format and include the following parameters: pixKey
+        (string): The unique key associated with the PIX transaction. reconciliationId (string): An identifier
+        for reconciling the transaction. type (string): The type of QR code being generated; in this case,
+        it should be set to "DYNAMIC_QR_CODE" . discounts (array): An array of discount objects applicable
+        to the transaction. Each discount object should contain: percentage (number): The discount percentage
+        to apply. due (string): The due date for the discount. fee (number): The fee associated with the
+        transaction. fine (number): Any fine applicable to the transaction. interest (number): The interest
+        amount applicable to the transaction. dueDate (string): The due date for the payment. expirationSeconds
+        (number): The time duration in seconds before the QR code expires. amountType (string): The type
+        of amount being processed (e.g., FIXED ). nominalAmount (number): The nominal amount for the transaction.
+        payerGovernmentId (string): The government ID of the payer. payerName (string): The name of the
+        payer. Path Variables account_uuid (path parameter): The unique identifier for the account associated
+        with the QR code. Response Structure Upon a successful request, the server responds with a JSON
+        object containi Variants: Create Dynamic QRCode, Create Dynamic QRCode Due'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+  /api/v1/pix/{account_uuid}/qrcode/{qrcode_uuid}:
+    patch:
+      operationId: qrcodesUpdateQrcode
+      summary: Update QRCode
+      tags:
+      - QRCodes
+      description: 'This endpoint allows you to update the details of a QR code associated with a specific
+        account. The request modifies the attributes of the QR code identified by qrcode_uuid within the
+        context of the specified account_uuid . Request Body The request body should be in JSON format
+        and could contain the following parameters: qrcode_uuid (string): The unique identifier of the
+        QR code. This is the only mandatory parameter. amount_type (string): Defines how the payment amount
+        is handled (e.g., FIXED , CUSTOM ). reconciliation_id (string): A reconciliation identifier for
+        tracking the payment. due_date (string): The due date for the payment in YYYY-MM-DD format. expiration_seconds
+        (number): The time in seconds until the QR code expires. description (string): A description or
+        note about the payment. percentage (number): The discount percentage to be applied. due (string):
+        The due date for the discount in YYYY-MM-DD format. nominal_amount (number): The nominal amount
+        for the transaction. fee (number): The applicable fee for the payment. fine (number): The fine
+        amount to be applied after the due date. interest (number): The interest rate applied after the
+        due date. payer_name (string): The name of the payer. payer_government_id (string): The payer’s
+        government identification number (e.g., CPF). Path Variables account_uuid (path parameter): The
+        unique identifier for the account for which the QR code information is being requested. qrcode_uuid
+        (path parameter): The unique identifier of the'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: qrcode_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+    delete:
+      operationId: qrcodesCancelQrcode
+      summary: Cancel QRCode
+      tags:
+      - QRCodes
+      description: 'This endpoint is used to delete a specific QR code associated with a given account.
+        The deletion is identified by the unique qrcode_uuid parameter, which represents the QR code to
+        be removed from the system. Path Variables account_uuid (path parameter): The unique identifier
+        for the account associated with the QR code. qrcode_uuid (path parameter): The unique identifier
+        for the QR code that you wish to delete. Response Structure Upon a successful deletion, the API
+        will return a JSON object containing the following fields: uuid : The unique identifier of the
+        deleted QR code. externalId : An identifier for external systems. amount : The amount associated
+        with the QR code. amountType : The type of amount (e.g., FIXED , CUSTOM ). discounts : An array
+        of discount objects, each containing: percentage : The discount percentage applied. due : The
+        due amount after discounts. nominalAmount : The nominal amount related to the QR code. fee : Any
+        applicable fees (if any). fine : Any fines associated (if applicable). interest : Interest details
+        (if applicable). reconciliationId : Identifier for reconciliation purposes. endToEndId : Optional
+        identifier for tracking. qrcodeStatus : The current status of the QR code. dueDate : The due date
+        for payment. qrcodeType : The type of QR code. version : Version number of the QR code. createdAt
+        : Timestamp of when the QR code was created. updatedAt : Timestamp of the last update to the QR
+        code. expirationSeconds : Time until expiration in seconds. des'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: qrcode_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+  /api/v1/accounts:
+    get:
+      operationId: accountsList
+      summary: List
+      tags:
+      - Accounts
+      description: 'This provides a detailed overview of the financial accounts retrieved, including pagination
+        information and specific account details. General Field Description Type count Total number of
+        financial accounts returned integer next URL to the next page of results (if any) string or null
+        previous URL to the previous page of results (if any) string or null results List of financial
+        accounts array of account objects Financial Account Object Field Description Type uuid Unique
+        identifier for the financial account string branch Account branch number string account Account
+        number string accountDigit Account digit string status Account current status, options below string
+        type Type of financial account, options: [ LINKED_ACCOUNT , CHECKING_ACCOUNT ] string code Account
+        internal code string name Account name string Status Field Values The status field can have one
+        of the following values: PRE_CREATED IN_ANALISYS REGULAR LOCKED CLOSED RESERVED CREATING ERROR
+        ACTIVE REPROVED'
+      responses:
+        '200':
+          description: OK
+  /api/v1/accounts/{account_uuid}:
+    get:
+      operationId: accountsRetrieve
+      summary: Retrieve
+      tags:
+      - Accounts
+      description: 'Retrieves the informed account uuid, along with their associated details. Financial
+        Account Field Description Type uuid Unique identifier for the financial account string Account
+        Holder Field Description Type uuid Unique identifier for the account holder string isDeleted Indicates
+        if the account holder record is deleted boolean createdAt Date and time when the account holder
+        record was created string (ISO 8601) updatedAt Date and time when the account holder record was
+        last updated string (ISO 8601) representatives List of representatives associated with the account
+        holder array documents List of documents associated with the account holder array type Account
+        holder type, options: [ NATURAL , LEGAL ] string governmentId Account holder''s document string
+        name Account holder''s name string email Account holder''s email string phone Account holder''s
+        phone number string addressZipcode Account holder''s address zip code string addressStreet Account
+        holder''s address street name string addressNumber Account holder''s address number string addressComplement
+        Additional address information string addressNeighborhood Account holder''s address neighborhood
+        string addressCity Account holder''s address city string addressState Account holder''s address
+        state string motherName Account holder''s mother name string birthDate Account holder''s birth
+        date string (ISO 8601) tradingName Account holder''s trading name string users List of users associated
+        with the account array of user objects User Field Des'
+      parameters:
+      - name: account_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  /api/v1/banks:
+    get:
+      operationId: accountsListBanks
+      summary: List Banks
+      tags:
+      - Accounts
+      description: 'This endpoint retrieves information about banks based on the provided ISPB (Instituição
+        de Pagamento e Sistema de Pagamento Brasileiro) code. Query Parameters ispb (string): The ISPB
+        code of the bank you want to query. code (string): Filter banks by their bank code. isParticipantPix
+        (boolean): Filter banks by participation in the PIX system. isParticipantStr (boolean): Filter
+        banks by participation in the STR system. Response Structure Upon a successful request, the API
+        will return a JSON object containing the following fields: count (integer): The total number of
+        banks matching the query. next (string): A URL to the next page of results, if any. previous (string):
+        A URL to the previous page of results, if any. results (array): An array of bank objects, each
+        containing: code (string): The bank''s code. name (string): The name of the bank. comp (string):
+        The bank''s company information. ispb (string): The ISPB code of the bank. isParticipantComp (boolean):
+        Indicates if the bank is a participant in the company. isParticipantPix (boolean): Indicates if
+        the bank is a participant in the PIX system. isParticipantStr (boolean): Indicates if the bank
+        is a participant in the STR system.'
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token from POST /api/v1/auth/token. Register an ES512 public key via POST
+        /api/v1/auth/jwks, then present a signed client assertion (private_key_jwt) to obtain a Bearer
+        token.
+security:
+- bearerAuth: []

@@ -1,0 +1,23 @@
+# generated: '2026-07-19'
+generated: '2026-07-19'
+method: searched
+source: https://banking-docs.kanastra.com.br/ (published request/response examples)
+environments:
+- name: sandbox
+  base_url: https://banking-sandbox.kanastra.com.br
+  auth_base: https://banking-sandbox.kanastra.com.br/api/v1/auth
+- name: production
+  base_url: https://banking.kanastra.com.br
+  auth_base: https://banking.kanastra.com.br/api/v1/auth
+test_vs_live: 'Separate hostnames select the environment: banking-sandbox.kanastra.com.br for testing,
+  banking.kanastra.com.br for production. Each environment requires its own clientId + registered ES512
+  JWKS public key.'
+published_test_values:
+- field: clientId
+  value: tech-hub-client
+  note: Example sandbox clientId used throughout the published docs.
+notes:
+- Register a sandbox public key via POST https://banking-sandbox.kanastra.com.br/api/v1/auth/jwks before
+  requesting tokens.
+- No published static test PIX keys / boleto numbers / card numbers; sandbox uses caller-created resources
+  (wallets, accounts, keys).

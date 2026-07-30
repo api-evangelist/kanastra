@@ -1,27 +1,833 @@
 aid: kanastra
 name: Kanastra
-description: 'Kanastra is a company surfaced as a portfolio company of qed-investors and added to the
-  API Evangelist network as a stub for enrichment. Sector: wealth-management. This profile is a lead awaiting
-  the enrichment pipeline.'
+description: >-
+  Kanastra is a Brazilian fintech building full-stack infrastructure for banking and the private
+  credit market. Its Banking API offers banking-as-a-service capabilities to financial institutions,
+  funds and securitization vehicles: financial (checking) accounts with balances and transactions,
+  PIX (key registration, transfers, deposits, and static/dynamic QR Codes on the BR Code / EMV-QRCPS
+  standard), boleto (bank slip) issuance with CNAB return-file processing settled via the Nuclea
+  clearing house, TED transfers, wallets, commercial notes (CCB) with guarantees and documents, and
+  issuers. Authentication uses a private_key_jwt (ES512 client-assertion) flow that returns a scoped
+  Bearer JWT, and a webhook surface streams bank slip and CNAB lifecycle events. Kanastra is backed by
+  QED Investors, Kaszek, Valor Capital, Quona Capital, Itau, IFC and F-Prime.
 url: https://raw.githubusercontent.com/api-evangelist/kanastra/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kanastra.com.br/favicon.ico
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - qed-investors
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: enriched
+x-tier-reason: public-api-harvested
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
+- Banking
+- Banking as a Service
+- Payments
+- PIX
+- Boleto
+- Private Credit
+- Fintech
+- Brazil
 - Wealth Management
-apis: []
+apis:
+- aid: kanastra:kanastra-accounts-api
+  name: Kanastra Accounts API
+  description: The Accounts API from Kanastra — 3 operation(s) for accounts.
+  humanURL: https://banking-docs.kanastra.com.br/
+  baseURL: https://banking.kanastra.com.br
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/kanastra-accounts-api-openapi.yml
+  - type: Postman
+    url: postman/kanastra-banking.postman_collection.json
+  - type: AsyncAPI
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Authentication
+    url: authentication/kanastra-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kanastra-scopes.yml
+  - type: Conventions
+    url: conventions/kanastra-conventions.yml
+  - type: Idempotency
+    url: conventions/kanastra-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kanastra-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/kanastra-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/kanastra-sandbox.yml
+  - type: Conformance
+    url: conformance/kanastra-conformance.yml
+  - type: DataModel
+    url: data-model/kanastra-data-model.yml
+  - type: WellKnown
+    url: well-known/kanastra-well-known.yml
+  - type: LLMsTxt
+    url: llms/kanastra-llms.txt
+- aid: kanastra:kanastra-amendment-api
+  name: Kanastra Amendment API
+  description: The Amendment API from Kanastra — 1 operation(s) for amendment.
+  humanURL: https://banking-docs.kanastra.com.br/
+  baseURL: https://banking.kanastra.com.br
+  tags:
+  - Amendment
+  properties:
+  - type: OpenAPI
+    url: openapi/kanastra-amendment-api-openapi.yml
+  - type: Postman
+    url: postman/kanastra-banking.postman_collection.json
+  - type: AsyncAPI
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Authentication
+    url: authentication/kanastra-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kanastra-scopes.yml
+  - type: Conventions
+    url: conventions/kanastra-conventions.yml
+  - type: Idempotency
+    url: conventions/kanastra-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kanastra-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/kanastra-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/kanastra-sandbox.yml
+  - type: Conformance
+    url: conformance/kanastra-conformance.yml
+  - type: DataModel
+    url: data-model/kanastra-data-model.yml
+  - type: WellKnown
+    url: well-known/kanastra-well-known.yml
+  - type: LLMsTxt
+    url: llms/kanastra-llms.txt
+- aid: kanastra:kanastra-authentication-api
+  name: Kanastra Authentication API
+  description: The Authentication API from Kanastra — 2 operation(s) for authentication.
+  humanURL: https://banking-docs.kanastra.com.br/
+  baseURL: https://banking.kanastra.com.br
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/kanastra-authentication-api-openapi.yml
+  - type: Postman
+    url: postman/kanastra-banking.postman_collection.json
+  - type: AsyncAPI
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Authentication
+    url: authentication/kanastra-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kanastra-scopes.yml
+  - type: Conventions
+    url: conventions/kanastra-conventions.yml
+  - type: Idempotency
+    url: conventions/kanastra-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kanastra-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/kanastra-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/kanastra-sandbox.yml
+  - type: Conformance
+    url: conformance/kanastra-conformance.yml
+  - type: DataModel
+    url: data-model/kanastra-data-model.yml
+  - type: WellKnown
+    url: well-known/kanastra-well-known.yml
+  - type: LLMsTxt
+    url: llms/kanastra-llms.txt
+- aid: kanastra:kanastra-balance-api
+  name: Kanastra Balance API
+  description: The Balance API from Kanastra — 1 operation(s) for balance.
+  humanURL: https://banking-docs.kanastra.com.br/
+  baseURL: https://banking.kanastra.com.br
+  tags:
+  - Balance
+  properties:
+  - type: OpenAPI
+    url: openapi/kanastra-balance-api-openapi.yml
+  - type: Postman
+    url: postman/kanastra-banking.postman_collection.json
+  - type: AsyncAPI
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Authentication
+    url: authentication/kanastra-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kanastra-scopes.yml
+  - type: Conventions
+    url: conventions/kanastra-conventions.yml
+  - type: Idempotency
+    url: conventions/kanastra-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kanastra-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/kanastra-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/kanastra-sandbox.yml
+  - type: Conformance
+    url: conformance/kanastra-conformance.yml
+  - type: DataModel
+    url: data-model/kanastra-data-model.yml
+  - type: WellKnown
+    url: well-known/kanastra-well-known.yml
+  - type: LLMsTxt
+    url: llms/kanastra-llms.txt
+- aid: kanastra:kanastra-bank-account-beneficiary-api
+  name: Kanastra Bank Account Beneficiary API
+  description: >-
+    The Bank Account Beneficiary API from Kanastra — 2 operation(s) for bank account beneficiary.
+  humanURL: https://banking-docs.kanastra.com.br/
+  baseURL: https://banking.kanastra.com.br
+  tags:
+  - Bank Account Beneficiary
+  properties:
+  - type: OpenAPI
+    url: openapi/kanastra-bank-account-beneficiary-api-openapi.yml
+  - type: Postman
+    url: postman/kanastra-banking.postman_collection.json
+  - type: AsyncAPI
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Authentication
+    url: authentication/kanastra-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kanastra-scopes.yml
+  - type: Conventions
+    url: conventions/kanastra-conventions.yml
+  - type: Idempotency
+    url: conventions/kanastra-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kanastra-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/kanastra-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/kanastra-sandbox.yml
+  - type: Conformance
+    url: conformance/kanastra-conformance.yml
+  - type: DataModel
+    url: data-model/kanastra-data-model.yml
+  - type: WellKnown
+    url: well-known/kanastra-well-known.yml
+  - type: LLMsTxt
+    url: llms/kanastra-llms.txt
+- aid: kanastra:kanastra-bank-slip-boleto-api
+  name: Kanastra Bank Slip (Boleto) API
+  description: The Bank Slip (Boleto) API from Kanastra — 5 operation(s) for bank slip (boleto).
+  humanURL: https://banking-docs.kanastra.com.br/
+  baseURL: https://banking.kanastra.com.br
+  tags:
+  - Bank Slip (Boleto)
+  properties:
+  - type: OpenAPI
+    url: openapi/kanastra-bank-slip-boleto-api-openapi.yml
+  - type: Postman
+    url: postman/kanastra-banking.postman_collection.json
+  - type: AsyncAPI
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Authentication
+    url: authentication/kanastra-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kanastra-scopes.yml
+  - type: Conventions
+    url: conventions/kanastra-conventions.yml
+  - type: Idempotency
+    url: conventions/kanastra-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kanastra-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/kanastra-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/kanastra-sandbox.yml
+  - type: Conformance
+    url: conformance/kanastra-conformance.yml
+  - type: DataModel
+    url: data-model/kanastra-data-model.yml
+  - type: WellKnown
+    url: well-known/kanastra-well-known.yml
+  - type: LLMsTxt
+    url: llms/kanastra-llms.txt
+- aid: kanastra:kanastra-cnab-api
+  name: Kanastra CNAB API
+  description: The CNAB API from Kanastra — 2 operation(s) for cnab.
+  humanURL: https://banking-docs.kanastra.com.br/
+  baseURL: https://banking.kanastra.com.br
+  tags:
+  - CNAB
+  properties:
+  - type: OpenAPI
+    url: openapi/kanastra-cnab-api-openapi.yml
+  - type: Postman
+    url: postman/kanastra-banking.postman_collection.json
+  - type: AsyncAPI
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Authentication
+    url: authentication/kanastra-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kanastra-scopes.yml
+  - type: Conventions
+    url: conventions/kanastra-conventions.yml
+  - type: Idempotency
+    url: conventions/kanastra-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kanastra-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/kanastra-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/kanastra-sandbox.yml
+  - type: Conformance
+    url: conformance/kanastra-conformance.yml
+  - type: DataModel
+    url: data-model/kanastra-data-model.yml
+  - type: WellKnown
+    url: well-known/kanastra-well-known.yml
+  - type: LLMsTxt
+    url: llms/kanastra-llms.txt
+- aid: kanastra:kanastra-commercial-note-api
+  name: Kanastra Commercial Note API
+  description: The Commercial Note API from Kanastra — 4 operation(s) for commercial note.
+  humanURL: https://banking-docs.kanastra.com.br/
+  baseURL: https://banking.kanastra.com.br
+  tags:
+  - Commercial Note
+  properties:
+  - type: OpenAPI
+    url: openapi/kanastra-commercial-note-api-openapi.yml
+  - type: Postman
+    url: postman/kanastra-banking.postman_collection.json
+  - type: AsyncAPI
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Authentication
+    url: authentication/kanastra-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kanastra-scopes.yml
+  - type: Conventions
+    url: conventions/kanastra-conventions.yml
+  - type: Idempotency
+    url: conventions/kanastra-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kanastra-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/kanastra-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/kanastra-sandbox.yml
+  - type: Conformance
+    url: conformance/kanastra-conformance.yml
+  - type: DataModel
+    url: data-model/kanastra-data-model.yml
+  - type: WellKnown
+    url: well-known/kanastra-well-known.yml
+  - type: LLMsTxt
+    url: llms/kanastra-llms.txt
+- aid: kanastra:kanastra-create-api
+  name: Kanastra Create API
+  description: The Create API from Kanastra — 1 operation(s) for create.
+  humanURL: https://banking-docs.kanastra.com.br/
+  baseURL: https://banking.kanastra.com.br
+  tags:
+  - Create
+  properties:
+  - type: OpenAPI
+    url: openapi/kanastra-create-api-openapi.yml
+  - type: Postman
+    url: postman/kanastra-banking.postman_collection.json
+  - type: AsyncAPI
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Authentication
+    url: authentication/kanastra-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kanastra-scopes.yml
+  - type: Conventions
+    url: conventions/kanastra-conventions.yml
+  - type: Idempotency
+    url: conventions/kanastra-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kanastra-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/kanastra-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/kanastra-sandbox.yml
+  - type: Conformance
+    url: conformance/kanastra-conformance.yml
+  - type: DataModel
+    url: data-model/kanastra-data-model.yml
+  - type: WellKnown
+    url: well-known/kanastra-well-known.yml
+  - type: LLMsTxt
+    url: llms/kanastra-llms.txt
+- aid: kanastra:kanastra-file-return-api
+  name: Kanastra File Return API
+  description: The File Return API from Kanastra — 5 operation(s) for file return.
+  humanURL: https://banking-docs.kanastra.com.br/
+  baseURL: https://banking.kanastra.com.br
+  tags:
+  - File Return
+  properties:
+  - type: OpenAPI
+    url: openapi/kanastra-file-return-api-openapi.yml
+  - type: Postman
+    url: postman/kanastra-banking.postman_collection.json
+  - type: AsyncAPI
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Authentication
+    url: authentication/kanastra-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kanastra-scopes.yml
+  - type: Conventions
+    url: conventions/kanastra-conventions.yml
+  - type: Idempotency
+    url: conventions/kanastra-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kanastra-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/kanastra-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/kanastra-sandbox.yml
+  - type: Conformance
+    url: conformance/kanastra-conformance.yml
+  - type: DataModel
+    url: data-model/kanastra-data-model.yml
+  - type: WellKnown
+    url: well-known/kanastra-well-known.yml
+  - type: LLMsTxt
+    url: llms/kanastra-llms.txt
+- aid: kanastra:kanastra-guarantees-api
+  name: Kanastra Guarantees API
+  description: The Guarantees API from Kanastra — 6 operation(s) for guarantees.
+  humanURL: https://banking-docs.kanastra.com.br/
+  baseURL: https://banking.kanastra.com.br
+  tags:
+  - Guarantees
+  properties:
+  - type: OpenAPI
+    url: openapi/kanastra-guarantees-api-openapi.yml
+  - type: Postman
+    url: postman/kanastra-banking.postman_collection.json
+  - type: AsyncAPI
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Authentication
+    url: authentication/kanastra-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kanastra-scopes.yml
+  - type: Conventions
+    url: conventions/kanastra-conventions.yml
+  - type: Idempotency
+    url: conventions/kanastra-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kanastra-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/kanastra-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/kanastra-sandbox.yml
+  - type: Conformance
+    url: conformance/kanastra-conformance.yml
+  - type: DataModel
+    url: data-model/kanastra-data-model.yml
+  - type: WellKnown
+    url: well-known/kanastra-well-known.yml
+  - type: LLMsTxt
+    url: llms/kanastra-llms.txt
+- aid: kanastra:kanastra-issuers-api
+  name: Kanastra Issuers API
+  description: The Issuers API from Kanastra — 2 operation(s) for issuers.
+  humanURL: https://banking-docs.kanastra.com.br/
+  baseURL: https://banking.kanastra.com.br
+  tags:
+  - Issuers
+  properties:
+  - type: OpenAPI
+    url: openapi/kanastra-issuers-api-openapi.yml
+  - type: Postman
+    url: postman/kanastra-banking.postman_collection.json
+  - type: AsyncAPI
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Authentication
+    url: authentication/kanastra-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kanastra-scopes.yml
+  - type: Conventions
+    url: conventions/kanastra-conventions.yml
+  - type: Idempotency
+    url: conventions/kanastra-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kanastra-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/kanastra-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/kanastra-sandbox.yml
+  - type: Conformance
+    url: conformance/kanastra-conformance.yml
+  - type: DataModel
+    url: data-model/kanastra-data-model.yml
+  - type: WellKnown
+    url: well-known/kanastra-well-known.yml
+  - type: LLMsTxt
+    url: llms/kanastra-llms.txt
+- aid: kanastra:kanastra-pagamentos-api
+  name: Kanastra Pagamentos API
+  description: The Pagamentos API from Kanastra — 1 operation(s) for pagamentos.
+  humanURL: https://banking-docs.kanastra.com.br/
+  baseURL: https://banking.kanastra.com.br
+  tags:
+  - Pagamentos
+  properties:
+  - type: OpenAPI
+    url: openapi/kanastra-pagamentos-api-openapi.yml
+  - type: Postman
+    url: postman/kanastra-banking.postman_collection.json
+  - type: AsyncAPI
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Authentication
+    url: authentication/kanastra-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kanastra-scopes.yml
+  - type: Conventions
+    url: conventions/kanastra-conventions.yml
+  - type: Idempotency
+    url: conventions/kanastra-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kanastra-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/kanastra-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/kanastra-sandbox.yml
+  - type: Conformance
+    url: conformance/kanastra-conformance.yml
+  - type: DataModel
+    url: data-model/kanastra-data-model.yml
+  - type: WellKnown
+    url: well-known/kanastra-well-known.yml
+  - type: LLMsTxt
+    url: llms/kanastra-llms.txt
+- aid: kanastra:kanastra-pix-deposit-api
+  name: Kanastra PIX Deposit API
+  description: The PIX Deposit API from Kanastra — 2 operation(s) for pix deposit.
+  humanURL: https://banking-docs.kanastra.com.br/
+  baseURL: https://banking.kanastra.com.br
+  tags:
+  - PIX Deposit
+  properties:
+  - type: OpenAPI
+    url: openapi/kanastra-pix-deposit-api-openapi.yml
+  - type: Postman
+    url: postman/kanastra-banking.postman_collection.json
+  - type: AsyncAPI
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Authentication
+    url: authentication/kanastra-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kanastra-scopes.yml
+  - type: Conventions
+    url: conventions/kanastra-conventions.yml
+  - type: Idempotency
+    url: conventions/kanastra-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kanastra-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/kanastra-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/kanastra-sandbox.yml
+  - type: Conformance
+    url: conformance/kanastra-conformance.yml
+  - type: DataModel
+    url: data-model/kanastra-data-model.yml
+  - type: WellKnown
+    url: well-known/kanastra-well-known.yml
+  - type: LLMsTxt
+    url: llms/kanastra-llms.txt
+- aid: kanastra:kanastra-pix-keys-api
+  name: Kanastra PIX Keys API
+  description: The PIX Keys API from Kanastra — 5 operation(s) for pix keys.
+  humanURL: https://banking-docs.kanastra.com.br/
+  baseURL: https://banking.kanastra.com.br
+  tags:
+  - PIX Keys
+  properties:
+  - type: OpenAPI
+    url: openapi/kanastra-pix-keys-api-openapi.yml
+  - type: Postman
+    url: postman/kanastra-banking.postman_collection.json
+  - type: AsyncAPI
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Authentication
+    url: authentication/kanastra-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kanastra-scopes.yml
+  - type: Conventions
+    url: conventions/kanastra-conventions.yml
+  - type: Idempotency
+    url: conventions/kanastra-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kanastra-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/kanastra-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/kanastra-sandbox.yml
+  - type: Conformance
+    url: conformance/kanastra-conformance.yml
+  - type: DataModel
+    url: data-model/kanastra-data-model.yml
+  - type: WellKnown
+    url: well-known/kanastra-well-known.yml
+  - type: LLMsTxt
+    url: llms/kanastra-llms.txt
+- aid: kanastra:kanastra-pix-transfer-api
+  name: Kanastra PIX Transfer API
+  description: The PIX Transfer API from Kanastra — 1 operation(s) for pix transfer.
+  humanURL: https://banking-docs.kanastra.com.br/
+  baseURL: https://banking.kanastra.com.br
+  tags:
+  - PIX Transfer
+  properties:
+  - type: OpenAPI
+    url: openapi/kanastra-pix-transfer-api-openapi.yml
+  - type: Postman
+    url: postman/kanastra-banking.postman_collection.json
+  - type: AsyncAPI
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Authentication
+    url: authentication/kanastra-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kanastra-scopes.yml
+  - type: Conventions
+    url: conventions/kanastra-conventions.yml
+  - type: Idempotency
+    url: conventions/kanastra-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kanastra-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/kanastra-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/kanastra-sandbox.yml
+  - type: Conformance
+    url: conformance/kanastra-conformance.yml
+  - type: DataModel
+    url: data-model/kanastra-data-model.yml
+  - type: WellKnown
+    url: well-known/kanastra-well-known.yml
+  - type: LLMsTxt
+    url: llms/kanastra-llms.txt
+- aid: kanastra:kanastra-qrcodes-api
+  name: Kanastra QRCodes API
+  description: The QRCodes API from Kanastra — 3 operation(s) for qrcodes.
+  humanURL: https://banking-docs.kanastra.com.br/
+  baseURL: https://banking.kanastra.com.br
+  tags:
+  - QRCodes
+  properties:
+  - type: OpenAPI
+    url: openapi/kanastra-qrcodes-api-openapi.yml
+  - type: Postman
+    url: postman/kanastra-banking.postman_collection.json
+  - type: AsyncAPI
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Authentication
+    url: authentication/kanastra-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kanastra-scopes.yml
+  - type: Conventions
+    url: conventions/kanastra-conventions.yml
+  - type: Idempotency
+    url: conventions/kanastra-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kanastra-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/kanastra-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/kanastra-sandbox.yml
+  - type: Conformance
+    url: conformance/kanastra-conformance.yml
+  - type: DataModel
+    url: data-model/kanastra-data-model.yml
+  - type: WellKnown
+    url: well-known/kanastra-well-known.yml
+  - type: LLMsTxt
+    url: llms/kanastra-llms.txt
+- aid: kanastra:kanastra-ted-transfer-api
+  name: Kanastra TED Transfer API
+  description: The TED Transfer API from Kanastra — 3 operation(s) for ted transfer.
+  humanURL: https://banking-docs.kanastra.com.br/
+  baseURL: https://banking.kanastra.com.br
+  tags:
+  - TED Transfer
+  properties:
+  - type: OpenAPI
+    url: openapi/kanastra-ted-transfer-api-openapi.yml
+  - type: Postman
+    url: postman/kanastra-banking.postman_collection.json
+  - type: AsyncAPI
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Authentication
+    url: authentication/kanastra-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kanastra-scopes.yml
+  - type: Conventions
+    url: conventions/kanastra-conventions.yml
+  - type: Idempotency
+    url: conventions/kanastra-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kanastra-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/kanastra-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/kanastra-sandbox.yml
+  - type: Conformance
+    url: conformance/kanastra-conformance.yml
+  - type: DataModel
+    url: data-model/kanastra-data-model.yml
+  - type: WellKnown
+    url: well-known/kanastra-well-known.yml
+  - type: LLMsTxt
+    url: llms/kanastra-llms.txt
+- aid: kanastra:kanastra-transactions-api
+  name: Kanastra Transactions API
+  description: The Transactions API from Kanastra — 1 operation(s) for transactions.
+  humanURL: https://banking-docs.kanastra.com.br/
+  baseURL: https://banking.kanastra.com.br
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/kanastra-transactions-api-openapi.yml
+  - type: Postman
+    url: postman/kanastra-banking.postman_collection.json
+  - type: AsyncAPI
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Authentication
+    url: authentication/kanastra-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kanastra-scopes.yml
+  - type: Conventions
+    url: conventions/kanastra-conventions.yml
+  - type: Idempotency
+    url: conventions/kanastra-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kanastra-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/kanastra-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/kanastra-sandbox.yml
+  - type: Conformance
+    url: conformance/kanastra-conformance.yml
+  - type: DataModel
+    url: data-model/kanastra-data-model.yml
+  - type: WellKnown
+    url: well-known/kanastra-well-known.yml
+  - type: LLMsTxt
+    url: llms/kanastra-llms.txt
+- aid: kanastra:kanastra-wallet-api
+  name: Kanastra Wallet API
+  description: The Wallet API from Kanastra — 2 operation(s) for wallet.
+  humanURL: https://banking-docs.kanastra.com.br/
+  baseURL: https://banking.kanastra.com.br
+  tags:
+  - Wallet
+  properties:
+  - type: OpenAPI
+    url: openapi/kanastra-wallet-api-openapi.yml
+  - type: Postman
+    url: postman/kanastra-banking.postman_collection.json
+  - type: AsyncAPI
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/kanastra-banking-asyncapi.yml
+  - type: Authentication
+    url: authentication/kanastra-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kanastra-scopes.yml
+  - type: Conventions
+    url: conventions/kanastra-conventions.yml
+  - type: Idempotency
+    url: conventions/kanastra-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kanastra-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/kanastra-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/kanastra-sandbox.yml
+  - type: Conformance
+    url: conformance/kanastra-conformance.yml
+  - type: DataModel
+    url: data-model/kanastra-data-model.yml
+  - type: WellKnown
+    url: well-known/kanastra-well-known.yml
+  - type: LLMsTxt
+    url: llms/kanastra-llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DeveloperPortal
+  url: https://banking-docs.kanastra.com.br/
+- type: Documentation
+  url: https://banking-docs.kanastra.com.br/
+- type: APIReference
+  url: https://banking-docs.kanastra.com.br/
+- type: Authentication
+  url: authentication/kanastra-authentication.yml
+- type: DomainSecurity
+  url: security/kanastra-domain-security.yml
+- type: LinkedIn
+  url: https://www.linkedin.com/company/kanastra
 - type: Website
   url: https://kanastra.com.br/
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

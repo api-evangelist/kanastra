@@ -1,0 +1,23 @@
+# generated: '2026-07-19'
+generated: '2026-07-19'
+method: searched
+source: https://banking-docs.kanastra.com.br/ (token response scope claim)
+docs: https://banking-docs.kanastra.com.br/
+note: Kanastra issues Bearer tokens (private_key_jwt) carrying a space-delimited OAuth-style scope claim.
+  The OpenAPI declares http bearer rather than a formal oauth2 scheme, so scopes are captured from the
+  published token response rather than a flow scopes map.
+schemes:
+- name: bearerAuth
+  token_endpoint: /api/v1/auth/token
+  source: openapi/kanastra-banking-openapi.yml
+scopes:
+- scope: financial_account
+  description: Read/manage financial (checking) accounts, balances, transactions, transfers.
+- scope: bank_slip
+  description: Read/manage bank slips (boletos) and CNAB return files.
+- scope: bank_slip:create
+  description: Create bank slips (boletos), including batch issuance.
+- scope: commercial_paper
+  description: Manage commercial notes (CCB), guarantees and related documents.
+- scope: webhook
+  description: Subscribe to and manage webhook event delivery.

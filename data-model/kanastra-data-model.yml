@@ -1,0 +1,99 @@
+# generated: '2026-07-19'
+generated: '2026-07-19'
+method: derived
+source: openapi/kanastra-banking-openapi.yml
+entities:
+- name: FinancialAccount
+  aka: account
+  id_field: account_uuid
+  description: Checking/financial account; owns balance, transactions, transfers, beneficiaries, and PIX
+    resources.
+- name: Wallet
+  id_field: wallet_uuid
+  description: Collection scope for boleto issuance and CNAB files.
+- name: BankSlip
+  aka: boleto
+  id_field: bank_slip_uuid
+  natural_key: ourNumber (per wallet)
+  description: Bank slip / boleto with payer, lifecycle status, PDF.
+- name: CnabFile
+  id_field: cnab_uuid
+  description: CNAB return/remittance file processed per wallet.
+- name: PixKey
+  id_field: pix_key_uuid
+  description: PIX key (CPF/CNPJ document, random, email, phone) registered under an account.
+- name: PixTransfer
+  description: PIX transfer (by key, manual, scheduled) from an account.
+- name: PixDeposit
+  id_field: deposit_uuid
+  description: Inbound PIX deposit; reversible.
+- name: QRCode
+  aka: brcode
+  id_field: qrcode_uuid
+  description: Static/dynamic PIX QR Code (BR Code / EMV-QRCPS).
+- name: Transfer
+  aka: TED
+  id_field: transfer_uuid
+  description: TED transfer from an account.
+- name: BeneficiaryAccount
+  id_field: beneficiary_uuid
+  description: Registered beneficiary/counterparty account.
+- name: CommercialNote
+  aka: CCB / commercial-paper
+  id_field: commercial_note_uuid
+  description: Credit note (CCB) with documents and guarantees.
+- name: Guarantee
+  id_field: guarantee_uuid
+  description: Guarantee/collateral attached to a commercial note.
+- name: Issuer
+  id_field: issuer_uuid
+  description: Credit-note issuer.
+relationships:
+- from: FinancialAccount
+  type: has_many
+  to: PixKey
+  via: account_uuid
+- from: FinancialAccount
+  type: has_many
+  to: Transaction
+  via: account_uuid
+- from: FinancialAccount
+  type: has_many
+  to: Transfer
+  via: account_uuid
+- from: FinancialAccount
+  type: has_many
+  to: BeneficiaryAccount
+  via: account_uuid
+- from: FinancialAccount
+  type: has_one
+  to: Balance
+  via: account_uuid
+- from: Wallet
+  type: has_many
+  to: BankSlip
+  via: wallet_uuid
+- from: Wallet
+  type: has_many
+  to: CnabFile
+  via: wallet_uuid
+- from: CommercialNote
+  type: has_many
+  to: Guarantee
+  via: commercial_note_uuid
+- from: CommercialNote
+  type: has_many
+  to: Document
+  via: commercial_note_uuid
+- from: Issuer
+  type: has_many
+  to: CommercialNote
+  via: issuer_uuid
+- from: PixDeposit
+  type: belongs_to
+  to: FinancialAccount
+  via: account_uuid
+- from: QRCode
+  type: belongs_to
+  to: FinancialAccount
+  via: account_uuid

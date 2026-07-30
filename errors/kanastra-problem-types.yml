@@ -1,0 +1,26 @@
+# generated: '2026-07-19'
+generated: '2026-07-19'
+method: derived
+source: openapi/kanastra-banking-openapi.yml + published response examples
+format: custom-json (not RFC 9457)
+envelope: '{"message": string} | {"code": string, "message": string} | {"<field>": [string]}'
+problems:
+- status: 400
+  title: Bad Request
+  example: '{"message": "Invalid account UUID"}'
+  note: Malformed identifiers or invalid field formats (e.g. invalid PIX key / email key).
+- status: 422
+  title: Unprocessable Entity
+  code: PIX_KEY_PIX_KEY_NOT_FOUND
+  example: '{"code": "PIX_KEY_PIX_KEY_NOT_FOUND", "message": "Pix key not found"}'
+  note: Business-rule failure with a coded error.
+- status: 500
+  title: Internal Server Error
+coded_errors:
+- code: PIX_KEY_PIX_KEY_NOT_FOUND
+  meaning: The referenced PIX key does not exist for the account.
+success_codes:
+- 200
+- 201
+- 202
+- 204

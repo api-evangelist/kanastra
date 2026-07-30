@@ -1,0 +1,45 @@
+# generated: '2026-07-19'
+generated: '2026-07-19'
+method: searched
+source: https://banking-docs.kanastra.com.br/
+auth_style: Bearer JWT (private_key_jwt client assertion); see authentication/kanastra-authentication.yml
+base_path: /api/v1
+versioning:
+  scheme: uri-path
+  current: v1
+idempotency:
+  supported: true
+  mechanism: Resource-scoped natural key
+  key_field: ourNumber
+  scope: per wallet
+  description: Bank slip (boleto) issuance is idempotent on ourNumber, a unique identifier per wallet
+    ("idempotence key per Wallet"). If omitted, Kanastra generates ourNumber with its check digit. Kanastra
+    publishes an "Integration & Idempotency Standards" section governing identifiers and the boleto lifecycle
+    against the Nuclea clearing house.
+  docs: https://banking-docs.kanastra.com.br/
+request_tracing:
+  header: x-request-id
+  direction: response
+  description: Every response carries an x-request-id header for correlation/support.
+pagination:
+  style: page-based
+  params:
+  - page
+  - limit
+  note: List endpoints accept page/limit query params.
+error_envelope:
+  shapes:
+  - '{"message": "..."} — single human-readable message'
+  - '{"code": "...", "message": "..."} — coded error (e.g. PIX_KEY_PIX_KEY_NOT_FOUND)'
+  - '{"<field>": ["validation message", ...]} — field-level validation errors (422/400)'
+  see: errors/kanastra-problem-types.yml
+security_headers:
+- Strict-Transport-Security
+- 'X-Content-Type-Options: nosniff'
+- Referrer-Policy
+- Cross-Origin-Opener-Policy
+cross_links:
+  errors: errors/kanastra-problem-types.yml
+  authentication: authentication/kanastra-authentication.yml
+  lifecycle: lifecycle/kanastra-lifecycle.yml
+  webhooks: asyncapi/kanastra-banking-asyncapi.yml

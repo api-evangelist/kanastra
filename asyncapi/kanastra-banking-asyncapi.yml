@@ -1,0 +1,202 @@
+# generated: '2026-07-19'
+# method: searched
+# source: https://banking-docs.kanastra.com.br/ (Webhooks documentation)
+asyncapi: 3.0.0
+info:
+  title: Kanastra Banking Webhooks
+  version: v1
+  description: Webhook event surface for Kanastra Banking. Subscribing systems receive JSON payloads for
+    bank slip (boleto) lifecycle and CNAB file-processing events. Captured from the provider-published
+    webhook documentation.
+defaultContentType: application/json
+channels:
+  bankSlipEvents:
+    address: '{subscriber-webhook-url}'
+    description: Bank slip lifecycle events.
+    messages:
+      BANK_SLIP_SETTLED:
+        $ref: '#/components/messages/BANK_SLIP_SETTLED'
+      BANK_SLIP_CANCELED:
+        $ref: '#/components/messages/BANK_SLIP_CANCELED'
+      BANK_SLIP_OPEN:
+        $ref: '#/components/messages/BANK_SLIP_OPEN'
+      BANK_SLIP_REJECTED:
+        $ref: '#/components/messages/BANK_SLIP_REJECTED'
+      BANK_SLIP_EXPIRED:
+        $ref: '#/components/messages/BANK_SLIP_EXPIRED'
+  cnabEvents:
+    address: '{subscriber-webhook-url}'
+    description: CNAB file-processing events for bank slips.
+    messages:
+      BANK_SLIP_CNAB_INVALID:
+        $ref: '#/components/messages/BANK_SLIP_CNAB_INVALID'
+      BANK_SLIP_CNAB_VALIDATION_ERROR:
+        $ref: '#/components/messages/BANK_SLIP_CNAB_VALIDATION_ERROR'
+      BANK_SLIP_PROCESSING_ERROR:
+        $ref: '#/components/messages/BANK_SLIP_PROCESSING_ERROR'
+      BANK_SLIP_CNAB_PROCESSED:
+        $ref: '#/components/messages/BANK_SLIP_CNAB_PROCESSED'
+operations:
+  receiveBankSlipEvent:
+    action: receive
+    channel:
+      $ref: '#/channels/bankSlipEvents'
+  receiveCnabEvent:
+    action: receive
+    channel:
+      $ref: '#/channels/cnabEvents'
+components:
+  messages:
+    BANK_SLIP_CNAB_INVALID:
+      name: BANK_SLIP_CNAB_INVALID
+      title: BANK_SLIP_CNAB_INVALID
+      summary: Triggered when the CNAB file is invalid.
+      payload:
+        type: object
+        properties:
+          event:
+            type: string
+            const: BANK_SLIP_CNAB_INVALID
+          product:
+            type: string
+            example: BANK_SLIP
+          data:
+            type: object
+            description: Event payload; for CNAB events includes errors[], totalLineProcessed, totalLineErrors,
+              fileName, cnabFileStatus; for bank slip lifecycle events includes the full bankSlip object.
+    BANK_SLIP_CNAB_VALIDATION_ERROR:
+      name: BANK_SLIP_CNAB_VALIDATION_ERROR
+      title: BANK_SLIP_CNAB_VALIDATION_ERROR
+      summary: Triggered when there are validation errors in the CNAB file.
+      payload:
+        type: object
+        properties:
+          event:
+            type: string
+            const: BANK_SLIP_CNAB_VALIDATION_ERROR
+          product:
+            type: string
+            example: BANK_SLIP
+          data:
+            type: object
+            description: Event payload; for CNAB events includes errors[], totalLineProcessed, totalLineErrors,
+              fileName, cnabFileStatus; for bank slip lifecycle events includes the full bankSlip object.
+    BANK_SLIP_PROCESSING_ERROR:
+      name: BANK_SLIP_PROCESSING_ERROR
+      title: BANK_SLIP_PROCESSING_ERROR
+      summary: Triggered when there are processing errors.
+      payload:
+        type: object
+        properties:
+          event:
+            type: string
+            const: BANK_SLIP_PROCESSING_ERROR
+          product:
+            type: string
+            example: BANK_SLIP
+          data:
+            type: object
+            description: Event payload; for CNAB events includes errors[], totalLineProcessed, totalLineErrors,
+              fileName, cnabFileStatus; for bank slip lifecycle events includes the full bankSlip object.
+    BANK_SLIP_CNAB_PROCESSED:
+      name: BANK_SLIP_CNAB_PROCESSED
+      title: BANK_SLIP_CNAB_PROCESSED
+      summary: Triggered when the CNAB file has been successfully processed.
+      payload:
+        type: object
+        properties:
+          event:
+            type: string
+            const: BANK_SLIP_CNAB_PROCESSED
+          product:
+            type: string
+            example: BANK_SLIP
+          data:
+            type: object
+            description: Event payload; for CNAB events includes errors[], totalLineProcessed, totalLineErrors,
+              fileName, cnabFileStatus; for bank slip lifecycle events includes the full bankSlip object.
+    BANK_SLIP_SETTLED:
+      name: BANK_SLIP_SETTLED
+      title: BANK_SLIP_SETTLED
+      summary: Triggered when a bank slip has been fully settled.
+      payload:
+        type: object
+        properties:
+          event:
+            type: string
+            const: BANK_SLIP_SETTLED
+          product:
+            type: string
+            example: BANK_SLIP
+          data:
+            type: object
+            description: Event payload; for CNAB events includes errors[], totalLineProcessed, totalLineErrors,
+              fileName, cnabFileStatus; for bank slip lifecycle events includes the full bankSlip object.
+    BANK_SLIP_CANCELED:
+      name: BANK_SLIP_CANCELED
+      title: BANK_SLIP_CANCELED
+      summary: Triggered when a bank slip has been canceled.
+      payload:
+        type: object
+        properties:
+          event:
+            type: string
+            const: BANK_SLIP_CANCELED
+          product:
+            type: string
+            example: BANK_SLIP
+          data:
+            type: object
+            description: Event payload; for CNAB events includes errors[], totalLineProcessed, totalLineErrors,
+              fileName, cnabFileStatus; for bank slip lifecycle events includes the full bankSlip object.
+    BANK_SLIP_OPEN:
+      name: BANK_SLIP_OPEN
+      title: BANK_SLIP_OPEN
+      summary: Triggered when a bank slip is created and open for payment.
+      payload:
+        type: object
+        properties:
+          event:
+            type: string
+            const: BANK_SLIP_OPEN
+          product:
+            type: string
+            example: BANK_SLIP
+          data:
+            type: object
+            description: Event payload; for CNAB events includes errors[], totalLineProcessed, totalLineErrors,
+              fileName, cnabFileStatus; for bank slip lifecycle events includes the full bankSlip object.
+    BANK_SLIP_REJECTED:
+      name: BANK_SLIP_REJECTED
+      title: BANK_SLIP_REJECTED
+      summary: Triggered when a bank slip has been rejected.
+      payload:
+        type: object
+        properties:
+          event:
+            type: string
+            const: BANK_SLIP_REJECTED
+          product:
+            type: string
+            example: BANK_SLIP
+          data:
+            type: object
+            description: Event payload; for CNAB events includes errors[], totalLineProcessed, totalLineErrors,
+              fileName, cnabFileStatus; for bank slip lifecycle events includes the full bankSlip object.
+    BANK_SLIP_EXPIRED:
+      name: BANK_SLIP_EXPIRED
+      title: BANK_SLIP_EXPIRED
+      summary: Triggered when a bank slip has expired without payment.
+      payload:
+        type: object
+        properties:
+          event:
+            type: string
+            const: BANK_SLIP_EXPIRED
+          product:
+            type: string
+            example: BANK_SLIP
+          data:
+            type: object
+            description: Event payload; for CNAB events includes errors[], totalLineProcessed, totalLineErrors,
+              fileName, cnabFileStatus; for bank slip lifecycle events includes the full bankSlip object.

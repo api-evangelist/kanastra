@@ -1,0 +1,15 @@
+# generated: '2026-07-19'
+method: generated
+skills:
+- file: kanastra-authenticate.md
+  name: Authenticate with Kanastra Banking
+  api: openapi/kanastra-banking-openapi.yml
+  operations: [authenticationCreateJwks, authenticationGenerateAuthorizationToken]
+- file: kanastra-issue-boleto.md
+  name: Issue and track a boleto (bank slip)
+  api: openapi/kanastra-banking-openapi.yml
+  operations: [walletList, bankSlipBoletoCreateBankSlips, bankSlipBoletoList, bankSlipBoletoGetPdfFile]
+- file: kanastra-pix-transfer.md
+  name: Register a PIX key and send a PIX transfer
+  api: openapi/kanastra-banking-openapi.yml
+  operations: [pixKeysCreateDocumentKey, pixKeysApproveKeyWithOtpToken, pixKeysListKeys, pixTransferTransferByPixKey, balanceRetrieve]

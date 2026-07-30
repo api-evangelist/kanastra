@@ -1,0 +1,29 @@
+# Kanastra Banking
+
+> Kanastra is a Brazilian banking-as-a-service and private-credit infrastructure provider. The Kanastra Banking API covers financial accounts, PIX (keys, transfers, deposits, QR Codes / BR Code), boleto (bank slip) issuance with CNAB return files, TED transfers, wallets, commercial notes (CCB) with guarantees, and issuers. Authentication is a private_key_jwt (ES512 client-assertion) flow returning a scoped Bearer JWT.
+
+## APIs
+- [Kanastra Banking API docs](https://banking-docs.kanastra.com.br/): Public Postman-published reference (66 operations, 20 resource groups).
+- Production base URL: https://banking.kanastra.com.br/api/v1
+- Sandbox base URL: https://banking-sandbox.kanastra.com.br/api/v1
+
+## Specs
+- [OpenAPI (derived)](openapi/kanastra-banking-openapi.yml)
+- [Postman collection (source)](postman/kanastra-banking.postman_collection.json)
+- [AsyncAPI / webhooks](asyncapi/kanastra-banking-asyncapi.yml)
+
+## Artifacts
+- [Authentication](authentication/kanastra-authentication.yml): private_key_jwt (ES512) -> Bearer JWT
+- [OAuth-style scopes](scopes/kanastra-scopes.yml): financial_account, bank_slip, bank_slip:create, commercial_paper, webhook
+- [Conventions](conventions/kanastra-conventions.yml): idempotency (ourNumber per wallet), x-request-id tracing, page/limit pagination
+- [Error catalog](errors/kanastra-problem-types.yml)
+- [Sandbox](sandbox/kanastra-sandbox.yml)
+- [Lifecycle](lifecycle/kanastra-lifecycle.yml)
+- [Conformance](conformance/kanastra-conformance.yml): PIX/BACEN, BR Code (EMV-QRCPS), CNAB/boleto
+- [Data model](data-model/kanastra-data-model.yml)
+- [Agent skills](skills/_index.yml)
+
+## Docs
+- [Developer documentation](https://banking-docs.kanastra.com.br/)
+- [Kanastra Banking](https://kanastra.com.br/en/banking)
+- Contact: pagamentos@kanastra.com.br

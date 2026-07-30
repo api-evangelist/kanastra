@@ -1,0 +1,21 @@
+# generated: '2026-07-19'
+generated: '2026-07-19'
+method: searched
+source: https://banking-docs.kanastra.com.br/ + host probes
+versioning:
+  scheme: uri-path
+  current: v1
+  base_path: /api/v1
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No published deprecation policy or Sunset/Deprecation header support found.
+status_page:
+  url: https://kanastra.statuspage.io/
+  provider: Atlassian Statuspage
+  public: false
+  note: Atlassian Statuspage exists for Kanastra but is currently set inactive/team-only; not publicly
+    viewable, so no public StatusPage pointer is emitted.
+sla:
+  url: null
+deprecated_operations: []

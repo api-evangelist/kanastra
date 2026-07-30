@@ -1,0 +1,24 @@
+# generated: '2026-07-19'
+generated: '2026-07-19'
+method: searched
+source: https://banking-docs.kanastra.com.br/
+standards:
+- id: pix-bacen
+  conforms: true
+  evidence: PIX keys, transfers, deposits, QR Codes per Banco Central do Brasil (BACEN) arrangement.
+- id: br-code-emv-qrcps
+  conforms: true
+  evidence: PIX QR Codes follow the BR Code standard (EMV QR Code Payment System, MPM) per the official
+    BR Code Manual.
+- id: cnab-boleto
+  conforms: true
+  evidence: Boleto issuance and CNAB return-file processing; settlement via the Nuclea clearing house.
+- id: oauth2-bearer
+  conforms: true
+  evidence: Bearer JWT access tokens via private_key_jwt client assertion with scope claims.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use a custom JSON envelope, not application/problem+json.
+- id: ted-str
+  conforms: true
+  evidence: TED transfers between accounts.

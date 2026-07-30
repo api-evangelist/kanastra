@@ -1,0 +1,24 @@
+# generated: '2026-07-19'
+generated: '2026-07-19'
+method: searched
+source: live /.well-known probes
+hosts:
+- https://banking.kanastra.com.br
+- https://kanastra.com.br
+documents:
+- path: /.well-known/security.txt
+  host: banking.kanastra.com.br
+  status: 404
+- path: /.well-known/openid-configuration
+  host: banking.kanastra.com.br
+  status: 404
+- path: /.well-known/oauth-authorization-server
+  host: banking.kanastra.com.br
+  status: 404
+- path: /.well-known/security.txt
+  host: kanastra.com.br
+  status: 404
+- path: /.well-known/openid-configuration
+  host: kanastra.com.br
+  status: 404
+result: No /.well-known discovery documents published on the API or marketing hosts.

@@ -1,0 +1,209 @@
+# generated: '2026-07-19'
+generated: '2026-07-19'
+method: derived
+status: candidate
+source: openapi/kanastra-banking-openapi.yml
+server:
+  name: kanastra-banking
+  transport: http
+  note: No official Kanastra MCP server found; candidate tool list derived one-per-operation from the
+    OpenAPI.
+tools:
+- name: authenticationCreateJwks
+  description: Create JWKS
+  source_operation: openapi/kanastra-banking-openapi.yml#authenticationCreateJwks
+- name: authenticationGenerateAuthorizationToken
+  description: Generate Authorization Token
+  source_operation: openapi/kanastra-banking-openapi.yml#authenticationGenerateAuthorizationToken
+- name: walletList
+  description: List
+  source_operation: openapi/kanastra-banking-openapi.yml#walletList
+- name: walletCreate
+  description: Create
+  source_operation: openapi/kanastra-banking-openapi.yml#walletCreate
+- name: walletRetrieve
+  description: Retrieve
+  source_operation: openapi/kanastra-banking-openapi.yml#walletRetrieve
+- name: walletUpdate
+  description: Update
+  source_operation: openapi/kanastra-banking-openapi.yml#walletUpdate
+- name: fileReturnList
+  description: List
+  source_operation: openapi/kanastra-banking-openapi.yml#fileReturnList
+- name: fileReturnDownloadByUuid
+  description: Download by UUID
+  source_operation: openapi/kanastra-banking-openapi.yml#fileReturnDownloadByUuid
+- name: fileReturnDownloadFrenchieByUuid
+  description: Download Frenchie by UUID
+  source_operation: openapi/kanastra-banking-openapi.yml#fileReturnDownloadFrenchieByUuid
+- name: fileReturnDownloadTodayFile
+  description: Download Today File
+  source_operation: openapi/kanastra-banking-openapi.yml#fileReturnDownloadTodayFile
+- name: fileReturnDownloadTodayFrechie
+  description: Download Today Frechie
+  source_operation: openapi/kanastra-banking-openapi.yml#fileReturnDownloadTodayFrechie
+- name: cnabList
+  description: List
+  source_operation: openapi/kanastra-banking-openapi.yml#cnabList
+- name: cnabUploadCnab
+  description: Upload CNAB
+  source_operation: openapi/kanastra-banking-openapi.yml#cnabUploadCnab
+- name: pagamentosReadLinecode
+  description: Read LineCode
+  source_operation: openapi/kanastra-banking-openapi.yml#pagamentosReadLinecode
+- name: pagamentosPayFromPreviousRead
+  description: Pay from previous read
+  source_operation: openapi/kanastra-banking-openapi.yml#pagamentosPayFromPreviousRead
+- name: bankSlipBoletoList
+  description: List
+  source_operation: openapi/kanastra-banking-openapi.yml#bankSlipBoletoList
+- name: bankSlipBoletoRetrieve
+  description: Retrieve
+  source_operation: openapi/kanastra-banking-openapi.yml#bankSlipBoletoRetrieve
+- name: bankSlipBoletoUpdateBankSlip
+  description: Update Bank Slip
+  source_operation: openapi/kanastra-banking-openapi.yml#bankSlipBoletoUpdateBankSlip
+- name: bankSlipBoletoGetPdfFile
+  description: Get PDF File
+  source_operation: openapi/kanastra-banking-openapi.yml#bankSlipBoletoGetPdfFile
+- name: bankSlipBoletoCreateBankSlips
+  description: Create Bank Slips
+  source_operation: openapi/kanastra-banking-openapi.yml#bankSlipBoletoCreateBankSlips
+- name: bankSlipBoletoCancelBankSlip
+  description: Cancel Bank Slip
+  source_operation: openapi/kanastra-banking-openapi.yml#bankSlipBoletoCancelBankSlip
+- name: issuersList
+  description: List
+  source_operation: openapi/kanastra-banking-openapi.yml#issuersList
+- name: issuersCreate
+  description: Create
+  source_operation: openapi/kanastra-banking-openapi.yml#issuersCreate
+- name: issuersRetrieve
+  description: Retrieve
+  source_operation: openapi/kanastra-banking-openapi.yml#issuersRetrieve
+- name: issuersUpdate
+  description: Update
+  source_operation: openapi/kanastra-banking-openapi.yml#issuersUpdate
+- name: guaranteesBatchGuarantee
+  description: Batch Guarantee
+  source_operation: openapi/kanastra-banking-openapi.yml#guaranteesBatchGuarantee
+- name: guaranteesBatchDocuments
+  description: Batch Documents
+  source_operation: openapi/kanastra-banking-openapi.yml#guaranteesBatchDocuments
+- name: guaranteesGuarantee
+  description: Guarantee
+  source_operation: openapi/kanastra-banking-openapi.yml#guaranteesGuarantee
+- name: guaranteesDeleteGuarantee
+  description: Delete Guarantee
+  source_operation: openapi/kanastra-banking-openapi.yml#guaranteesDeleteGuarantee
+- name: guaranteesListGuarantees
+  description: List Guarantees
+  source_operation: openapi/kanastra-banking-openapi.yml#guaranteesListGuarantees
+- name: guaranteesListDocuments
+  description: List Documents
+  source_operation: openapi/kanastra-banking-openapi.yml#guaranteesListDocuments
+- name: guaranteesDocument
+  description: Document
+  source_operation: openapi/kanastra-banking-openapi.yml#guaranteesDocument
+- name: amendmentCreate
+  description: Create
+  source_operation: openapi/kanastra-banking-openapi.yml#amendmentCreate
+- name: commercialNoteList
+  description: List
+  source_operation: openapi/kanastra-banking-openapi.yml#commercialNoteList
+- name: commercialNoteCreate
+  description: Create
+  source_operation: openapi/kanastra-banking-openapi.yml#commercialNoteCreate
+- name: commercialNoteRetrieve
+  description: Retrieve
+  source_operation: openapi/kanastra-banking-openapi.yml#commercialNoteRetrieve
+- name: commercialNoteUploadDocument
+  description: Upload Document
+  source_operation: openapi/kanastra-banking-openapi.yml#commercialNoteUploadDocument
+- name: commercialNoteDownloadDocumentByType
+  description: Download Document by type
+  source_operation: openapi/kanastra-banking-openapi.yml#commercialNoteDownloadDocumentByType
+- name: bankAccountBeneficiaryList
+  description: List
+  source_operation: openapi/kanastra-banking-openapi.yml#bankAccountBeneficiaryList
+- name: bankAccountBeneficiaryCreate
+  description: Create
+  source_operation: openapi/kanastra-banking-openapi.yml#bankAccountBeneficiaryCreate
+- name: bankAccountBeneficiaryDelete
+  description: Delete
+  source_operation: openapi/kanastra-banking-openapi.yml#bankAccountBeneficiaryDelete
+- name: transactionsList
+  description: List
+  source_operation: openapi/kanastra-banking-openapi.yml#transactionsList
+- name: balanceRetrieve
+  description: Retrieve
+  source_operation: openapi/kanastra-banking-openapi.yml#balanceRetrieve
+- name: tedTransferRetrieve
+  description: Retrieve
+  source_operation: openapi/kanastra-banking-openapi.yml#tedTransferRetrieve
+- name: tedTransferList
+  description: List
+  source_operation: openapi/kanastra-banking-openapi.yml#tedTransferList
+- name: tedTransferCreate
+  description: Create
+  source_operation: openapi/kanastra-banking-openapi.yml#tedTransferCreate
+- name: createCreatePersonalFinancialAccount
+  description: Create Personal Financial Account
+  source_operation: openapi/kanastra-banking-openapi.yml#createCreatePersonalFinancialAccount
+- name: pixKeysListKeys
+  description: List keys
+  source_operation: openapi/kanastra-banking-openapi.yml#pixKeysListKeys
+- name: pixKeysReadPixKey
+  description: Read PIX-key
+  source_operation: openapi/kanastra-banking-openapi.yml#pixKeysReadPixKey
+- name: pixKeysExcludeKey
+  description: Exclude Key
+  source_operation: openapi/kanastra-banking-openapi.yml#pixKeysExcludeKey
+- name: pixKeysCreateDocumentKey
+  description: Create Document Key
+  source_operation: openapi/kanastra-banking-openapi.yml#pixKeysCreateDocumentKey
+- name: pixKeysApproveKeyWithOtpToken
+  description: Approve Key with OTP Token
+  source_operation: openapi/kanastra-banking-openapi.yml#pixKeysApproveKeyWithOtpToken
+- name: pixKeysDenyWithOtpToken
+  description: Deny with OTP Token
+  source_operation: openapi/kanastra-banking-openapi.yml#pixKeysDenyWithOtpToken
+- name: pixKeysResendOtpToken
+  description: Resend OTP Token
+  source_operation: openapi/kanastra-banking-openapi.yml#pixKeysResendOtpToken
+- name: pixTransferListPixTransfer
+  description: List PIX Transfer
+  source_operation: openapi/kanastra-banking-openapi.yml#pixTransferListPixTransfer
+- name: pixTransferTransferByPixKey
+  description: Transfer by PIX-key
+  source_operation: openapi/kanastra-banking-openapi.yml#pixTransferTransferByPixKey
+- name: pixDepositListDeposits
+  description: List Deposits
+  source_operation: openapi/kanastra-banking-openapi.yml#pixDepositListDeposits
+- name: pixDepositPixRevert
+  description: Pix Revert
+  source_operation: openapi/kanastra-banking-openapi.yml#pixDepositPixRevert
+- name: qrcodesBrcodePreviewRead
+  description: BRCode Preview/Read
+  source_operation: openapi/kanastra-banking-openapi.yml#qrcodesBrcodePreviewRead
+- name: qrcodesListQrcode
+  description: List QRCode
+  source_operation: openapi/kanastra-banking-openapi.yml#qrcodesListQrcode
+- name: qrcodesCreateStaticQrcode
+  description: Create Static QRCode
+  source_operation: openapi/kanastra-banking-openapi.yml#qrcodesCreateStaticQrcode
+- name: qrcodesUpdateQrcode
+  description: Update QRCode
+  source_operation: openapi/kanastra-banking-openapi.yml#qrcodesUpdateQrcode
+- name: qrcodesCancelQrcode
+  description: Cancel QRCode
+  source_operation: openapi/kanastra-banking-openapi.yml#qrcodesCancelQrcode
+- name: accountsList
+  description: List
+  source_operation: openapi/kanastra-banking-openapi.yml#accountsList
+- name: accountsRetrieve
+  description: Retrieve
+  source_operation: openapi/kanastra-banking-openapi.yml#accountsRetrieve
+- name: accountsListBanks
+  description: List Banks
+  source_operation: openapi/kanastra-banking-openapi.yml#accountsListBanks
