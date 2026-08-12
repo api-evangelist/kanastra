@@ -812,6 +812,12 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgentSkill
+  url: skills/kanastra-authenticate.md
+- type: MCPServer
+  url: mcp/kanastra-mcp.yml
+- type: Overlay
+  url: overlays/kanastra-banking-overlay.yaml
 - type: DeveloperPortal
   url: https://banking-docs.kanastra.com.br/
 - type: Documentation
