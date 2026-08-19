@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kanastra Banking Accounts Authentication API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create JWKS",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://banking.kanastra.com.br/api/v1/auth/jwks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "For the public key, we use the ES512 algorithm. To generate this key, you can use OpenSSL as shown in the example below: openssl ecparam -name secp521r1 -genkey -noout -out ec-p512-private.pem openssl ec -in ec-p512-private.pem -pubout -out ec-p512-public.pem And send the content of the ec-p512-public.pem file in the publicKey attribute."
+        },
+        {
+          "info": {
+            "name": "Generate Authorization Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://banking.kanastra.com.br/api/v1/auth/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The clientId will be sent to the integrator during the initial setup. The clientAssertion will be generated in the pre-request script, but we also have this example below in PHP if you want create by yourself. $secretKey = 'YOUR_PRIVATE_KEY'; $alg = 'ES512'; $payload = [ 'iat' => Carbon::now()->timestamp, 'exp' => Carbon::now()->addDay()->timestamp, 'aud' => 'https://auth.kanastra.com.br/realms/{{realm_name}}/protocol/openid-connect/token', 'iss' => 'your-client-id', 'sub' => 'your-client-id', '"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kanastra Banking Accounts Pagamentos API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pagamentos",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read LineCode",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/:account_id/payments",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Read LineCode"
+        },
+        {
+          "info": {
+            "name": "Pay from previous read",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://banking.kanastra.com.br/api/v1/:account_id/payments",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": " Variants: Pay BankSlip from LineCode, Pay BankSlip from BarCode"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

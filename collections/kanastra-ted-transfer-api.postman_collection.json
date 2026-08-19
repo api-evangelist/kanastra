@@ -1,0 +1,356 @@
+{
+  "item": [
+    {
+      "id": "aebc8201-8c97-4884-901d-f077ae660e94",
+      "name": "TED Transfer",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e94cc7f4-8c70-4aee-a07b-fb2bb8203ca9",
+          "name": "Retrieve",
+          "request": {
+            "name": "Retrieve",
+            "description": {
+              "content": "Retrieves the details of a specific transfer, including status, amount, account information, and beneficiary details. Field Name Description Type uuid Unique identifier for the transfer. string externalId External reference ID for the transfer, if applicable. string or null status Current status of the transfer. Possible values are PENDING_APPROVAL , PROCESSING , PROCESSED , ERROR , REJECTED , SCHEDULED , and CANCELED . string amount The amount of the transfer in the account's currency. string additionalInfo Additional information related to the transfer request. string financialAccount Details of the account from which the transfer is initiated. object financialAccount.uuid Unique identifier for the financial account. string financialAccount.branch Branch number of the financial account. string financialAccount.account Account number from which the transfer is made. string financialAccount.accountDigit Account digit for the financial account. string financialAccount.accountHolder Information about the holder of the financial account. object financialAccount.accountHolder.uuid Unique identifier for the account holder. string financialAccount.accountHolder.name Name of the account holder. string financialAccount.code Bank code associated with the financial account. string beneficiaryAccount Details of the beneficiary account receiving the transfer. object beneficiaryAccount.uuid Unique identifier for the beneficiary account. string beneficiaryAccount.holderName Name of the ben",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "accounts",
+                ":account_uuid",
+                "transfer",
+                ":transfer_uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_uuid",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transfer_uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dd20cb3e-91d3-42a9-9e4f-9334cf1ff484",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "accounts",
+                    ":account_uuid",
+                    "transfer",
+                    ":transfer_uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_uuid",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transfer_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0132f558-7727-4dee-a50a-fa6a4cac2c14",
+          "name": "List",
+          "request": {
+            "name": "List",
+            "description": {
+              "content": "Retrieves a list of all transfer records associated with a specific financial account, including details such as status, amount, requester information, and beneficiary account details. You can also pass a status in query params. See the available statuses below. General Field Name Description Type count Total number of transfers returned. integer next URL to the next page of results, if available. string or null previous URL to the previous page of results, if available. string or null results List of transfer objects. array of transfer objects Transfers Field Name Description Type uuid Unique identifier for the transfer record. string amount Monetary amount of the transfer. string createdAt Date and time when the transfer was created in ISO 8601 format: YYYY-MM-DDTHH:MM±HH. string additionalInfo Additional details or description of the transfer, such as reason or reference information. string status Current status of the transfer. Possible values include PENDING_APPROVAL , PROCESSING , PROCESSED , ERROR , REJECTED , SCHEDULED , and CANCELED . string requester Details of the user who requested the transfer. object requester.name Name of the requester. string requester.email Email address of the requester. string financialAccount Unique identifier for the financial account from which the transfer is initiated. string beneficiaryAccount Details of the beneficiary account receiving the transfer. object beneficiaryAccount.uuid Unique identifier for the beneficiary account. string",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "accounts",
+                ":account_uuid",
+                "transfers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "825b7dc0-c94a-44f7-993a-2b6b72cab234",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "accounts",
+                    ":account_uuid",
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "603a1548-1826-4e0b-b1ad-c8d293444129",
+          "name": "Create",
+          "request": {
+            "name": "Create",
+            "description": {
+              "content": "To interact with this endpoint, you are required to generate a Transaction Hash Key and include it in the request headers. The Transaction Hash Key is generated using the following process: Generate HMAC Hash: Use the SHA-256 algorithm to compute the HMAC hash of the request payload. The key for this operation will be provided by our team during the initial configuration phase and must be securely stored on your end. Hex Encoding: Once the HMAC hash is generated, encode it in hexadecimal format. Include in Headers: Pass the resulting Transaction Hash Key in the request headers as part of the API call. This security measure ensures data integrity and validation for all transactions conducted with our API. If you require further guidance on generating the hash or managing keys, please contact our support team. Transfer API Field Name Description Validation Type amount Amount to be transferred Required, minimum: 0.01 float additionalInfo Additional information about the transfer Required string beneficiaryUuid UUID of the beneficiary receiving the transfer Required string",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "accounts",
+                ":account_uuid",
+                "transfer"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "614d510e-ee18-4054-bcd8-09bf6c61580b",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "accounts",
+                    ":account_uuid",
+                    "transfer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://banking.kanastra.com.br",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8c39bc67-8ac8-4023-8a82-886dc7b1a923",
+    "name": "Kanastra Banking Accounts TED Transfer API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.\n\nContact Support:\n Name: Kanastra Pagamentos\n Email: pagamentos@kanastra.com.br",
+      "type": "text/plain"
+    }
+  }
+}

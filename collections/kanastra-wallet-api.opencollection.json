@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kanastra Banking Accounts Wallet API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Wallet",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/wallets"
+          },
+          "docs": "Get a list of all the wallets for the authenticated user. Variants: List Copy"
+        },
+        {
+          "info": {
+            "name": "Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://banking.kanastra.com.br/api/v1/wallets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "You can create a new wallet with this endpoint. Parameters : Field name Description Validation Type name Wallet name Required, must be a non-empty string string financial_account ID of the financial account to which the wallet is linked Required string code Wallet code Required, maximum of 3 digits integer accept_partial_payment Indicates whether bank slips in this wallet can be paid partially Not required, defaults to false boolean"
+        },
+        {
+          "info": {
+            "name": "Retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/wallets/:wallet_id",
+            "params": [
+              {
+                "name": "wallet_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific wallet identified by its unique ID."
+        },
+        {
+          "info": {
+            "name": "Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://banking.kanastra.com.br/api/v1/wallets/:wallet_id",
+            "params": [
+              {
+                "name": "wallet_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing wallet by its unique ID based on the data provided in the request Parameters Field name Description Validation Type name Update the wallet name Not required, must be a non-empty string string financial_account Update the ID of the financial account to which the wallet is linked Required string code Update wallet code Not required, maximum of 3 digits integer accept_partial_payment Updates the setting for partial payment acceptance for bank slips associated with a specific wal"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

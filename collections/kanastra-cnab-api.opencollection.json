@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kanastra Banking Accounts CNAB API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CNAB",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/wallets/:wallet_uuid/cnab",
+            "params": [
+              {
+                "name": "wallet_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Response Fields Field Name Description Type count Total number of CNAB files integer next URL for the next page of results (if pagination is applied) string previous URL for the previous page of results (if pagination is applied) string results List of CNAB file objects array CNAB File Object Field Name Description Type uuid Unique identifier (UUID) for the CNAB file string createdAt Timestamp indicating when the file was created string (ISO 8601 datetime) updatedAt Timestamp indicating when the"
+        },
+        {
+          "info": {
+            "name": "Upload CNAB",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://banking.kanastra.com.br/api/v1/wallets/:wallet_id/cnab",
+            "params": [
+              {
+                "name": "wallet_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Upload CNAB"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

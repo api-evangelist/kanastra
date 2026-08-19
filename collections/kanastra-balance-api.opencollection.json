@@ -1,0 +1,42 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kanastra Banking Accounts Balance API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Balance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/accounts/:account_uuid/balance",
+            "params": [
+              {
+                "name": "account_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the current balance details of a specific financial account, including available, blocked, and overdraft balances. Field Name Description Type accountUuid Unique identifier for the financial account. string date Date and time when the transaction occurred in ISO 8601 format: YYYY-MM-DDTHH:MM:SS±HH:MM. string real Total real balance in the account, including all funds. string available Available balance for transactions and withdrawals. string overdraft Amount available for overdraft us"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

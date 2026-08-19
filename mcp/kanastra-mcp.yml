@@ -1,4 +1,3 @@
-# generated: '2026-07-19'
 generated: '2026-07-19'
 method: derived
 status: candidate
@@ -207,3 +206,9 @@ tools:
 - name: accountsListBanks
   description: List Banks
   source_operation: openapi/kanastra-banking-openapi.yml#accountsListBanks
+deployment:
+  mode: none
+  verified: derived
+  tools: 66
+  checked: '2026-08-12'
+  source: catalog MCP census

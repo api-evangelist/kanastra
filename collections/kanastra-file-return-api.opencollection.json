@@ -1,0 +1,124 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kanastra Banking Accounts File Return API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "File Return",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/wallets/:wallet_uuid/cnab-file-return",
+            "params": [
+              {
+                "name": "wallet_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List"
+        },
+        {
+          "info": {
+            "name": "Download by UUID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/wallets/:wallet_uuid/cnab-file-return/:cnab_uuid/download",
+            "params": [
+              {
+                "name": "wallet_uuid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "cnab_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Download by UUID"
+        },
+        {
+          "info": {
+            "name": "Download Frenchie by UUID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/wallets/:wallet_uuid/cnab-file-frenchie/:frenchie_uuid/download",
+            "params": [
+              {
+                "name": "wallet_uuid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "frenchie_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Download Frenchie by UUID"
+        },
+        {
+          "info": {
+            "name": "Download Today File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/wallets/:wallet_uuid/cnab-file-return-today",
+            "params": [
+              {
+                "name": "wallet_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Download Today File"
+        },
+        {
+          "info": {
+            "name": "Download Today Frechie",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/wallets/:wallet_uuid/cnab-file-frenchie-today",
+            "params": [
+              {
+                "name": "wallet_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Download Today Frechie"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

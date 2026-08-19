@@ -1,0 +1,317 @@
+{
+  "item": [
+    {
+      "id": "afa3bee3-aa8e-49e9-9eaf-f8027130c94a",
+      "name": "PIX Deposit",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "02c00d71-ae9a-4f43-8d8b-542ad0ba3c65",
+          "name": "List Deposits",
+          "request": {
+            "name": "List Deposits",
+            "description": {
+              "content": "This endpoint retrieves deposit information for a specific financial account identified by account_uuid . It allows users to check the status and details of deposit transactions associated with the given account. Path Variables account_uuid : A unique identifier for the account whose deposit information is being requested. Response Structure Upon a successful request, the API will return a JSON object containing the following fields: count (integer) : Total number of deposits returned. next (string) : URL to retrieve the next page of results, if applicable. previous (string) : URL to retrieve the previous page of results, if applicable. results (array) : A list of deposit transaction objects, where each object contains: uuid (string) : Unique identifier of the deposit. senderBank (object) : Information about the sender's bank, including: code (string) : Bank code. name (string) : Bank name. comp (string) : Bank compensation code. ispb (string) : ISPB code of the bank. isParticipantComp (boolean) : Indicates if the bank is part of the compensation system. isParticipantPix (boolean) : Indicates if the bank participates in PIX. isParticipantStr (boolean) : Indicates if the bank participates in the STR system. createdAt (string) : Timestamp when the deposit was created. updatedAt (string) : Timestamp when the deposit was last updated. externalId (string) : External identifier associated with the deposit. endToEndId (string) : Unique end-to-end transaction identifier. amount (stri",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "pix",
+                ":account_uuid",
+                "deposit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9dd5aab3-30ce-4fc1-ba94-f7f61cf14291",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pix",
+                    ":account_uuid",
+                    "deposit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "678c57ea-d503-42a9-8dfa-8059dd5237d6",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pix",
+                    ":account_uuid",
+                    "deposit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fe2a7f3c-8fc4-4520-a29f-47697feb2768",
+          "name": "Pix Revert",
+          "request": {
+            "name": "Pix Revert",
+            "description": {
+              "content": "This endpoint is used to reverse a deposit transaction for a specific financial account identified by account_uuid and a deposit identified by deposit_uuid . Request Body The request body must be sent in JSON format and should include the following parameter: amount (string) : The amount to be reversed. Path Variables account_uuid : A unique identifier for the financial account associated with the deposit. deposit_uuid : A unique identifier for the deposit transaction to be reversed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "pix",
+                ":account_uuid",
+                "deposit",
+                ":deposit_uuid",
+                "reverse"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_uuid",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deposit_uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fda6a14a-a3cc-487b-b477-33759e64bad5",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pix",
+                    ":account_uuid",
+                    "deposit",
+                    ":deposit_uuid",
+                    "reverse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_uuid",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deposit_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://banking.kanastra.com.br",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f7a65911-b1f2-4446-acc9-3da635f4e12f",
+    "name": "Kanastra Banking Accounts PIX Deposit API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.\n\nContact Support:\n Name: Kanastra Pagamentos\n Email: pagamentos@kanastra.com.br",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,299 @@
+{
+  "item": [
+    {
+      "id": "3fdac4dc-5b81-4425-9d11-474221d4bee4",
+      "name": "PIX Transfer",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f08b5849-5aef-4c31-a1f7-b3a5035a1831",
+          "name": "List PIX Transfer",
+          "request": {
+            "name": "List PIX Transfer",
+            "description": {
+              "content": "Retrieve Transfer Information This endpoint allows users to retrieve transfer information associated with a specific financial account, identified by account_uuid . Path Variables account_uuid (string): Unique identifier for the account whose transfers are being queried. (Required) Response Structure Upon a successful request, the server will respond with a JSON object containing the following fields: count (integer): Total number of transfers for the account. next (string | null): URL for the next page of results, if any. previous (string | null): URL for the previous page of results, if any. results (array): List of transfer objects containing: uuid (string): Unique identifier of the transfer. endToEndId (string): Identifier for tracking the transfer end-to-end. amount (string): Amount transferred. reconciliationId (string | null): Identifier for reconciliation purposes. beneficiaryAccount (object): Detailed information about the beneficiary's account: uuid (string): Unique identifier for the beneficiary's account. holderName (string): Name of the account holder. governmentId (string): Government ID associated with the beneficiary's account. code (string): Bank code of the beneficiary's financial institution. agency (string): Agency number of the beneficiary's account. financialAccount (string): Type of financial account associated with the beneficiary. account (string): The account number of the beneficiary. digit (string): Account digit of the beneficiary's account. isFav",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "pix",
+                ":account_uuid",
+                "transfer"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6494ab36-5519-4065-b23a-4f0ee88fb07c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pix",
+                    ":account_uuid",
+                    "transfer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "473df708-063a-4aa4-8f7b-e136bb40c3d2",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pix",
+                    ":account_uuid",
+                    "transfer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9eb38a7c-f7f8-4834-bbcc-66af9a97a6fe",
+          "name": "Transfer by PIX-key",
+          "request": {
+            "name": "Transfer by PIX-key",
+            "description": {
+              "content": "This endpoint allows users to initiate a funds transfer using the PIX payment system. The transfer is executed to a specified beneficiary account and includes details about the transaction amount and additional information. Request Body The request body must be in JSON format and include the following parameters: beneficiary (object): Contains information about the recipient of the funds: holderName (string): The name of the beneficiary. governmentId (string): The government identification number of the beneficiary. code (string): The bank code of the beneficiary's financial institution. agency (string): The agency number of the beneficiary's account. account (string): The account number of the beneficiary. digit (string): The account digit of the beneficiary. accountType (string): The type of account (e.g., checking, savings). amount (number): The amount of money to be transferred. additionalInfo (string): Any additional information related to the transaction. initType (string): The type of initiation for the transfer (e.g., MANUAL ). Response Structure Upon a successful request, the server will respond with a JSON object containing the following fields: uuid (string): Unique identifier for the transaction. endToEndId (string): Identifier for tracking the transaction end-to-end. amount (string): The amount that was transferred. reconciliationId (string | null): Identifier for reconciliation purposes, if applicable. beneficiaryAccount (object): Detailed information about the  Variants: PIX Transfer Manual, PIX Transfer Scheduled",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "pix",
+                ":account_uuid",
+                "transfer"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ce7a65b2-ae17-4da4-ab95-a0dcee879c2b",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pix",
+                    ":account_uuid",
+                    "transfer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://banking.kanastra.com.br",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b14b9aee-5e55-48db-a54f-79815a3d3b08",
+    "name": "Kanastra Banking Accounts PIX Transfer API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.\n\nContact Support:\n Name: Kanastra Pagamentos\n Email: pagamentos@kanastra.com.br",
+      "type": "text/plain"
+    }
+  }
+}

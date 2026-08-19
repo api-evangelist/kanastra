@@ -1,0 +1,160 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kanastra Banking Accounts Bank Slip (Boleto) API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bank Slip (Boleto)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/wallets/:wallet_uuid/bank-slip",
+            "params": [
+              {
+                "name": "wallet_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a paginated list of bank slips. Each bank slip includes details such as unique identifiers, document dates, barcodes, line codes, due dates, nominal values, payer information, and calculated taxes. This endpoint is useful for fetching bank slips associated with a specific wallet for management and processing purposes."
+        },
+        {
+          "info": {
+            "name": "Retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/wallets/:wallet_uuid/bank-slip/:bank_slip_uuid",
+            "params": [
+              {
+                "name": "wallet_uuid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "bank_slip_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific bank slip identified by its unique ID and wallet ID."
+        },
+        {
+          "info": {
+            "name": "Update Bank Slip",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://banking.kanastra.com.br/api/v1/wallets/:wallet_uuid/bank-slip/:bank_slip_uuid",
+            "params": [
+              {
+                "name": "wallet_uuid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "bank_slip_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint updates specific fields of a bank slip. Like the cancellation operation, this endpoint can only be used on bank slips that are in the OPEN status. Partial updates are allowed, where only specified fields need to be included in the request. Main Document Fields Field Name Description Validation Type documentDate Date the document is issued Required, format: YYYY-MM-DD string documentNumber Unique identifier for the document Required string dueDate Date by which payment must be made "
+        },
+        {
+          "info": {
+            "name": "Get PDF File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/wallets/:wallet_uuid/bank-slip/:bank_slip_uuid/pdf",
+            "params": [
+              {
+                "name": "wallet_uuid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "bank_slip_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Return the PDF file of the given bank slip ID"
+        },
+        {
+          "info": {
+            "name": "Create Bank Slips",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://banking.kanastra.com.br/api/v1/wallets/:wallet_uuid/bank-slip/batch",
+            "params": [
+              {
+                "name": "wallet_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Main Document Fields Field Name Description Validation Type documentDate Date the document is issued Required, format: YYYY-MM-DD string participantControlNumber Primary external reference for Client or Funds. It is the first option for providing a custom identifier. Optional. Max 25 characters. Limited by CNAB 400 remittance/return file specifications. string documentNumber Secondary external reference (ERP/Invoice). It is the second option for external identification. Required. Max 10 characte"
+        },
+        {
+          "info": {
+            "name": "Cancel Bank Slip",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://banking.kanastra.com.br/api/v1/wallets/:wallet_uuid/bank-slip/:bank_slip_uuid/cancel",
+            "params": [
+              {
+                "name": "wallet_uuid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "bank_slip_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This endpoint allows the cancellation of a bank slip, provided that its current status is OPEN . A bank slip with any other status (e.g., PAID , SETTLED ) cannot be cancelled."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kanastra Banking Accounts Commercial Note API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Commercial Note",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/commercial-notes"
+          },
+          "docs": "Retrieves a list of all registered commercial notes, along with their associated details. Field Name Description Type uuid Unique identifier for the issuance record string status Current status of the issuance string dateOfIssue Date of issuance string deadline Deadline date for the issuance string totalAmount Total amount of the issuance string interestRate Interest rate applied to the issuance string calculationBasis Calculation basis for interest string amortization Amortization method used s"
+        },
+        {
+          "info": {
+            "name": "Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://banking.kanastra.com.br/api/v1/commercial-notes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Prerequisites Issuer Creation : Before creating a Commercial Note, an Issuer must be created. Refer to the \"Issuer Creation\" section in this documentation for detailed instructions on how to create an Issuer. Subscriber Document Number : A valid Subscriber document number is required to create a Commercial Note. Please contact us to create a Subscriber before proceeding. Request Fields Field Name Description Validation Type issuerGovernmentId Issuer document Required string subscriberGovernmentI"
+        },
+        {
+          "info": {
+            "name": "Retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/commercial-notes/:commercial_note_uuid",
+            "params": [
+              {
+                "name": "commercial_note_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve"
+        },
+        {
+          "info": {
+            "name": "Upload Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://banking.kanastra.com.br/api/v1/commercial-notes/:commercial_note_id/upload",
+            "params": [
+              {
+                "name": "commercial_note_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request Body Fields Field Name Description Validation Type type Type of the document. Options include CONTRACT , PAYMENT_RECEIPT , BULLETIN , DISBURSEMENT_RECEIPT Required string file Base64-encoded string of the document file Required string CONTRACT: Commercial Note Contract (Termo Constitutivo) BULLETIN: Commercial Note Bulletin (Boletim de Subscrição) DISBURSEMENT_RECEIPT: Comercial Note disbursement receipt (when the subscriber pays the issuer) PAYMENT_RECEIPT: Commercial Note payment recei"
+        },
+        {
+          "info": {
+            "name": "Download Document by type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/commercial-notes/:commercial_note_document_uuid/download",
+            "params": [
+              {
+                "name": "commercial_note_document_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Parameter Description commercial_note_id ID of the commercial note type Type of the document. Options included CONTRACT , PAYMENT_RECEIPT , BULLETIN , BOOKKEEPER_TERM , DISBURSEMENT_RECEIPT"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

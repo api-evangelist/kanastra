@@ -1,0 +1,751 @@
+{
+  "item": [
+    {
+      "id": "25f922c2-16e5-4833-ad78-2c12656936ab",
+      "name": "QRCodes",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d2ad69c1-d85c-4df7-aa0e-6ac337988395",
+          "name": "BRCode Preview/Read",
+          "request": {
+            "name": "BRCode Preview/Read",
+            "description": {
+              "content": "This endpoint retrieves a preview of a BR Code (Barcode) associated with a specific account identified by account_uuid . Request Body The request body should be in JSON format and could contain the following parameters: brcode (string): The BR Code for which the preview is being requested. This should be formatted correctly to ensure a valid response. Path Variables account_uuid (path parameter): The unique identifier for the account for which the QR code information is being requested. Response Structure Upon a successful request, the API will return a JSON object containing the following fields: endToEndId : Identifier for tracking the transaction. financialAccount : Details of the financial account involved. receiverAccount : Information about the receiver's account. amount : The total amount associated with the transaction. status : Current status of the BR Code request. subscription : Contains details about any subscriptions related to the transaction.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "pix",
+                ":account_uuid",
+                "brcode",
+                "preview"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "12746284-972c-4498-855a-b37ac7ce2e11",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pix",
+                    ":account_uuid",
+                    "brcode",
+                    "preview"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7c4eede6-60ed-4974-b8db-764bd8160299",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pix",
+                    ":account_uuid",
+                    "brcode",
+                    "preview"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6ca7cc7b-d581-4780-ac53-608ff62bce1f",
+          "name": "List QRCode",
+          "request": {
+            "name": "List QRCode",
+            "description": {
+              "content": "This endpoint allows you to list QRCodes from the API. Query Parameters pix_key (query parameter): The PIX key associated with the QR code. This is required to filter the results. status (query parameter): The status of the QR code. In this case, the status is set to CREATED to retrieve only those QR codes that are currently in the created state. qrcodeType (query parameter): The type of QR code to filter by (e.g., static or dynamic). reconciliation_id (query parameter): An optional identifier used for reconciliation purposes, typically provided by the system generating the QR code. end_to_end_id (query parameter): An optional identifier to track the transaction from initiation to completion. payer_government_id (query parameter): An optional field for the payer’s government-issued identification (CPF or CNPJ). created_at (query parameter): An optional timestamp or date range to filter QR codes based on their creation date. updated_at (query parameter): An optional timestamp or date range to filter QR codes based on the last update. Path Variables account_uuid (path parameter): The unique identifier for the account for which the QR code information is being requested. Response Structure The response will contain the following fields: count (integer): The total number of QR codes returned in the response. next (string or null): A URL to the next page of results if pagination is applicable; otherwise, it will be null. previous (string or null): A URL to the previous page of res",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "pix",
+                ":account_uuid",
+                "qrcode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "21a3a7e2-9774-4b91-a0da-2d7ab0776e16",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pix",
+                    ":account_uuid",
+                    "qrcode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dde26db3-064b-40c7-8eb5-3928b63ab40b",
+          "name": "Create Static QRCode",
+          "request": {
+            "name": "Create Static QRCode",
+            "description": {
+              "content": "This endpoint allows you to create a due dynamic QR code for PIX payments and transactions, where the payment request includes a due date and can support discounts, fines, and interest. Request Body The request body must be in JSON format and include the following parameters: pixKey (string): The unique key associated with the PIX transaction. reconciliationId (string): An identifier for reconciling the transaction. type (string): The type of QR code being generated; in this case, it should be set to \"DYNAMIC_QR_CODE\" . discounts (array): An array of discount objects applicable to the transaction. Each discount object should contain: percentage (number): The discount percentage to apply. due (string): The due date for the discount. fee (number): The fee associated with the transaction. fine (number): Any fine applicable to the transaction. interest (number): The interest amount applicable to the transaction. dueDate (string): The due date for the payment. expirationSeconds (number): The time duration in seconds before the QR code expires. amountType (string): The type of amount being processed (e.g., FIXED ). nominalAmount (number): The nominal amount for the transaction. payerGovernmentId (string): The government ID of the payer. payerName (string): The name of the payer. Path Variables account_uuid (path parameter): The unique identifier for the account associated with the QR code. Response Structure Upon a successful request, the server responds with a JSON object containi Variants: Create Dynamic QRCode, Create Dynamic QRCode Due",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "pix",
+                ":account_uuid",
+                "qrcode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f93ea7ae-3b5e-4fba-87fa-25bd82713283",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pix",
+                    ":account_uuid",
+                    "qrcode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "099c25ad-2a88-40f6-91b3-f8fb3ad1a16a",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pix",
+                    ":account_uuid",
+                    "qrcode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c470663a-29de-47eb-b18d-6878c57abf1e",
+          "name": "Update QRCode",
+          "request": {
+            "name": "Update QRCode",
+            "description": {
+              "content": "This endpoint allows you to update the details of a QR code associated with a specific account. The request modifies the attributes of the QR code identified by qrcode_uuid within the context of the specified account_uuid . Request Body The request body should be in JSON format and could contain the following parameters: qrcode_uuid (string): The unique identifier of the QR code. This is the only mandatory parameter. amount_type (string): Defines how the payment amount is handled (e.g., FIXED , CUSTOM ). reconciliation_id (string): A reconciliation identifier for tracking the payment. due_date (string): The due date for the payment in YYYY-MM-DD format. expiration_seconds (number): The time in seconds until the QR code expires. description (string): A description or note about the payment. percentage (number): The discount percentage to be applied. due (string): The due date for the discount in YYYY-MM-DD format. nominal_amount (number): The nominal amount for the transaction. fee (number): The applicable fee for the payment. fine (number): The fine amount to be applied after the due date. interest (number): The interest rate applied after the due date. payer_name (string): The name of the payer. payer_government_id (string): The payer’s government identification number (e.g., CPF). Path Variables account_uuid (path parameter): The unique identifier for the account for which the QR code information is being requested. qrcode_uuid (path parameter): The unique identifier of the",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "pix",
+                ":account_uuid",
+                "qrcode",
+                ":qrcode_uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_uuid",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "qrcode_uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "503a4730-2b4f-4b1b-9e44-214be63448aa",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pix",
+                    ":account_uuid",
+                    "qrcode",
+                    ":qrcode_uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_uuid",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "qrcode_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ddeeaa2-7bdb-4d65-895b-da1c80947ce5",
+          "name": "Cancel QRCode",
+          "request": {
+            "name": "Cancel QRCode",
+            "description": {
+              "content": "This endpoint is used to delete a specific QR code associated with a given account. The deletion is identified by the unique qrcode_uuid parameter, which represents the QR code to be removed from the system. Path Variables account_uuid (path parameter): The unique identifier for the account associated with the QR code. qrcode_uuid (path parameter): The unique identifier for the QR code that you wish to delete. Response Structure Upon a successful deletion, the API will return a JSON object containing the following fields: uuid : The unique identifier of the deleted QR code. externalId : An identifier for external systems. amount : The amount associated with the QR code. amountType : The type of amount (e.g., FIXED , CUSTOM ). discounts : An array of discount objects, each containing: percentage : The discount percentage applied. due : The due amount after discounts. nominalAmount : The nominal amount related to the QR code. fee : Any applicable fees (if any). fine : Any fines associated (if applicable). interest : Interest details (if applicable). reconciliationId : Identifier for reconciliation purposes. endToEndId : Optional identifier for tracking. qrcodeStatus : The current status of the QR code. dueDate : The due date for payment. qrcodeType : The type of QR code. version : Version number of the QR code. createdAt : Timestamp of when the QR code was created. updatedAt : Timestamp of the last update to the QR code. expirationSeconds : Time until expiration in seconds. des",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "pix",
+                ":account_uuid",
+                "qrcode",
+                ":qrcode_uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_uuid",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "qrcode_uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "24bcb0f9-f5c6-4e53-835a-fb4a4acd7040",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pix",
+                    ":account_uuid",
+                    "qrcode",
+                    ":qrcode_uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_uuid",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "qrcode_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0e9be56f-e787-431d-ad93-03942b880345",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pix",
+                    ":account_uuid",
+                    "qrcode",
+                    ":qrcode_uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_uuid",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "qrcode_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://banking.kanastra.com.br",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "41e05c35-d78c-49f6-80b6-e7d3a21753cf",
+    "name": "Kanastra Banking Accounts QRCodes API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.\n\nContact Support:\n Name: Kanastra Pagamentos\n Email: pagamentos@kanastra.com.br",
+      "type": "text/plain"
+    }
+  }
+}

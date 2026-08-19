@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kanastra Banking Accounts API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/accounts"
+          },
+          "docs": "This provides a detailed overview of the financial accounts retrieved, including pagination information and specific account details. General Field Description Type count Total number of financial accounts returned integer next URL to the next page of results (if any) string or null previous URL to the previous page of results (if any) string or null results List of financial accounts array of account objects Financial Account Object Field Description Type uuid Unique identifier for the financia"
+        },
+        {
+          "info": {
+            "name": "Retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/accounts/:account_uuid",
+            "params": [
+              {
+                "name": "account_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the informed account uuid, along with their associated details. Financial Account Field Description Type uuid Unique identifier for the financial account string Account Holder Field Description Type uuid Unique identifier for the account holder string isDeleted Indicates if the account holder record is deleted boolean createdAt Date and time when the account holder record was created string (ISO 8601) updatedAt Date and time when the account holder record was last updated string (ISO 8"
+        },
+        {
+          "info": {
+            "name": "List Banks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/banks"
+          },
+          "docs": "This endpoint retrieves information about banks based on the provided ISPB (Instituição de Pagamento e Sistema de Pagamento Brasileiro) code. Query Parameters ispb (string): The ISPB code of the bank you want to query. code (string): Filter banks by their bank code. isParticipantPix (boolean): Filter banks by participation in the PIX system. isParticipantStr (boolean): Filter banks by participation in the STR system. Response Structure Upon a successful request, the API will return a JSON object"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,42 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kanastra Banking Accounts Transactions API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/accounts/:account_uuid/transactions",
+            "params": [
+              {
+                "name": "account_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all registered transactions associated with a specific financial account, including details such as status, type of operation, and amount. General Field Description Type count Total number of financial accounts returned integer next URL to the next page of results (if any) string or null previous URL to the previous page of results (if any) string or null results List of financial accounts array of account objects Transactions Field Name Description Type uuid Unique identifie"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

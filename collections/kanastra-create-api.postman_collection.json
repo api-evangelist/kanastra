@@ -1,0 +1,138 @@
+{
+  "item": [
+    {
+      "id": "ac222997-8e53-4b96-8b24-2d6fca01127f",
+      "name": "Create",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d80ae117-0dea-4d7d-b6c2-3d3787ed8a71",
+          "name": "Create Personal Financial Account",
+          "request": {
+            "name": "Create Personal Financial Account",
+            "description": {
+              "content": "Main Account Fields Field Name Description Validation Type type Type of account Required, options: [LINKED_ACCOUNT] string termsAccepted Indicates if terms are accepted Required boolean beneficiaryBankAccounts List of beneficiary bank accounts Required array holder Account holder details Required object Beneficiary Bank Accounts Field Name Description Validation Type holderName Name of the account holder Required string governmentId Government identification number Required string bankCode Bank code Required integer agency Bank agency number Required integer account Bank account number Required integer accountDigit Bank account verification digit Required integer Holder Information Field Name Description Validation Type name Name of the account holder Required string phone Phone number of the account holder Required string email Email address of the account holder Required string governmentId Government identification number Required string addressStreet Street address Required string addressNumber Address number Required string addressNeighborhood Neighborhood Required string addressZipcode Zipcode Required string addressCity City Required string addressState State Required string addressFile Proof of address file Required, Base64-encoded file string documentType Type of document Required, options below string documentFile Document file in Base64-encoded format Required string Document Type Options The document_type field can have one of the following values: IDENTITY_DOCUME Variants: Create Personal Financial Account Linked",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "accounts",
+                "personal"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "341fd125-43c2-4b80-80ef-c4dd0dcb3186",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "accounts",
+                    "personal"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://banking.kanastra.com.br",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9d6a55d8-6d18-4cfe-ab21-c6ed1eecae16",
+    "name": "Kanastra Banking Accounts Create API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.\n\nContact Support:\n Name: Kanastra Pagamentos\n Email: pagamentos@kanastra.com.br",
+      "type": "text/plain"
+    }
+  }
+}

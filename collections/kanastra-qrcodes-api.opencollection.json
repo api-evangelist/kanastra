@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kanastra Banking Accounts QRCodes API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "QRCodes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "BRCode Preview/Read",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/pix/:account_uuid/brcode/preview",
+            "params": [
+              {
+                "name": "account_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a preview of a BR Code (Barcode) associated with a specific account identified by account_uuid . Request Body The request body should be in JSON format and could contain the following parameters: brcode (string): The BR Code for which the preview is being requested. This should be formatted correctly to ensure a valid response. Path Variables account_uuid (path parameter): The unique identifier for the account for which the QR code information is being requested. Response"
+        },
+        {
+          "info": {
+            "name": "List QRCode",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/pix/:account_uuid/qrcode",
+            "params": [
+              {
+                "name": "account_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This endpoint allows you to list QRCodes from the API. Query Parameters pix_key (query parameter): The PIX key associated with the QR code. This is required to filter the results. status (query parameter): The status of the QR code. In this case, the status is set to CREATED to retrieve only those QR codes that are currently in the created state. qrcodeType (query parameter): The type of QR code to filter by (e.g., static or dynamic). reconciliation_id (query parameter): An optional identifier u"
+        },
+        {
+          "info": {
+            "name": "Create Static QRCode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://banking.kanastra.com.br/api/v1/pix/:account_uuid/qrcode",
+            "params": [
+              {
+                "name": "account_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to create a due dynamic QR code for PIX payments and transactions, where the payment request includes a due date and can support discounts, fines, and interest. Request Body The request body must be in JSON format and include the following parameters: pixKey (string): The unique key associated with the PIX transaction. reconciliationId (string): An identifier for reconciling the transaction. type (string): The type of QR code being generated; in this case, it should be s"
+        },
+        {
+          "info": {
+            "name": "Update QRCode",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://banking.kanastra.com.br/api/v1/pix/:account_uuid/qrcode/:qrcode_uuid",
+            "params": [
+              {
+                "name": "account_uuid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "qrcode_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to update the details of a QR code associated with a specific account. The request modifies the attributes of the QR code identified by qrcode_uuid within the context of the specified account_uuid . Request Body The request body should be in JSON format and could contain the following parameters: qrcode_uuid (string): The unique identifier of the QR code. This is the only mandatory parameter. amount_type (string): Defines how the payment amount is handled (e.g., FIXED , "
+        },
+        {
+          "info": {
+            "name": "Cancel QRCode",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://banking.kanastra.com.br/api/v1/pix/:account_uuid/qrcode/:qrcode_uuid",
+            "params": [
+              {
+                "name": "account_uuid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "qrcode_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This endpoint is used to delete a specific QR code associated with a given account. The deletion is identified by the unique qrcode_uuid parameter, which represents the QR code to be removed from the system. Path Variables account_uuid (path parameter): The unique identifier for the account associated with the QR code. qrcode_uuid (path parameter): The unique identifier for the QR code that you wish to delete. Response Structure Upon a successful deletion, the API will return a JSON object conta"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,133 @@
+{
+  "item": [
+    {
+      "id": "864f9dec-3bd1-4af8-8712-75f00792da69",
+      "name": "Transactions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1298596-7061-4126-9e23-2948a53c9ae5",
+          "name": "List",
+          "request": {
+            "name": "List",
+            "description": {
+              "content": "Retrieves a list of all registered transactions associated with a specific financial account, including details such as status, type of operation, and amount. General Field Description Type count Total number of financial accounts returned integer next URL to the next page of results (if any) string or null previous URL to the previous page of results (if any) string or null results List of financial accounts array of account objects Transactions Field Name Description Type uuid Unique identifier for the transaction record. string status Current status of the transaction. string externalId External identifier for the transaction, used for cross-referencing with other systems. string amount Monetary amount of the transaction. string typeCash Indicates whether the transaction is a cash-in ( CASH_IN ) or cash-out ( CASH_OUT ) operation. string typeOperation Type of operation associated with the transaction, e.g., credit card, bank slip, etc. string transactionDate Date and time when the transaction occurred in ISO 8601 format: YYYY-MM-DDTHH:MM:SS±HH:MM. string transactionDetail Additional details or description of the transaction, such as reason or reference information. string The status field can have one of the following values: CREATED : The transaction has been created. The typeOperation field can have one of the following values: BANK_SLIP : Transaction made via bank slip (Brazilian Boleto) payment. The originType field can have one of the following values: TRANSFER : Orig",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "accounts",
+                ":account_uuid",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b1a65606-0511-4f7a-8733-0927c536c3b3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "accounts",
+                    ":account_uuid",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://banking.kanastra.com.br",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c926900b-c2e3-4587-9970-e552d162e803",
+    "name": "Kanastra Banking Accounts Transactions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.\n\nContact Support:\n Name: Kanastra Pagamentos\n Email: pagamentos@kanastra.com.br",
+      "type": "text/plain"
+    }
+  }
+}

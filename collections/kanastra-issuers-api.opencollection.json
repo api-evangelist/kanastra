@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kanastra Banking Accounts Issuers API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Issuers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/issuers"
+          },
+          "docs": "Retrieves a list of all registered issuers, along with their associated details."
+        },
+        {
+          "info": {
+            "name": "Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://banking.kanastra.com.br/api/v1/issuers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Main Company Fields Field Name Description Validation Type name Name of the company Required string governmentId Company document Required string businessSector Sector in which the company operates Required string annualBilling Annual billing amount Required float municipalRegistration Municipal registration number Required string cnae CNAE (National Classification of Economic Activities) Required string companySize Size of the company Required, options: [MICRO, SMALL, MEDIUM, LARGE] string part"
+        },
+        {
+          "info": {
+            "name": "Retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/issuers/:issuer_uuid",
+            "params": [
+              {
+                "name": "issuer_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific issuer identified by its unique ID."
+        },
+        {
+          "info": {
+            "name": "Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://banking.kanastra.com.br/api/v1/issuers/:issuer_uuid",
+            "params": [
+              {
+                "name": "issuer_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

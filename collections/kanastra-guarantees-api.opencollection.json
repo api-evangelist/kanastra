@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kanastra Banking Accounts Guarantees API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Guarantees",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Batch Guarantee",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://banking.kanastra.com.br/api/v1/commercial-papers/:commercial_note_uuid/guarantees/batch",
+            "params": [
+              {
+                "name": "commercial_note_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Batch Guarantee"
+        },
+        {
+          "info": {
+            "name": "Batch Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://banking.kanastra.com.br/api/v1/commercial-papers/guarantee/:guarantee_uuid/documents/batch",
+            "params": [
+              {
+                "name": "guarantee_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Batch Documents"
+        },
+        {
+          "info": {
+            "name": "Guarantee",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/commercial-papers/guarantee/:guarantee_uuid",
+            "params": [
+              {
+                "name": "guarantee_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Guarantee"
+        },
+        {
+          "info": {
+            "name": "Delete Guarantee",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://banking.kanastra.com.br/api/v1/commercial-papers/guarantee/:guarantee_uuid",
+            "params": [
+              {
+                "name": "guarantee_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Guarantee"
+        },
+        {
+          "info": {
+            "name": "List Guarantees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/commercial-papers/:commercial_note_uuid/guarantees",
+            "params": [
+              {
+                "name": "commercial_note_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List Guarantees"
+        },
+        {
+          "info": {
+            "name": "List Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/commercial-papers/:commercial_note_uuid/documents",
+            "params": [
+              {
+                "name": "commercial_note_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List Documents"
+        },
+        {
+          "info": {
+            "name": "Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/commercial-papers/:commercial_note_uuid/documents/:doocument_uuid",
+            "params": [
+              {
+                "name": "commercial_note_uuid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "doocument_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Document"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

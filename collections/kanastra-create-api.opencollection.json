@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kanastra Banking Accounts Create API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Create",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Personal Financial Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://banking.kanastra.com.br/api/v1/accounts/personal",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Main Account Fields Field Name Description Validation Type type Type of account Required, options: [LINKED_ACCOUNT] string termsAccepted Indicates if terms are accepted Required boolean beneficiaryBankAccounts List of beneficiary bank accounts Required array holder Account holder details Required object Beneficiary Bank Accounts Field Name Description Validation Type holderName Name of the account holder Required string governmentId Government identification number Required string bankCode Bank "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

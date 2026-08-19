@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kanastra Banking Accounts TED Transfer API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "TED Transfer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/accounts/:account_uuid/transfer/:transfer_uuid",
+            "params": [
+              {
+                "name": "account_uuid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "transfer_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific transfer, including status, amount, account information, and beneficiary details. Field Name Description Type uuid Unique identifier for the transfer. string externalId External reference ID for the transfer, if applicable. string or null status Current status of the transfer. Possible values are PENDING_APPROVAL , PROCESSING , PROCESSED , ERROR , REJECTED , SCHEDULED , and CANCELED . string amount The amount of the transfer in the account's currency. string a"
+        },
+        {
+          "info": {
+            "name": "List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/accounts/:account_uuid/transfers",
+            "params": [
+              {
+                "name": "account_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all transfer records associated with a specific financial account, including details such as status, amount, requester information, and beneficiary account details. You can also pass a status in query params. See the available statuses below. General Field Name Description Type count Total number of transfers returned. integer next URL to the next page of results, if available. string or null previous URL to the previous page of results, if available. string or null results L"
+        },
+        {
+          "info": {
+            "name": "Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://banking.kanastra.com.br/api/v1/accounts/:account_uuid/transfer",
+            "params": [
+              {
+                "name": "account_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "To interact with this endpoint, you are required to generate a Transaction Hash Key and include it in the request headers. The Transaction Hash Key is generated using the following process: Generate HMAC Hash: Use the SHA-256 algorithm to compute the HMAC hash of the request payload. The key for this operation will be provided by our team during the initial configuration phase and must be securely stored on your end. Hex Encoding: Once the HMAC hash is generated, encode it in hexadecimal format."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

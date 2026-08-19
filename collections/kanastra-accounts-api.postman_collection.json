@@ -1,0 +1,316 @@
+{
+  "item": [
+    {
+      "id": "ac82eb79-0cfe-40ef-a3d2-bcfa1fbcc4b5",
+      "name": "Accounts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1efc5d6-52a5-4de1-8cdc-97e5e0d44aed",
+          "name": "List",
+          "request": {
+            "name": "List",
+            "description": {
+              "content": "This provides a detailed overview of the financial accounts retrieved, including pagination information and specific account details. General Field Description Type count Total number of financial accounts returned integer next URL to the next page of results (if any) string or null previous URL to the previous page of results (if any) string or null results List of financial accounts array of account objects Financial Account Object Field Description Type uuid Unique identifier for the financial account string branch Account branch number string account Account number string accountDigit Account digit string status Account current status, options below string type Type of financial account, options: [ LINKED_ACCOUNT , CHECKING_ACCOUNT ] string code Account internal code string name Account name string Status Field Values The status field can have one of the following values: PRE_CREATED IN_ANALISYS REGULAR LOCKED CLOSED RESERVED CREATING ERROR ACTIVE REPROVED",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1c218501-373e-41bb-a247-d070ff108e4b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "55f9a608-4ce3-4dc4-ace8-e05daac9c506",
+          "name": "Retrieve",
+          "request": {
+            "name": "Retrieve",
+            "description": {
+              "content": "Retrieves the informed account uuid, along with their associated details. Financial Account Field Description Type uuid Unique identifier for the financial account string Account Holder Field Description Type uuid Unique identifier for the account holder string isDeleted Indicates if the account holder record is deleted boolean createdAt Date and time when the account holder record was created string (ISO 8601) updatedAt Date and time when the account holder record was last updated string (ISO 8601) representatives List of representatives associated with the account holder array documents List of documents associated with the account holder array type Account holder type, options: [ NATURAL , LEGAL ] string governmentId Account holder's document string name Account holder's name string email Account holder's email string phone Account holder's phone number string addressZipcode Account holder's address zip code string addressStreet Account holder's address street name string addressNumber Account holder's address number string addressComplement Additional address information string addressNeighborhood Account holder's address neighborhood string addressCity Account holder's address city string addressState Account holder's address state string motherName Account holder's mother name string birthDate Account holder's birth date string (ISO 8601) tradingName Account holder's trading name string users List of users associated with the account array of user objects User Field Des",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "accounts",
+                ":account_uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2163e770-7f35-4384-9795-ca07cf268860",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "accounts",
+                    ":account_uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33e2b380-8ece-4ccb-b0d4-8c6c861bea8e",
+          "name": "List Banks",
+          "request": {
+            "name": "List Banks",
+            "description": {
+              "content": "This endpoint retrieves information about banks based on the provided ISPB (Instituição de Pagamento e Sistema de Pagamento Brasileiro) code. Query Parameters ispb (string): The ISPB code of the bank you want to query. code (string): Filter banks by their bank code. isParticipantPix (boolean): Filter banks by participation in the PIX system. isParticipantStr (boolean): Filter banks by participation in the STR system. Response Structure Upon a successful request, the API will return a JSON object containing the following fields: count (integer): The total number of banks matching the query. next (string): A URL to the next page of results, if any. previous (string): A URL to the previous page of results, if any. results (array): An array of bank objects, each containing: code (string): The bank's code. name (string): The name of the bank. comp (string): The bank's company information. ispb (string): The ISPB code of the bank. isParticipantComp (boolean): Indicates if the bank is a participant in the company. isParticipantPix (boolean): Indicates if the bank is a participant in the PIX system. isParticipantStr (boolean): Indicates if the bank is a participant in the STR system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "banks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "401ff60a-fb96-4c93-b6ac-5f29a020ea31",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "banks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "50374791-49ae-4fd2-9725-3c1837760d74",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "banks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://banking.kanastra.com.br",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "62dc9096-c0e6-4331-80fa-a9cebf48cbf0",
+    "name": "Kanastra Banking Accounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.\n\nContact Support:\n Name: Kanastra Pagamentos\n Email: pagamentos@kanastra.com.br",
+      "type": "text/plain"
+    }
+  }
+}

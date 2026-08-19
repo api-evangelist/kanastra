@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kanastra Banking Accounts Bank Account Beneficiary API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bank Account Beneficiary",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/accounts/:account_uuid/beneficiary-accounts",
+            "params": [
+              {
+                "name": "account_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all registered beneficiary bank accounts, along with their associated details. Field Name Description Type uuid Unique identifier for the beneficiary account record string holderName Name of the beneficiary account holder string governmentId Government identification number of the beneficiary string code Bank code of the beneficiary's financial institution string agency Agency number of the beneficiary's bank string financialAccount Unique identifier for the financial account"
+        },
+        {
+          "info": {
+            "name": "Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://banking.kanastra.com.br/api/v1/accounts/:account_uuid/beneficiary-accounts",
+            "params": [
+              {
+                "name": "account_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers a new beneficiary bank account with the provided details. Field Name Description Type holderName Name of the beneficiary account holder string governmentId Government identification number of the beneficiary string bankCode Bank code of the beneficiary's financial institution integer agency Agency number of the beneficiary's bank integer account Account number of the beneficiary integer accountDigit Check digit for the account number integer isFavorite Indicates if the account is marke"
+        },
+        {
+          "info": {
+            "name": "Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://banking.kanastra.com.br/api/v1/accounts/:account_uuid/beneficiary-accounts/:beneficiary_uuid",
+            "params": [
+              {
+                "name": "account_uuid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "beneficiary_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes the given beneficiary bank account by UUID. This endpoint allows the deletion of a specific beneficiary bank account using its unique identifier (UUID). By providing the UUID, users can remove the account from their list of registered beneficiaries, ensuring that it is no longer available for future transactions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

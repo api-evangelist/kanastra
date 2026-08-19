@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kanastra Banking Accounts PIX Transfer API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PIX Transfer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List PIX Transfer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/pix/:account_uuid/transfer",
+            "params": [
+              {
+                "name": "account_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve Transfer Information This endpoint allows users to retrieve transfer information associated with a specific financial account, identified by account_uuid . Path Variables account_uuid (string): Unique identifier for the account whose transfers are being queried. (Required) Response Structure Upon a successful request, the server will respond with a JSON object containing the following fields: count (integer): Total number of transfers for the account. next (string | null): URL for the n"
+        },
+        {
+          "info": {
+            "name": "Transfer by PIX-key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://banking.kanastra.com.br/api/v1/pix/:account_uuid/transfer",
+            "params": [
+              {
+                "name": "account_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows users to initiate a funds transfer using the PIX payment system. The transfer is executed to a specified beneficiary account and includes details about the transaction amount and additional information. Request Body The request body must be in JSON format and include the following parameters: beneficiary (object): Contains information about the recipient of the funds: holderName (string): The name of the beneficiary. governmentId (string): The government identification numbe"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,69 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kanastra Banking Accounts PIX Deposit API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PIX Deposit",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Deposits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://banking.kanastra.com.br/api/v1/pix/:account_uuid/deposit",
+            "params": [
+              {
+                "name": "account_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves deposit information for a specific financial account identified by account_uuid . It allows users to check the status and details of deposit transactions associated with the given account. Path Variables account_uuid : A unique identifier for the account whose deposit information is being requested. Response Structure Upon a successful request, the API will return a JSON object containing the following fields: count (integer) : Total number of deposits returned. next (str"
+        },
+        {
+          "info": {
+            "name": "Pix Revert",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://banking.kanastra.com.br/api/v1/pix/:account_uuid/deposit/:deposit_uuid/reverse",
+            "params": [
+              {
+                "name": "account_uuid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deposit_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is used to reverse a deposit transaction for a specific financial account identified by account_uuid and a deposit identified by deposit_uuid . Request Body The request body must be sent in JSON format and should include the following parameter: amount (string) : The amount to be reversed. Path Variables account_uuid : A unique identifier for the financial account associated with the deposit. deposit_uuid : A unique identifier for the deposit transaction to be reversed."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

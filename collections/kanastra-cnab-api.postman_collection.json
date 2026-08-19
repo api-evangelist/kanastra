@@ -1,0 +1,222 @@
+{
+  "item": [
+    {
+      "id": "757bae26-48e0-404c-91db-bcae85650d95",
+      "name": "CNAB",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "12043f7b-cf22-4661-bcd1-e3873d251e98",
+          "name": "List",
+          "request": {
+            "name": "List",
+            "description": {
+              "content": "Response Fields Field Name Description Type count Total number of CNAB files integer next URL for the next page of results (if pagination is applied) string previous URL for the previous page of results (if pagination is applied) string results List of CNAB file objects array CNAB File Object Field Name Description Type uuid Unique identifier (UUID) for the CNAB file string createdAt Timestamp indicating when the file was created string (ISO 8601 datetime) updatedAt Timestamp indicating when the file was last updated string (ISO 8601 datetime) isDeleted Indicates whether the file has been marked as deleted boolean name Name of the CNAB file string status Current processing status of the CNAB file string hashFile Hash (SHA-1) of the file for integrity verification string wallet Unique identifier (UUID) for the wallet associated with the CNAB file string Status Options for status Field The status field can have one of the following values: WAITING : The file has been created but processing has not yet started. VALIDATING_ERROR : The file failed validation checks. PROCESSING : The file is currently being processed. PROCESSING_ERROR : The file passed validation but encountered an error during processing. PROCESSED : The file was successfully processed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "wallets",
+                ":wallet_uuid",
+                "cnab"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "wallet_uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "123331a7-50b7-42d6-8a27-775312a347e6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "wallets",
+                    ":wallet_uuid",
+                    "cnab"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "wallet_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "606dc2e6-5304-439c-ba3b-b8713da67e3b",
+          "name": "Upload CNAB",
+          "request": {
+            "name": "Upload CNAB",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "wallets",
+                ":wallet_id",
+                "cnab"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "wallet_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c22c29ca-d1f3-43f6-bf63-bd249c5658d5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "wallets",
+                    ":wallet_id",
+                    "cnab"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "wallet_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://banking.kanastra.com.br",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "12fd32e4-7582-4479-8ad2-e3143233d49f",
+    "name": "Kanastra Banking Accounts CNAB API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Kanastra Banking API — Brazilian banking-as-a-service and private-credit infrastructure: financial accounts, PIX (keys, transfers, deposits, QR Codes/BR Code), boleto (bank slip) issuance and CNAB return files, TED transfers, wallets, commercial notes (CCB) and guarantees, issuers, and beneficiary accounts. Derived from the provider-published public Postman collection.\n\nContact Support:\n Name: Kanastra Pagamentos\n Email: pagamentos@kanastra.com.br",
+      "type": "text/plain"
+    }
+  }
+}
