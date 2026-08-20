@@ -38,6 +38,17 @@ tags:
 - Banking
 - Banking as a Service
 - Payments
+- Pix
+- Boleto
+- Private Credit
+- Fintech
+- Brazil
+- Wealth Management
+tags_raw:
+- Company
+- Banking
+- Banking as a Service
+- Payments
 - PIX
 - Boleto
 - Private Credit
@@ -51,6 +62,8 @@ apis:
   humanURL: https://banking-docs.kanastra.com.br/
   baseURL: https://banking.kanastra.com.br
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -165,6 +178,8 @@ apis:
   humanURL: https://banking-docs.kanastra.com.br/
   baseURL: https://banking.kanastra.com.br
   tags:
+  - Balances
+  tags_raw:
   - Balance
   properties:
   - type: OpenAPI
@@ -355,7 +370,8 @@ apis:
   description: The Create API from Kanastra — 1 operation(s) for create.
   humanURL: https://banking-docs.kanastra.com.br/
   baseURL: https://banking.kanastra.com.br
-  tags:
+  tags: []
+  tags_raw:
   - Create
   properties:
   - type: OpenAPI
@@ -660,6 +676,8 @@ apis:
   humanURL: https://banking-docs.kanastra.com.br/
   baseURL: https://banking.kanastra.com.br
   tags:
+  - QR Codes
+  tags_raw:
   - QRCodes
   properties:
   - type: OpenAPI
@@ -736,6 +754,8 @@ apis:
   humanURL: https://banking-docs.kanastra.com.br/
   baseURL: https://banking.kanastra.com.br
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
@@ -774,6 +794,8 @@ apis:
   humanURL: https://banking-docs.kanastra.com.br/
   baseURL: https://banking.kanastra.com.br
   tags:
+  - Wallets
+  tags_raw:
   - Wallet
   properties:
   - type: OpenAPI
