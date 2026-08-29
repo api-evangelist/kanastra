@@ -845,6 +845,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/kanastra-capability-edges.yml
+  name: Kanastra Business Capability Map
 - type: AgentSkill
   url: skills/kanastra-authenticate.md
 - type: MCPServer

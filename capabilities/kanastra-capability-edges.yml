@@ -1,0 +1,97 @@
+slug: kanastra
+provider: Kanastra
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 8
+edges:
+- tag: PIX Transfer
+  spec_file: kanastra-pix-transfer-api-openapi.yml
+  capability_id: BC-1340.50
+  capability_id_l1: BC-1340
+  capability_name: Real-Time Payment Management
+  confidence: 0.85
+  evidence: POST /api/v1/pix/{account_uuid}/transfer  pixTransferTransferByPixKey  Transfer by PIX-key
+  reason: Initiating and listing transfers over the PIX instant payment rail is plainly real-time payment
+    management.
+- tag: TED Transfer
+  spec_file: kanastra-ted-transfer-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.85
+  evidence: 'POST /api/v1/accounts/{account_uuid}/transfer tedTransferCreate ''Create''; vendor description:
+    ''TED transfers'''
+  reason: TED is the Brazilian same-day wire transfer rail; creating, listing and retrieving transfers
+    from an account is payment instruction capture and authorisation.
+- tag: PIX Deposit
+  spec_file: kanastra-pix-deposit-api-openapi.yml
+  capability_id: BC-1340.50
+  capability_id_l1: BC-1340
+  capability_name: Real-Time Payment Management
+  confidence: 0.8
+  evidence: GET /api/v1/pix/{account_uuid}/deposit  pixDepositListDeposits  List Deposits; POST .../deposit/{deposit_uuid}/reverse  Pix
+    Revert
+  reason: PIX is Brazil's instant payment rail; listing and reversing PIX deposits is real-time payment
+    operations.
+- tag: Pagamentos
+  spec_file: kanastra-pagamentos-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.8
+  evidence: GET /api/v1/{account_id}/payments 'Read LineCode'; POST /api/v1/{account_id}/payments 'Pay
+    from previous read'
+  reason: The operations read a Brazilian boleto line code and then execute payment of it from an account
+    — capture, validation and authorisation of a payment instruction, i.e. payment initiation within the
+    vendor's banking-as-a-service payments surface.
+- tag: Bank Slip (Boleto)
+  spec_file: kanastra-bank-slip-boleto-api-openapi.yml
+  capability_id: BC-1340
+  capability_id_l1: BC-1340
+  capability_name: Payments & Card Management
+  confidence: 0.75
+  evidence: POST /api/v1/wallets/{wallet_uuid}/bank-slip/batch  bankSlipBoletoCreateBankSlips  Create
+    Bank Slips; "boleto (bank slip) issuance"
+  reason: Issuance, retrieval, PDF rendering and cancellation of Brazilian boletos — a payment instrument
+    lifecycle. Clearly payments domain but the sub-capability (initiation vs processing/clearing) is not
+    pinned down by the operations.
+- tag: Accounts
+  spec_file: kanastra-accounts-api-openapi.yml
+  capability_id: BC-1330.10
+  capability_id_l1: BC-1330
+  capability_name: Deposit Account Management
+  confidence: 0.72
+  evidence: 'GET /api/v1/accounts ''List'', GET /api/v1/accounts/{account_uuid} ''Retrieve''; description:
+    ''financial accounts, PIX ... financial (checking) accounts with balances and transactions'''
+  reason: Reads and lists banking (checking) accounts in a banking-as-a-service platform, i.e. deposit
+    account management; only read operations so moderate confidence.
+- tag: PIX Keys
+  spec_file: kanastra-pix-keys-api-openapi.yml
+  capability_id: BC-1340.50
+  capability_id_l1: BC-1340
+  capability_name: Real-Time Payment Management
+  confidence: 0.72
+  evidence: POST /api/v1/pix/{account_uuid}/key  pixKeysCreateDocumentKey  Create Document Key; "PIX (key
+    registration...)"
+  reason: Registration, approval and deletion of PIX addressing keys (DICT aliases) is an operational
+    element of the instant payment rail; OTP approval flows are part of that rail rather than generic
+    auth.
+- tag: QRCodes
+  spec_file: kanastra-qrcodes-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.7
+  evidence: '''Create Static QRCode'', ''BRCode Preview/Read'', ''Cancel QRCode'' under /api/v1/pix/{account_uuid}/qrcode'
+  reason: PIX QR Code / BR Code lifecycle is the instrument by which payment instructions are captured
+    and presented on Brazil's instant rail. Clearly Payments & Card Management; sub-capability could arguably
+    be real-time payment rail management rather than initiation, hence moderate confidence.
