@@ -49,7 +49,7 @@ tags:
 - Banking
 - Banking as a Service
 - Payments
-- Pix
+- PIX
 - Boleto
 - Private Credit
 - Fintech
@@ -687,7 +687,7 @@ apis:
   humanURL: https://banking-docs.kanastra.com.br/
   baseURL: https://banking.kanastra.com.br
   tags:
-  - QR Codes
+  - QRCodes
   tags_raw:
   - QRCodes
   properties:
