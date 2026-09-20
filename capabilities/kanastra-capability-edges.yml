@@ -86,7 +86,8 @@ edges:
     element of the instant payment rail; OTP approval flows are part of that rail rather than generic
     auth.
 - tag: QRCodes
-  spec_file: kanastra-qrcodes-api-openapi.yml
+  spec_file: kanastra-qr-codes-api-openapi.yml
+  reanchored_from: kanastra-qrcodes-api-openapi.yml
   capability_id: BC-1340.10
   capability_id_l1: BC-1340
   capability_name: Payment Initiation Management
