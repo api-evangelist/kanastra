@@ -64,6 +64,163 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Kanastra is a company surfaced as a portfolio company of qed-investors and added to the API Evangelist network as a stub for enrichment. Sector: wealth-management. This profile is a lead awaiting the enrichment pipeline.
+Kanastra is a Brazilian fintech building full-stack infrastructure for banking and the private credit market. Its Banking API offers banking-as-a-service capabilities to financial institutions, funds and securitization vehicles: financial (checking) accounts with balances and transactions, PIX (key registration, transfers, deposits, and static/dynamic QR Codes on the BR Code / EMV-QRCPS standard), boleto (bank slip) issuance with CNAB return-file processing settled via the Nuclea clearing house, TED transfers, wallets, commercial notes (CCB) with guarantees and documents, and issuers. Authentication uses a private_key_jwt (ES512 client-assertion) flow that returns a scoped Bearer JWT, and a webhook surface streams bank slip and CNAB lifecycle events. Kanastra is backed by QED Investors, Kaszek, Valor Capital, Quona Capital, Itau, IFC and F-Prime.
 
-Backed by: qed-investors — https://kanastra.com.br/
+**Areas:** Company · Banking · Banking as a Service · Payments · Pix · Boleto · Private Credit · Fintech · Brazil · Wealth Management
+
+## Kanastra on APIs.io
+
+Everything profiled for Kanastra is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/kanastra/](https://apis.io/providers/kanastra/)** — or go straight to one of the APIs or properties below.
+
+### APIs (20)
+
+- [Kanastra Accounts API](https://apis.io/apis/kanastra/kanastra-accounts-api/) — The Accounts API from Kanastra — 3 operation(s) for accounts.
+- [Kanastra Amendment API](https://apis.io/apis/kanastra/kanastra-amendment-api/) — The Amendment API from Kanastra — 1 operation(s) for amendment.
+- [Kanastra Authentication API](https://apis.io/apis/kanastra/kanastra-authentication-api/) — The Authentication API from Kanastra — 2 operation(s) for authentication.
+- [Kanastra Balance API](https://apis.io/apis/kanastra/kanastra-balance-api/) — The Balance API from Kanastra — 1 operation(s) for balance.
+- [Kanastra Bank Account Beneficiary API](https://apis.io/apis/kanastra/kanastra-bank-account-beneficiary-api/) — The Bank Account Beneficiary API from Kanastra — 2 operation(s) for bank account beneficiary.
+- [Kanastra Bank Slip (Boleto) API](https://apis.io/apis/kanastra/kanastra-bank-slip-boleto-api/) — The Bank Slip (Boleto) API from Kanastra — 5 operation(s) for bank slip (boleto).
+- [Kanastra CNAB API](https://apis.io/apis/kanastra/kanastra-cnab-api/) — The CNAB API from Kanastra — 2 operation(s) for cnab.
+- [Kanastra Commercial Note API](https://apis.io/apis/kanastra/kanastra-commercial-note-api/) — The Commercial Note API from Kanastra — 4 operation(s) for commercial note.
+- [Kanastra Create API](https://apis.io/apis/kanastra/kanastra-create-api/) — The Create API from Kanastra — 1 operation(s) for create.
+- [Kanastra File Return API](https://apis.io/apis/kanastra/kanastra-file-return-api/) — The File Return API from Kanastra — 5 operation(s) for file return.
+- [Kanastra Guarantees API](https://apis.io/apis/kanastra/kanastra-guarantees-api/) — The Guarantees API from Kanastra — 6 operation(s) for guarantees.
+- [Kanastra Issuers API](https://apis.io/apis/kanastra/kanastra-issuers-api/) — The Issuers API from Kanastra — 2 operation(s) for issuers.
+- [Kanastra Pagamentos API](https://apis.io/apis/kanastra/kanastra-pagamentos-api/) — The Pagamentos API from Kanastra — 1 operation(s) for pagamentos.
+- [Kanastra PIX Deposit API](https://apis.io/apis/kanastra/kanastra-pix-deposit-api/) — The PIX Deposit API from Kanastra — 2 operation(s) for pix deposit.
+- [Kanastra PIX Keys API](https://apis.io/apis/kanastra/kanastra-pix-keys-api/) — The PIX Keys API from Kanastra — 5 operation(s) for pix keys.
+- [Kanastra PIX Transfer API](https://apis.io/apis/kanastra/kanastra-pix-transfer-api/) — The PIX Transfer API from Kanastra — 1 operation(s) for pix transfer.
+- [Kanastra TED Transfer API](https://apis.io/apis/kanastra/kanastra-ted-transfer-api/) — The TED Transfer API from Kanastra — 3 operation(s) for ted transfer.
+- [Kanastra Transactions API](https://apis.io/apis/kanastra/kanastra-transactions-api/) — The Transactions API from Kanastra — 1 operation(s) for transactions.
+- [Kanastra Wallet API](https://apis.io/apis/kanastra/kanastra-wallet-api/) — The Wallet API from Kanastra — 2 operation(s) for wallet.
+- [Kanastra QR Codes API](https://apis.io/apis/kanastra/kanastra-qr-codes-api/) — The QR Codes API from Kanastra — 3 operation(s) for qr codes.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Kanastra Banking Webhooks](https://apis.io/asyncapis/kanastra/kanastra-banking-asyncapi/)
+
+#### Event channels (2)
+
+Individual events and webhooks the provider emits.
+
+- [{subscriber-webhook-url}](https://apis.io/channels/kanastra/kanastra-banking-webhooks-subscriber-webhook-url/)
+- [{subscriber-webhook-url}](https://apis.io/channels/kanastra/subscriber-webhook-url/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [kanastra-banking](https://apis.io/servers/kanastra/kanastra-banking/)
+
+#### Collections (21)
+
+Postman and Open Collection request collections.
+
+- [Kanastra Banking Accounts API](https://apis.io/collections/kanastra/open-kanastra-accounts-api/)
+- [Kanastra Banking Accounts Amendment API](https://apis.io/collections/kanastra/open-kanastra-amendment-api/)
+- [Kanastra Banking Accounts Authentication API](https://apis.io/collections/kanastra/open-kanastra-authentication-api/)
+- [Kanastra Banking Accounts Balance API](https://apis.io/collections/kanastra/open-kanastra-balance-api/)
+- [Kanastra Banking Accounts Bank Account Beneficiary API](https://apis.io/collections/kanastra/open-kanastra-bank-account-beneficiary-api/)
+- [Kanastra Banking Accounts Bank Slip (Boleto) API](https://apis.io/collections/kanastra/open-kanastra-bank-slip-boleto-api/)
+- [Kanastra Banking Accounts CNAB API](https://apis.io/collections/kanastra/open-kanastra-cnab-api/)
+- [Kanastra Banking Accounts Commercial Note API](https://apis.io/collections/kanastra/open-kanastra-commercial-note-api/)
+- [Kanastra Banking Accounts Create API](https://apis.io/collections/kanastra/open-kanastra-create-api/)
+- [Kanastra Banking Accounts File Return API](https://apis.io/collections/kanastra/open-kanastra-file-return-api/)
+- [Kanastra Banking Accounts Guarantees API](https://apis.io/collections/kanastra/open-kanastra-guarantees-api/)
+- [Kanastra Banking Accounts Issuers API](https://apis.io/collections/kanastra/open-kanastra-issuers-api/)
+- [Kanastra Banking Accounts Pagamentos API](https://apis.io/collections/kanastra/open-kanastra-pagamentos-api/)
+- [Kanastra Banking Accounts PIX Deposit API](https://apis.io/collections/kanastra/open-kanastra-pix-deposit-api/)
+- [Kanastra Banking Accounts PIX Keys API](https://apis.io/collections/kanastra/open-kanastra-pix-keys-api/)
+- [Kanastra Banking Accounts PIX Transfer API](https://apis.io/collections/kanastra/open-kanastra-pix-transfer-api/)
+- [Kanastra Banking Accounts QRCodes API](https://apis.io/collections/kanastra/open-kanastra-qrcodes-api/)
+- [Kanastra Banking Accounts TED Transfer API](https://apis.io/collections/kanastra/open-kanastra-ted-transfer-api/)
+- [Kanastra Banking Accounts Transactions API](https://apis.io/collections/kanastra/open-kanastra-transactions-api/)
+- [Kanastra Banking Accounts Wallet API](https://apis.io/collections/kanastra/open-kanastra-wallet-api/)
+- [Kanastra Banking](https://apis.io/collections/kanastra/postman-kanastra-banking/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Kanastra Banking Overlay](https://apis.io/overlays/kanastra/kanastra-banking-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Kanastra Authentication](https://apis.io/security/kanastra/kanastra-authentication/)
+- [Kanastra Domain Security](https://apis.io/security/kanastra/kanastra-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Kanastra Scopes](https://apis.io/scopes/kanastra/kanastra-scopes/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://kanastra.com.br/)
+- [Documentation](https://banking-docs.kanastra.com.br/)
+- [API reference](https://banking-docs.kanastra.com.br/)
+- [Blog](https://kanastra.com.br/blog/)
+
+## API Evangelist rating
+
+**Kin Score 35.7** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 54.3 |
+| Contract governance | 18.2 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 50.6 |
+| Access clarity | 0.0 |
+
+**Agent readiness 26.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 34.6** — Banking & Open Finance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/kanastra/](https://apis.io/providers/kanastra/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Kanastra: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/kanastra/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
